@@ -100,7 +100,7 @@ img{max-width:100%;display:block}
 @media(max-width:600px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}}
 
 .quote-card{
-  background:var(--white);border-radius:18px;padding:32px 24px;text-align:center;
+  background:var(--white);border-radius:18px;text-align:center;overflow:hidden;
   border:1px solid var(--sand-dark);transition:transform .25s, box-shadow .25s, border-color .25s;
   cursor:pointer;
 }
@@ -111,6 +111,22 @@ img{max-width:100%;display:block}
 }
 .quote-card h3{font-size:18px;margin-bottom:8px}
 .quote-card p{color:var(--ink-soft);font-size:14px;margin:0}
+
+/* Photo-based quote cards */
+.quote-card.photo{padding:0;text-align:left}
+.quote-card.photo .photo-wrap{width:100%;height:150px;overflow:hidden}
+.quote-card.photo .photo-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.quote-card.photo:hover .photo-wrap img{transform:scale(1.06)}
+.quote-card.photo .photo-body{padding:20px 22px 24px}
+.quote-card.photo h3{font-size:17px;margin-bottom:6px}
+.quote-card.photo p{color:var(--ink-soft);font-size:13px;margin:0}
+
+.category-group{margin-bottom:56px}
+.category-group:last-child{margin-bottom:0}
+.category-group-title{
+  font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--teal-dark);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--sand-dark);
+}
 
 /* FOOTER */
 .site-footer{background:var(--ocean);color:#DCEAE8;padding:60px 0 30px}
@@ -157,7 +173,7 @@ img{max-width:100%;display:block}
 .qf-success h3{color:var(--teal-dark);margin-bottom:8px}
 .qf-success p{color:var(--ink-soft);font-size:14px;margin:0}
 
-/* Simple lead-capture form (auto/home/health/business) */
+/* Simple lead-capture form (auto/home/health/business + specialty) */
 .lead-form{max-width:520px;margin:0 auto}
 
 /* Page hero (interior pages) */
@@ -167,3 +183,9 @@ img{max-width:100%;display:block}
 }
 .page-hero h1{color:var(--white);font-size:clamp(28px,4vw,42px)}
 .page-hero p{color:#D5EDE9;max-width:600px;margin:14px auto 0}
+
+
+/* Photo hero (interior pages) */
+.page-hero.photo-hero{
+  background-size:cover;background-position:center;
+}
