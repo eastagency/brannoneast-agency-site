@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "https://brannoneast-agency-site.netlify.app/*"
+  to = "https://www.brannoneast.agency/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
