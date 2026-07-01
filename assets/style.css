@@ -189,3 +189,29 @@ img{max-width:100%;display:block}
 .page-hero.photo-hero{
   background-size:cover;background-position:center;
 }
+
+/* ===== CARRIER MARQUEE ===== */
+.carriers-section{padding:80px 0 70px;background:var(--white);overflow:hidden}
+.carriers-section .eyebrow{color:var(--teal)}
+.marquee-wrapper{
+  position:relative;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);
+}
+.marquee-track{
+  display:flex;align-items:center;gap:56px;
+  width:max-content;padding:18px 0;
+  animation:marquee-scroll 45s linear infinite;
+}
+.marquee-track:hover{animation-play-state:paused}
+@keyframes marquee-scroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+.carrier-logo{
+  height:46px;width:auto;max-width:110px;
+  object-fit:contain;flex-shrink:0;
+  filter:grayscale(100%) opacity(.5);
+  transition:filter .3s,transform .3s;
+}
+.carrier-logo:hover{filter:grayscale(0%) opacity(1);transform:scale(1.1)}
