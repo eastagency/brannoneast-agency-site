@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Life Insurance Quote | The East Agency</title>
+<meta name="description" content="Get an instant life insurance quote from The East Agency — term life, mortgage protection &amp; universal life (IUL). No obligation, no spam.">
+<link rel="canonical" href="https://www.brannoneast.agency/life-insurance-quote.html">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">The East Agency</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/quotes.html">Quotes</a>
+      <a href="/insurance.html">Insurance</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <span class="nav-phone">(678) 562-6905</span>
+      <a href="/quotes.html" class="nav-cta">Get a Quote</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Life Insurance Quote</h1>
+    <p>Answer a few quick questions and see your estimated monthly premium instantly — up to $1M in coverage.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:520px">
+    <div class="quote-frame">
+      <div class="qf" id="quoteForm">
+
+        <!-- Policy type + warning -->
+        <div class="qf-row full">
+          <div>
+            <label for="q-policy">Policy Type</label>
+            <select id="q-policy" onchange="handlePolicyChange()">
+              <option value="">Select policy type</option>
+              <option value="Term Life">Term Life</option>
+              <option value="Mortgage Protection">Mortgage Protection</option>
+              <option value="Whole Life">Whole Life</option>
+              <option value="Universal Life">Universal Life (IUL)</option>
+            </select>
+          </div>
+        </div>
+        <div class="qf-warning" id="wholeLifeWarning">
+          ⚠️ <strong>Whole Life quotes require a personal consultation.</strong> Rates vary significantly based on your full profile. Please <a href="https://calendly.com/eastagency/15min" target="_blank" style="color:#8A5A00;font-weight:700">book a free 15-minute call</a> and I'll walk you through your options.
+        </div>
+
+        <!-- Coverage + Term -->
+        <div class="qf-row">
+          <div>
+            <label for="q-coverage">Coverage Amount</label>
+            <select id="q-coverage">
+              <option value="">Select amount</option>
+              <option value="25000">$25,000</option>
+              <option value="50000">$50,000</option>
+              <option value="75000">$75,000</option>
+              <option value="100000">$100,000</option>
+              <option value="110000">$110,000</option>
+              <option value="120000">$120,000</option>
+              <option value="130000">$130,000</option>
+              <option value="140000">$140,000</option>
+              <option value="150000">$150,000</option>
+              <option value="160000">$160,000</option>
+              <option value="170000">$170,000</option>
+              <option value="180000">$180,000</option>
+              <option value="190000">$190,000</option>
+              <option value="200000">$200,000</option>
+              <option value="210000">$210,000</option>
+              <option value="220000">$220,000</option>
+              <option value="230000">$230,000</option>
+              <option value="240000">$240,000</option>
+              <option value="250000">$250,000</option>
+              <option value="300000">$300,000</option>
+              <option value="350000">$350,000</option>
+              <option value="400000">$400,000</option>
+              <option value="450000">$450,000</option>
+              <option value="500000">$500,000</option>
+              <option value="550000">$550,000</option>
+              <option value="600000">$600,000</option>
+              <option value="650000">$650,000</option>
+              <option value="700000">$700,000</option>
+              <option value="750000">$750,000</option>
+              <option value="800000">$800,000</option>
+              <option value="850000">$850,000</option>
+              <option value="900000">$900,000</option>
+              <option value="950000">$950,000</option>
+              <option value="1000000">$1,000,000</option>
+            </select>
+          </div>
+          <div>
+            <label for="q-term">Term Length</label>
+            <select id="q-term">
+              <option value="">Select term</option>
+              <option value="10 Years">10 Years</option>
+              <option value="15 Years">15 Years</option>
+              <option value="20 Years">20 Years</option>
+              <option value="30 Years">30 Years</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Age + Gender -->
+        <div class="qf-row">
+          <div>
+            <label for="q-age">Your Age</label>
+            <input type="number" id="q-age" placeholder="e.g. 35" min="18" max="80">
+          </div>
+          <div>
+            <label for="q-gender">Gender</label>
+            <select id="q-gender">
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Health + Smoker -->
+        <div class="qf-row">
+          <div>
+            <label for="q-health">Health Status</label>
+            <select id="q-health">
+              <option value="">Select</option>
+              <option value="Excellent">Excellent</option>
+              <option value="Good">Good</option>
+              <option value="Fair">Fair</option>
+              <option value="Poor">Poor</option>
+            </select>
+          </div>
+          <div>
+            <label for="q-smoker">Tobacco User?</label>
+            <select id="q-smoker">
+              <option value="">Select</option>
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Estimated premium result -->
+        <div class="qf-result" id="qfResult">
+          <div class="qf-result-label">Estimated Monthly Premium</div>
+          <div class="qf-result-price" id="qfPrice">—</div>
+          <div class="qf-result-sub">Based on your selections · Final rates set by carrier</div>
+        </div>
+
+        <div class="qf-divider"></div>
+
+        <!-- Contact info -->
+        <div class="qf-row">
+          <div>
+            <label for="q-fname">First Name</label>
+            <input type="text" id="q-fname" placeholder="Jane">
+          </div>
+          <div>
+            <label for="q-lname">Last Name</label>
+            <input type="text" id="q-lname" placeholder="Smith">
+          </div>
+        </div>
+        <div class="qf-row">
+          <div>
+            <label for="q-email">Email Address</label>
+            <input type="email" id="q-email" placeholder="jane@email.com">
+          </div>
+          <div>
+            <label for="q-phone">Phone Number</label>
+            <input type="tel" id="q-phone" placeholder="(404) 555-1234">
+          </div>
+        </div>
+
+        <button class="qf-btn" id="qfSubmit" onclick="submitQuote()" disabled>
+          Get My Free Quote →
+        </button>
+
+        <div class="qf-success" id="qfSuccess">
+          <h3>🎉 Quote Request Received!</h3>
+          <p>Thanks! I'll review your numbers and reach out within 24 hours. Check your email for a confirmation.</p>
+        </div>
+
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--ink-soft);text-align:center;margin-top:1rem;line-height:1.7">🔒 Your information is secure. Not shared with third parties.</p>
+  </div>
+</section>
+
+<script>
+(function() {
+  var CALC_URL = 'https://6a281ed24f83faaed2904894.functions.base44.app/calculatePremium';
+  var SAVE_URL = 'https://6a281ed24f83faaed2904894.functions.base44.app/saveLead';
+  var SEND_URL = 'https://6a281ed24f83faaed2904894.functions.base44.app/sendLeadEmails';
+
+  var calcTimer = null;
+
+  window.handlePolicyChange = function() {
+    var policy = document.getElementById('q-policy').value;
+    var warning = document.getElementById('wholeLifeWarning');
+    var termSel = document.getElementById('q-term');
+    if (policy === 'Whole Life') {
+      warning.classList.add('show');
+      termSel.value = 'Whole Life';
+    } else {
+      warning.classList.remove('show');
+      if (termSel.value === 'Whole Life') termSel.value = '';
+    }
+    scheduleCalc();
+  };
+
+  function getFormData() {
+    return {
+      policy_type: document.getElementById('q-policy').value,
+      coverage_amount: document.getElementById('q-coverage').value,
+      term_length: document.getElementById('q-term').value,
+      age: document.getElementById('q-age').value,
+      gender: document.getElementById('q-gender').value,
+      health_status: document.getElementById('q-health').value,
+      smoker: document.getElementById('q-smoker').value,
+    };
+  }
+
+  function scheduleCalc() {
+    clearTimeout(calcTimer);
+    calcTimer = setTimeout(runCalc, 400);
+  }
+
+  function runCalc() {
+    var d = getFormData();
+    if (!d.policy_type || d.policy_type === 'Whole Life' || !d.coverage_amount || !d.term_length || !d.age || !d.gender || !d.health_status || !d.smoker) return;
+    fetch(CALC_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(d)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(res) {
+      if (res.estimated_monthly_premium) {
+        document.getElementById('qfPrice').textContent = '$' + res.estimated_monthly_premium.toFixed(2);
+        document.getElementById('qfResult').classList.add('show');
+        document.getElementById('qfSubmit').disabled = false;
+      }
+    })
+    .catch(function(){});
+  }
+
+  ['q-policy','q-coverage','q-term','q-age','q-gender','q-health','q-smoker'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', scheduleCalc);
+  });
+  var ageEl = document.getElementById('q-age');
+  if (ageEl) ageEl.addEventListener('input', scheduleCalc);
+
+  window.submitQuote = function() {
+    var d = getFormData();
+    if (d.policy_type === 'Whole Life') { return; }
+
+    var fname = document.getElementById('q-fname').value.trim();
+    var lname = document.getElementById('q-lname').value.trim();
+    var email = document.getElementById('q-email').value.trim();
+    var phone = document.getElementById('q-phone').value.trim();
+
+    if (!fname || !email) { alert('Please enter your first name and email address.'); return; }
+
+    var btn = document.getElementById('qfSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    var priceText = document.getElementById('qfPrice').textContent;
+    var premium = parseFloat(priceText.replace('$','')) || null;
+
+    var payload = Object.assign({}, d, {
+      first_name: fname, last_name: lname, email: email, phone: phone,
+      estimated_monthly_premium: premium, status: 'New'
+    });
+
+    fetch(SAVE_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function() {
+      fetch(SEND_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      }).catch(function(){});
+      document.getElementById('qfSuccess').classList.add('show');
+      btn.style.display = 'none';
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Get My Free Quote →';
+      alert('Something went wrong. Please try again.');
+    });
+  };
+})();
+</script>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="/quotes.html">Get a Quote</a>
+      <a href="/insurance.html">Insurance Products</a>
+      <a href="/about.html">About Us</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="tel:6785626905">(678) 562-6905</a>
+      <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
+      <a href="#">47 Stonewall St, Cartersville, GA 30120</a>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 The East Agency. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
