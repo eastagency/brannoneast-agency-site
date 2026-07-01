@@ -26,9 +26,9 @@
   </div>
 </nav>
 
-<section class="page-hero">
+<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/categories/auto.png')">
   <div class="container">
-    <h1>🚙 Auto Insurance Quote</h1>
+    <h1>Auto Insurance Quote</h1>
     <p>Get a fast, free auto insurance quote for your car, truck, or motorcycle.</p>
   </div>
 </section>
@@ -57,7 +57,16 @@
             <input type="tel" id="q-phone" placeholder="(404) 555-1234">
           </div>
         </div>
-
+        <div class="qf-row">
+          <div>
+            <label for="q-vehicle">Vehicle Year/Make/Model</label>
+            <input type="text" id="q-vehicle" placeholder="e.g. 2021 Toyota Tacoma">
+          </div>
+          <div>
+            <label for="q-drivers">Number of Drivers</label>
+            <input type="number" id="q-drivers" placeholder="e.g. 1">
+          </div>
+        </div>
         <button class="qf-btn" id="qfSubmit" onclick="submitLead()">
           Request My Free Quote →
         </button>
@@ -90,8 +99,9 @@
 
     var payload = {
       first_name: fname, last_name: lname, email: email, phone: phone,
-      policy_type: 'Auto Insurance', status: 'New'
-
+      policy_type: 'Auto Insurance', status: 'New',
+      vehicle: (document.getElementById('q-vehicle') || {}).value || '',
+      drivers: (document.getElementById('q-drivers') || {}).value || ''
     };
 
     fetch(SAVE_URL, {
