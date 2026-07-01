@@ -26,9 +26,9 @@
   </div>
 </nav>
 
-<section class="page-hero">
+<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/categories/health.png')">
   <div class="container">
-    <h1>🩺 Health Insurance Quote</h1>
+    <h1>Health Insurance Quote</h1>
     <p>Individual, family, and Medicare plans. Get a free health insurance quote.</p>
   </div>
 </section>
@@ -57,7 +57,22 @@
             <input type="tel" id="q-phone" placeholder="(404) 555-1234">
           </div>
         </div>
-
+        <div class="qf-row">
+          <div>
+            <label for="q-coverage-for">Coverage For</label>
+            <select id="q-coverage-for">
+              <option value="">Select</option>
+              <option value="Just Me">Just Me</option>
+              <option value="Me + Spouse">Me + Spouse</option>
+              <option value="Family">Family</option>
+              <option value="Medicare">Medicare</option>
+            </select>
+          </div>
+          <div>
+            <label for="q-zip">Zip Code</label>
+            <input type="text" id="q-zip" placeholder="e.g. 30120">
+          </div>
+        </div>
         <button class="qf-btn" id="qfSubmit" onclick="submitLead()">
           Request My Free Quote →
         </button>
@@ -90,8 +105,9 @@
 
     var payload = {
       first_name: fname, last_name: lname, email: email, phone: phone,
-      policy_type: 'Health Insurance', status: 'New'
-
+      policy_type: 'Health Insurance', status: 'New',
+      coverage_for: (document.getElementById('q-coverage-for') || {}).value || '',
+      zip: (document.getElementById('q-zip') || {}).value || ''
     };
 
     fetch(SAVE_URL, {
