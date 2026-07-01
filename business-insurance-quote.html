@@ -26,9 +26,9 @@
   </div>
 </nav>
 
-<section class="page-hero">
+<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/categories/business.png')">
   <div class="container">
-    <h1>💼 Business Insurance Quote</h1>
+    <h1>Business Insurance Quote</h1>
     <p>General liability, workers comp &amp; more. Get a free business insurance quote.</p>
   </div>
 </section>
@@ -57,7 +57,16 @@
             <input type="tel" id="q-phone" placeholder="(404) 555-1234">
           </div>
         </div>
-
+        <div class="qf-row">
+          <div>
+            <label for="q-business-type">Type of Business</label>
+            <input type="text" id="q-business-type" placeholder="e.g. Landscaping, Retail">
+          </div>
+          <div>
+            <label for="q-employees">Number of Employees</label>
+            <input type="number" id="q-employees" placeholder="e.g. 5">
+          </div>
+        </div>
         <button class="qf-btn" id="qfSubmit" onclick="submitLead()">
           Request My Free Quote →
         </button>
@@ -90,8 +99,9 @@
 
     var payload = {
       first_name: fname, last_name: lname, email: email, phone: phone,
-      policy_type: 'Business Insurance', status: 'New'
-
+      policy_type: 'Business Insurance', status: 'New',
+      business_type: (document.getElementById('q-business-type') || {}).value || '',
+      employees: (document.getElementById('q-employees') || {}).value || ''
     };
 
     fetch(SAVE_URL, {
