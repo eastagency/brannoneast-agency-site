@@ -246,3 +246,45 @@ img{max-width:100%;display:block}
   transition:opacity .2s;
 }
 .life-carrier-item:hover img{opacity:1}
+/* ===== TESTIMONIALS ===== */
+.testimonials-section{padding:80px 0;background:var(--sand)}
+.testimonials-section .eyebrow{color:var(--coral)}
+.testimonials-section h2{font-size:clamp(26px,3.5vw,40px);margin-bottom:10px}
+.testimonials-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+  max-width:860px;
+  margin:40px auto 0;
+}
+@media(max-width:640px){.testimonials-grid{grid-template-columns:1fr}}
+.testimonial-card{
+  background:var(--white);
+  border-radius:16px;
+  padding:28px 28px 24px;
+  box-shadow:0 2px 24px rgba(27,42,46,.07);
+  display:flex;flex-direction:column;gap:14px;
+}
+.t-stars{color:#F4B942;font-size:19px;letter-spacing:3px;line-height:1}
+.t-text{
+  font-size:15px;color:var(--ink);
+  line-height:1.7;flex:1;
+  font-style:italic;margin:0;
+}
+.t-author{
+  display:flex;flex-direction:column;gap:3px;
+  border-top:1px solid rgba(27,42,46,.08);
+  padding-top:14px;margin-top:4px;
+}
+.t-name{font-weight:700;font-size:14px;color:var(--ocean)}
+.t-source{font-size:12px;color:rgba(27,42,46,.4);letter-spacing:.3px}
+.t-cta-wrap{text-align:center;margin-top:40px}
+.t-all-reviews{
+  display:inline-flex;align-items:center;gap:8px;
+  color:var(--teal);font-size:14px;font-weight:600;
+  text-decoration:none;
+  border:2px solid var(--teal);
+  padding:11px 28px;border-radius:100px;
+  transition:background .25s,color .25s;
+}
+.t-all-reviews:hover{background:var(--teal);color:var(--white)}
