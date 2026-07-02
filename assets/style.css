@@ -288,3 +288,36 @@ img{max-width:100%;display:block}
   transition:background .25s,color .25s;
 }
 .t-all-reviews:hover{background:var(--teal);color:var(--white)}
+/* ===== COVERAGE MAP SECTION ===== */
+.coverage-section{padding:80px 0;background:var(--ink);overflow:hidden}
+.coverage-section .eyebrow{color:var(--teal)}
+.coverage-inner{
+  display:grid;
+  grid-template-columns:1fr 1.6fr;
+  gap:48px;
+  align-items:center;
+}
+@media(max-width:800px){.coverage-inner{grid-template-columns:1fr}}
+.coverage-text h2{color:var(--white);font-size:clamp(26px,3.5vw,42px);margin-bottom:14px;line-height:1.15}
+.coverage-text .section-sub{color:rgba(255,255,255,.6);max-width:420px;margin-bottom:0}
+.coverage-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.coverage-pills span{
+  background:rgba(31,122,117,.18);
+  border:1px solid rgba(31,122,117,.5);
+  color:#7DD8D2;
+  font-size:12px;font-weight:600;letter-spacing:.3px;
+  padding:5px 14px;border-radius:100px;
+}
+.coverage-map-wrap{width:100%;overflow:visible}
+.us-map{width:100%;height:auto;display:block}
+/* Licensed state tiles */
+.st-lic{fill:#1F7A75;filter:drop-shadow(0 0 6px rgba(31,122,117,.55))}
+/* Unlicensed state tiles */
+.st-def{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.14);stroke-width:1.5}
+/* State abbreviation labels */
+.st-lbl{
+  font-family:Poppins,sans-serif;font-size:9px;font-weight:700;
+  fill:rgba(255,255,255,.9);text-anchor:middle;dominant-baseline:central;
+  pointer-events:none;
+}
+.st-lbl-dim{fill:rgba(255,255,255,.22)}
