@@ -32,6 +32,9 @@ TOPICS = [
     {"keyword": "business liability insurance Cartersville GA",        "cat": "Business",          "img": "/assets/categories/business.png",     "quote": "/business-insurance-quote.html"},
     {"keyword": "motorcycle insurance Georgia seasonal riders save",   "cat": "Motorcycle",        "img": "/assets/categories/motorcycle.png",   "quote": "/motorcycle-insurance-quote.html"},
     {"keyword": "collector car vs regular auto insurance Georgia",     "cat": "Classic Car",       "img": "/assets/categories/classic-car.png",  "quote": "/classic-car-insurance-quote.html"},
+    {"keyword": "farm and agricultural insurance Bartow County Georgia",              "cat": "Farm & Ag",      "img": "/assets/categories/business.png",     "quote": "/business-insurance-quote.html"},
+    {"keyword": "commercial property insurance Cartersville GA data centers manufacturers", "cat": "Business", "img": "/assets/categories/business.png",   "quote": "/business-insurance-quote.html"},
+    {"keyword": "Lake Allatoona vacation home and cabin insurance Georgia",            "cat": "Home Insurance", "img": "/assets/categories/home.png",         "quote": "/home-insurance-quote.html"},
 ]
 
 
