@@ -37,6 +37,22 @@
 <section class="section">
   <div class="container lead-form">
     <div class="quote-frame">
+<div class="quote-tabs">
+<button class="quote-tab active" data-panel="panel-chat">Chat with Us</button>
+<button class="quote-tab" data-panel="panel-form">Quick Form</button>
+</div>
+<div id="panel-chat" class="quote-panel active">
+<div class="chat-window" id="chatWindow"></div>
+<div class="chat-input-row" id="chatInputRow">
+<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
+</div>
+<div class="chat-success" id="chatSuccess">
+<h3>Quote Request Received!</h3>
+<p>Brannon will review your info and reach out within 24 hours. Watch for his call or email!</p>
+</div>
+</div>
+<div id="panel-form" class="quote-panel">
 <form name="special-event-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
 <input type="hidden" name="form-name" value="special-event-insurance-quote">
 <input type="hidden" name="policy_type" value="Special Event Insurance">
@@ -72,11 +88,13 @@
 </div>
 </form>
 </div>
+</div>
     <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
   </div>
 </section>
 
 <script src="/assets/form.js"></script>
+<script src="/assets/chat.js"></script>
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
