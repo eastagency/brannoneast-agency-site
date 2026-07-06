@@ -13,3 +13,6 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
 # redeploy trigger
+
+[functions]
+  node_bundler = "esbuild"
