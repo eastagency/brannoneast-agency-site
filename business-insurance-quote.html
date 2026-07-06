@@ -37,98 +37,46 @@
 <section class="section">
   <div class="container lead-form">
     <div class="quote-frame">
-      <div class="qf" id="leadForm">
-        <div class="qf-row">
-          <div>
-            <label for="q-fname">First Name</label>
-            <input type="text" id="q-fname" placeholder="Jane">
-          </div>
-          <div>
-            <label for="q-lname">Last Name</label>
-            <input type="text" id="q-lname" placeholder="Smith">
-          </div>
-        </div>
-        <div class="qf-row">
-          <div>
-            <label for="q-email">Email Address</label>
-            <input type="email" id="q-email" placeholder="jane@email.com">
-          </div>
-          <div>
-            <label for="q-phone">Phone Number</label>
-            <input type="tel" id="q-phone" placeholder="(404) 555-1234">
-          </div>
-        </div>
-        <div class="qf-row">
-          <div>
-            <label for="q-business-type">Type of Business</label>
-            <input type="text" id="q-business-type" placeholder="e.g. Landscaping, Retail">
-          </div>
-          <div>
-            <label for="q-employees">Number of Employees</label>
-            <input type="number" id="q-employees" placeholder="e.g. 5">
-          </div>
-        </div>
-        <button class="qf-btn" id="qfSubmit" onclick="submitLead()">
-          Request My Free Quote →
-        </button>
-        <div class="qf-success" id="qfSuccess">
-          <h3>🎉 Quote Request Received!</h3>
-          <p>Thanks! I'll review your info and reach out within 24 hours. Check your email for a confirmation.</p>
-        </div>
-      </div>
-    </div>
-    <p style="font-size:11px;color:var(--ink-soft);text-align:center;margin-top:1rem;line-height:1.7">🔒 Your information is secure. Not shared with third parties.</p>
+<form name="business-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="business-insurance-quote">
+<input type="hidden" name="policy_type" value="Business Insurance">
+<p style="display:none"><label>Skip: <input name="bot-field"></label></p>
+<div class="qf-row">
+  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+</div>
+<div class="qf-row">
+  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+</div>
+<div class="qf-row">
+  <div><label>Business Name</label><input type="text" name="business_name" placeholder="e.g. Smith Plumbing LLC"></div>
+  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+</div>
+<div class="qf-row">
+  <div><label>Type of Business / Industry</label><input type="text" name="industry" placeholder="e.g. HVAC Contractor, Retail, Restaurant"></div>
+  <div><label>Years in Business</label><input type="number" name="years_in_business" placeholder="e.g. 5" min="0"></div>
+</div>
+<div class="qf-row">
+  <div><label>Number of Employees</label><select name="employees"><option value="">Select...</option><option>Just me (sole proprietor)</option><option>2-5</option><option>6-15</option><option>16-50</option><option>50+</option></select></div>
+  <div><label>Annual Revenue (approx)</label><select name="revenue"><option value="">Select...</option><option>Under $100k</option><option>$100k - $500k</option><option>$500k - $1M</option><option>$1M - $5M</option><option>Over $5M</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label>Coverage Needed</label><select name="coverage_type"><option value="">Select...</option><option>General Liability</option><option>Business Owner Policy (BOP)</option><option>Workers Compensation</option><option>Commercial Property</option><option>Not Sure â€” Need Guidance</option></select></div>
+  <div><label>Currently Insured?</label><select name="currently_insured"><option value="">Select...</option><option>Yes â€” comparing rates</option><option>No â€” new business</option><option>Coverage lapsed</option></select></div>
+</div>
+<button type="submit" class="qf-btn" id="qfSubmit">Request My Free Quote &rarr;</button>
+<div class="qf-success" id="qfSuccess">
+  <h3>Quote Request Received!</h3>
+  <p>Brannon will review your info and reach out within 24 hours. Check your email for a confirmation.</p>
+</div>
+</form>
+</div>
+    <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
   </div>
 </section>
 
-<script>
-(function() {
-  var SAVE_URL = 'https://6a281ed24f83faaed2904894.functions.base44.app/saveLead';
-  var SEND_URL = 'https://6a281ed24f83faaed2904894.functions.base44.app/sendLeadEmails';
-
-  window.submitLead = function() {
-    var fname = document.getElementById('q-fname').value.trim();
-    var lname = document.getElementById('q-lname').value.trim();
-    var email = document.getElementById('q-email').value.trim();
-    var phone = document.getElementById('q-phone').value.trim();
-
-    if (!fname || !email) { alert('Please enter your first name and email address.'); return; }
-
-    var btn = document.getElementById('qfSubmit');
-    btn.disabled = true;
-    btn.textContent = 'Submitting…';
-
-    var payload = {
-      first_name: fname, last_name: lname, email: email, phone: phone,
-      policy_type: 'Business Insurance', status: 'New',
-      business_type: (document.getElementById('q-business-type') || {}).value || '',
-      employees: (document.getElementById('q-employees') || {}).value || ''
-    };
-
-    fetch(SAVE_URL, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
-    })
-    .then(function(r){ return r.json(); })
-    .then(function() {
-      fetch(SEND_URL, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      }).catch(function(){});
-      document.getElementById('qfSuccess').classList.add('show');
-      btn.style.display = 'none';
-    })
-    .catch(function() {
-      btn.disabled = false;
-      btn.textContent = 'Request My Free Quote →';
-      alert('Something went wrong. Please try again.');
-    });
-  };
-})();
-</script>
-
+<script src="/assets/form.js"></script>
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>

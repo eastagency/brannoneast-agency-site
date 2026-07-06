@@ -37,112 +37,42 @@
 <section class="section">
   <div class="container lead-form">
     <div class="quote-frame">
-      <div class="qf" id="leadForm">
-        <div class="qf-row">
-          <div>
-            <label for="q-fname">First Name</label>
-            <input type="text" id="q-fname" placeholder="Jane">
-          </div>
-          <div>
-            <label for="q-lname">Last Name</label>
-            <input type="text" id="q-lname" placeholder="Smith">
-          </div>
-        </div>
-        <div class="qf-row">
-          <div>
-            <label for="q-email">Email Address</label>
-            <input type="email" id="q-email" placeholder="jane@email.com">
-          </div>
-          <div>
-            <label for="q-phone">Phone Number</label>
-            <input type="tel" id="q-phone" placeholder="(404) 555-1234">
-          </div>
-        </div>
-        <div class="qf-row">
-          <div>
-            <label for="q-address">Property Address</label>
-            <input type="text" id="q-address" placeholder="123 Main St, Cartersville GA">
-          </div>
-          <div>
-            <label for="q-units">Number of Units</label>
-            <input type="number" id="q-units" placeholder="e.g. 1">
-          </div>
-        </div>
-        <div class="qf-row">
-          <div>
-            <label for="q-value">Estimated Property Value</label>
-            <select id="q-value">
-              <option value="">Select</option>
-              <option value="Under $10,000">Under $10,000</option>
-              <option value="$10,000-$25,000">$10,000-$25,000</option>
-              <option value="$25,000-$50,000">$25,000-$50,000</option>
-              <option value="$50,000-$100,000">$50,000-$100,000</option>
-              <option value="$100,000+">$100,000+</option>
-            </select>
-          </div>
-        </div>
-        <button class="qf-btn" id="qfSubmit" onclick="submitLead()">
-          Request My Free Quote →
-        </button>
-        <div class="qf-success" id="qfSuccess">
-          <h3>🎉 Quote Request Received!</h3>
-          <p>Thanks! I'll review your info and reach out within 24 hours. Check your email for a confirmation.</p>
-        </div>
-      </div>
-    </div>
-    <p style="font-size:11px;color:var(--ink-soft);text-align:center;margin-top:1rem;line-height:1.7">🔒 Your information is secure. Not shared with third parties.</p>
+<form name="landlord-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="landlord-insurance-quote">
+<input type="hidden" name="policy_type" value="Landlord Insurance">
+<p style="display:none"><label>Skip: <input name="bot-field"></label></p>
+<div class="qf-row">
+  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+</div>
+<div class="qf-row">
+  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+</div>
+<div class="qf-row">
+  <div><label>Rental Property Address</label><input type="text" name="property_address" placeholder="123 Rental Ave, Cartersville GA 30120"></div>
+  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+</div>
+<div class="qf-row">
+  <div><label>Number of Units</label><select name="units"><option value="">Select...</option><option>Single family home</option><option>Duplex (2 units)</option><option>3-4 units</option><option>5-10 units</option><option>10+ units</option></select></div>
+  <div><label>Currently Occupied?</label><select name="occupied"><option value="">Select...</option><option>Yes â€” tenant in place</option><option>Vacant â€” between tenants</option><option>Vacant â€” preparing to rent</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label>Monthly Rental Income (approx)</label><input type="text" name="rental_income" placeholder="e.g. $1,500/mo"></div>
+  <div><label>Any Claims in Last 3 Years?</label><select name="claims"><option value="">Select...</option><option>None</option><option>1 claim</option><option>2+ claims</option></select></div>
+</div>
+<button type="submit" class="qf-btn" id="qfSubmit">Request My Free Quote &rarr;</button>
+<div class="qf-success" id="qfSuccess">
+  <h3>Quote Request Received!</h3>
+  <p>Brannon will review your info and reach out within 24 hours. Check your email for a confirmation.</p>
+</div>
+</form>
+</div>
+    <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
   </div>
 </section>
 
-<script>
-(function() {
-  var SAVE_URL = 'https://6a281ed24f83faaed2904894.functions.base44.app/saveLead';
-  var SEND_URL = 'https://6a281ed24f83faaed2904894.functions.base44.app/sendLeadEmails';
-
-  window.submitLead = function() {
-    var fname = document.getElementById('q-fname').value.trim();
-    var lname = document.getElementById('q-lname').value.trim();
-    var email = document.getElementById('q-email').value.trim();
-    var phone = document.getElementById('q-phone').value.trim();
-
-    if (!fname || !email) { alert('Please enter your first name and email address.'); return; }
-
-    var btn = document.getElementById('qfSubmit');
-    btn.disabled = true;
-    btn.textContent = 'Submitting…';
-
-    var payload = {
-      first_name: fname, last_name: lname, email: email, phone: phone,
-      policy_type: 'Landlord Insurance', status: 'New',
-      address: (document.getElementById('q-address') || {}).value || '',
-      units: (document.getElementById('q-units') || {}).value || '',
-      value: (document.getElementById('q-value') || {}).value || ''
-    };
-
-    fetch(SAVE_URL, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
-    })
-    .then(function(r){ return r.json(); })
-    .then(function() {
-      fetch(SEND_URL, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      }).catch(function(){});
-      document.getElementById('qfSuccess').classList.add('show');
-      btn.style.display = 'none';
-    })
-    .catch(function() {
-      btn.disabled = false;
-      btn.textContent = 'Request My Free Quote →';
-      alert('Something went wrong. Please try again.');
-    });
-  };
-})();
-</script>
-
+<script src="/assets/form.js"></script>
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>

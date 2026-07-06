@@ -37,111 +37,46 @@
 <section class="section">
   <div class="container lead-form">
     <div class="quote-frame">
-      <div class="qf" id="leadForm">
-        <div class="qf-row">
-          <div>
-            <label for="q-fname">First Name</label>
-            <input type="text" id="q-fname" placeholder="Jane">
-          </div>
-          <div>
-            <label for="q-lname">Last Name</label>
-            <input type="text" id="q-lname" placeholder="Smith">
-          </div>
-        </div>
-        <div class="qf-row">
-          <div>
-            <label for="q-email">Email Address</label>
-            <input type="email" id="q-email" placeholder="jane@email.com">
-          </div>
-          <div>
-            <label for="q-phone">Phone Number</label>
-            <input type="tel" id="q-phone" placeholder="(404) 555-1234">
-          </div>
-        </div>
-        <div class="qf-row">
-          <div>
-            <label for="q-address">Property Address</label>
-            <input type="text" id="q-address" placeholder="123 Main St, Cartersville GA">
-          </div>
-          <div>
-            <label for="q-property-type">Property Type</label>
-            <select id="q-property-type">
-              <option value="">Select</option>
-              <option value="Primary Home">Primary Home</option>
-              <option value="Rental Property">Rental Property</option>
-              <option value="Business">Business</option>
-              <option value="Condo">Condo</option>
-            </select>
-          </div>
-        </div>
-        <div class="qf-row">
-          <div>
-            <label for="q-flood-zone">Known Flood Zone? (if any)</label>
-            <input type="text" id="q-flood-zone" placeholder="e.g. Zone A, not sure">
-          </div>
-        </div>
-        <button class="qf-btn" id="qfSubmit" onclick="submitLead()">
-          Request My Free Quote →
-        </button>
-        <div class="qf-success" id="qfSuccess">
-          <h3>🎉 Quote Request Received!</h3>
-          <p>Thanks! I'll review your info and reach out within 24 hours. Check your email for a confirmation.</p>
-        </div>
-      </div>
-    </div>
-    <p style="font-size:11px;color:var(--ink-soft);text-align:center;margin-top:1rem;line-height:1.7">🔒 Your information is secure. Not shared with third parties.</p>
+<form name="flood-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="flood-insurance-quote">
+<input type="hidden" name="policy_type" value="Flood Insurance">
+<p style="display:none"><label>Skip: <input name="bot-field"></label></p>
+<div class="qf-row">
+  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+</div>
+<div class="qf-row">
+  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+</div>
+<div class="qf-row">
+  <div><label>Property Address</label><input type="text" name="property_address" placeholder="123 Main St, Cartersville GA 30120"></div>
+  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+</div>
+<div class="qf-row">
+  <div><label>Year Built</label><input type="number" name="year_built" placeholder="e.g. 1998"></div>
+  <div><label>Square Footage (approx)</label><input type="number" name="sq_footage" placeholder="e.g. 2200"></div>
+</div>
+<div class="qf-row">
+  <div><label>Flood Zone (if known)</label><select name="flood_zone"><option value="">Select / Not Sure</option><option>Zone X (low risk)</option><option>Zone AE / A (high risk)</option><option>Zone VE (coastal)</option><option>Not Sure</option></select></div>
+  <div><label>Currently Have Flood Insurance?</label><select name="current_flood"><option value="">Select...</option><option>No â€” first time</option><option>Yes â€” NFIP policy</option><option>Yes â€” private policy</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label>Basement / Crawl Space?</label><select name="basement"><option value="">Select...</option><option>No basement</option><option>Crawl space</option><option>Partial basement</option><option>Full basement</option></select></div>
+  <div><label>Reason for Coverage</label><select name="reason"><option value="">Select...</option><option>Lender required it</option><option>Protecting my investment</option><option>Had flooding before</option><option>Just checking rates</option></select></div>
+</div>
+<button type="submit" class="qf-btn" id="qfSubmit">Request My Free Quote &rarr;</button>
+<div class="qf-success" id="qfSuccess">
+  <h3>Quote Request Received!</h3>
+  <p>Brannon will review your info and reach out within 24 hours. Check your email for a confirmation.</p>
+</div>
+</form>
+</div>
+    <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
   </div>
 </section>
 
-<script>
-(function() {
-  var SAVE_URL = 'https://6a281ed24f83faaed2904894.functions.base44.app/saveLead';
-  var SEND_URL = 'https://6a281ed24f83faaed2904894.functions.base44.app/sendLeadEmails';
-
-  window.submitLead = function() {
-    var fname = document.getElementById('q-fname').value.trim();
-    var lname = document.getElementById('q-lname').value.trim();
-    var email = document.getElementById('q-email').value.trim();
-    var phone = document.getElementById('q-phone').value.trim();
-
-    if (!fname || !email) { alert('Please enter your first name and email address.'); return; }
-
-    var btn = document.getElementById('qfSubmit');
-    btn.disabled = true;
-    btn.textContent = 'Submitting…';
-
-    var payload = {
-      first_name: fname, last_name: lname, email: email, phone: phone,
-      policy_type: 'Flood Insurance', status: 'New',
-      address: (document.getElementById('q-address') || {}).value || '',
-      property_type: (document.getElementById('q-property-type') || {}).value || '',
-      flood_zone: (document.getElementById('q-flood-zone') || {}).value || ''
-    };
-
-    fetch(SAVE_URL, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(payload)
-    })
-    .then(function(r){ return r.json(); })
-    .then(function() {
-      fetch(SEND_URL, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      }).catch(function(){});
-      document.getElementById('qfSuccess').classList.add('show');
-      btn.style.display = 'none';
-    })
-    .catch(function() {
-      btn.disabled = false;
-      btn.textContent = 'Request My Free Quote →';
-      alert('Something went wrong. Please try again.');
-    });
-  };
-})();
-</script>
-
+<script src="/assets/form.js"></script>
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
