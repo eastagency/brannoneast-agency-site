@@ -7,6 +7,17 @@ Step 5 onward: Ask the insurance-specific questions below, one at a time.
 
 Once a question is answered, never ask it again. Move to the next step immediately.`;
 
+
+const FINAL_STEPS = `FINAL QUESTIONS — ask these after all insurance-specific questions are done, one at a time:
+
+Step A: Ask "Is there anything else you would like Brannon to know? Feel free to leave a short note. (Optional — just say no to skip. Please keep it under 350 characters.)"
+  - If they say no or skip: store comments as "none"
+  - If their reply is over 350 characters: gently say it is a bit long and ask them to shorten it
+  - Otherwise store their reply in the comments field
+
+Step B: Ask "Last question — would you like to upload your current declaration page(s) so Brannon has them ready when he calls?"
+  - If YES: Reply "Perfect! Once your info is submitted an upload area will appear right below where you can attach them." Set wants_upload to "yes"
+  - If NO: Give a warm personal closing like "You are all set! Brannon will be in touch soon — usually same business day." Set wants_upload to "no"`;
 const PROMPTS = {
 'Auto Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
@@ -50,9 +61,11 @@ Store all driver info combined in drivers_info (e.g. "D1: John Smith, Primary, M
 - What type of coverage are you looking for? (liability only / full coverage / not sure)
 - Who are you currently insured with? (or "none" if uninsured)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","policy_type":"Auto Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Auto Insurance"}
 ===END===`,
 'Home Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
@@ -66,9 +79,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - How old is the roof? (0-5 years / 6-10 / 11-15 / 16+ / not sure)
 - What's the reason for shopping today? (new purchase / comparing rates / lapsed policy / other)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","year_built":"","sq_footage":"","home_value":"","roof_age":"","reason":"","policy_type":"Home Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","year_built":"","sq_footage":"","home_value":"","roof_age":"","reason":"","comments":"","wants_upload":"","policy_type":"Home Insurance"}
 ===END===`,
 
 'Life Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Be warm and reassuring throughout.
@@ -82,9 +97,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - Do you use tobacco? (yes / no / former user)
 - How would you describe your overall health? (excellent / good / fair / prefer not to say)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","dob":"","coverage_amount":"","coverage_type":"","tobacco":"","health_status":"","policy_type":"Life Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","dob":"","coverage_amount":"","coverage_type":"","tobacco":"","health_status":"","comments":"","wants_upload":"","policy_type":"Life Insurance"}
 ===END===`,
 
 'Health Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
@@ -98,9 +115,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - What is your current coverage situation? (uninsured / employer plan / self-pay / COBRA / Medicaid)
 - Do you use tobacco? (yes / no)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","dob":"","coverage_for":"","household_size":"","current_coverage":"","tobacco":"","policy_type":"Health Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","dob":"","coverage_for":"","household_size":"","current_coverage":"","tobacco":"","comments":"","wants_upload":"","policy_type":"Health Insurance"}
 ===END===`,
 
 'Business Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
@@ -114,9 +133,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - What type of coverage are you looking for? (general liability / BOP / workers comp / commercial property / not sure)
 - Are you currently insured? (yes comparing rates / new business / lapsed)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","business_name":"","industry":"","employees":"","coverage_type":"","currently_insured":"","policy_type":"Business Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","business_name":"","industry":"","employees":"","coverage_type":"","currently_insured":"","comments":"","wants_upload":"","policy_type":"Business Insurance"}
 ===END===`,
 
 'Classic Car Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Show enthusiasm for their vehicle!
@@ -130,9 +151,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - How is the vehicle stored? (private garage / climate-controlled storage / barn / covered outdoor)
 - How do you use it? (car shows / weekend driving / occasional / restoration project)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicle":"","vehicle_value":"","annual_mileage":"","storage":"","usage":"","policy_type":"Classic Car Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicle":"","vehicle_value":"","annual_mileage":"","storage":"","usage":"","comments":"","wants_upload":"","policy_type":"Classic Car Insurance"}
 ===END===`,
 
 'Collectibles Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
@@ -145,9 +168,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - How are your collectibles stored? (home safe / safety deposit box / climate storage / secured at home)
 - Do you have any current coverage for them? (no coverage / homeowners rider / standalone policy)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","collectible_type":"","collection_value":"","storage":"","currently_covered":"","policy_type":"Collectibles Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","collectible_type":"","collection_value":"","storage":"","currently_covered":"","comments":"","wants_upload":"","policy_type":"Collectibles Insurance"}
 ===END===`,
 
 'Flood Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
@@ -162,9 +187,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - Does the home have a basement? (none / crawl space / partial / full)
 - What is the reason for shopping today? (lender required / protecting investment / had flooding / checking rates)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","year_built":"","flood_zone":"","current_flood":"","basement":"","reason":"","policy_type":"Flood Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","year_built":"","flood_zone":"","current_flood":"","basement":"","reason":"","comments":"","wants_upload":"","policy_type":"Flood Insurance"}
 ===END===`,
 
 'Special Event Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
@@ -179,9 +206,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - Will there be alcohol served? (no alcohol / beer and wine only / full bar)
 - Does the venue require event insurance? (yes / no — just want peace of mind / not sure)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","event_type":"","event_date":"","attendance":"","venue":"","alcohol":"","venue_required":"","policy_type":"Special Event Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","event_type":"","event_date":"","attendance":"","venue":"","alcohol":"","venue_required":"","comments":"","wants_upload":"","policy_type":"Special Event Insurance"}
 ===END===`,
 
 'Landlord Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
@@ -195,9 +224,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - What is the monthly rental income?
 - Any insurance claims in the last 3 years? (none / 1 claim / 2 or more)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","units":"","occupied":"","rental_income":"","claims":"","policy_type":"Landlord Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","units":"","occupied":"","rental_income":"","claims":"","comments":"","wants_upload":"","policy_type":"Landlord Insurance"}
 ===END===`,
 
 'Renters Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Keep it upbeat — this one is quick and affordable!
@@ -210,9 +241,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - Do you have any high-value items? (none / jewelry or watches / electronics / firearms / multiple categories)
 - Do you have pets? (no pets / dogs / cats / other)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","rental_address":"","property_value":"","valuables":"","pets":"","policy_type":"Renters Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","rental_address":"","property_value":"","valuables":"","pets":"","comments":"","wants_upload":"","policy_type":"Renters Insurance"}
 ===END===`,
 
 'Motorcycle Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
@@ -226,9 +259,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - Do you have your motorcycle endorsement? (yes M class / no / permit only)
 - Any claims in the last 3 years? (none / 1 / 2 or more)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","motorcycle":"","bike_type":"","usage":"","endorsement":"","claims":"","policy_type":"Motorcycle Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","motorcycle":"","bike_type":"","usage":"","endorsement":"","claims":"","comments":"","wants_upload":"","policy_type":"Motorcycle Insurance"}
 ===END===`,
 
 'RV Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
@@ -242,9 +277,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - How often do you use it? (full-timer / 6+ months a year / occasional / weekends only)
 - How is it stored? (home driveway / RV storage facility / RV park)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","rv":"","rv_type":"","rv_value":"","usage":"","storage":"","policy_type":"RV Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","rv":"","rv_type":"","rv_value":"","usage":"","storage":"","comments":"","wants_upload":"","policy_type":"RV Insurance"}
 ===END===`,
 
 'Boat Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
@@ -258,9 +295,11 @@ Insurance questions (Steps 5 onward, one at a time):
 - What is the estimated value?
 - How is it stored? (home driveway / marina dry stack / storage facility / water slip)
 
-When you have ALL fields, immediately output this then a warm closing:
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","boat":"","boat_length":"","boat_type":"","boat_value":"","storage":"","policy_type":"Boat Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","boat":"","boat_length":"","boat_type":"","boat_value":"","storage":"","comments":"","wants_upload":"","policy_type":"Boat Insurance"}
 ===END===`
 };
 

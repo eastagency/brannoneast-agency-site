@@ -4,6 +4,8 @@ var API='/.netlify/functions/chat';
 var GHL='https://6a281ed24f83faaed2904894.functions.base44.app/createGHLContact';
 var hist=[];
 var ready=false;
+var _leadEmail='';
+var _leadName='';
 
 function insuranceType(){
   var el=document.querySelector('input[name="policy_type"]');
@@ -77,6 +79,8 @@ function sendMessage(){
 
 function submitLead(fd){
   var form=document.getElementById('leadForm'); if(!form)return;
+  _leadName=(fd.first_name||'')+' '+(fd.last_name||'');
+  _leadEmail=fd.email||'';
   var params=new URLSearchParams();
   params.append('form-name',form.getAttribute('name'));
   Object.keys(fd).forEach(function(k){params.append(k,fd[k]);});
@@ -85,15 +89,53 @@ function submitLead(fd){
     fetch(GHL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(fd)}).catch(function(){});
     var w=win(); if(w)w.style.display='none';
     var row=document.getElementById('chatInputRow'); if(row)row.style.display='none';
-    var suc=document.getElementById('chatSuccess'); if(suc){suc.classList.add('show');suc.scrollIntoView({behavior:'smooth',block:'center'});}
+    var suc=document.getElementById('chatSuccess');
+    if(suc){
+      suc.classList.add('show');
+      if(fd.wants_upload==='yes'){showUploadArea(suc);}
+      suc.scrollIntoView({behavior:'smooth',block:'center'});
+    }
   })
   .catch(function(){
     addMsg("Your info has been noted! Brannon will follow up within 24 hours.",'bot');
   });
 }
 
+function showUploadArea(container){
+  var div=document.createElement('div');
+  div.style.cssText='margin-top:20px;border-top:1.5px solid #d0e8e3;padding-top:18px;text-align:left';
+  div.innerHTML=
+    '<p style="font-weight:700;color:var(--teal,#0d9488);margin:0 0 6px;font-size:15px">Upload Your Declaration Pages</p>'+
+    '<p style="font-size:13px;color:#666;margin:0 0 12px;line-height:1.5">Attach your current dec page(s) below — PDF, JPG, or PNG. Brannon will have them ready when he calls.</p>'+
+    '<input type="file" id="decFiles" accept=".pdf,.jpg,.jpeg,.png" multiple style="font-size:13px;margin-bottom:12px;width:100%;cursor:pointer">'+
+    '<br><button id="decUploadBtn" onclick="submitDecUpload()" style="background:var(--teal,#0d9488);color:#fff;border:none;border-radius:8px;padding:11px 22px;font-weight:700;cursor:pointer;font-size:14px;font-family:Poppins,sans-serif">Send Files to Brannon</button>'+
+    '<p id="decUploadStatus" style="font-size:13px;margin-top:10px;color:#555"></p>';
+  container.appendChild(div);
+}
+
+window.submitDecUpload=function(){
+  var files=document.getElementById('decFiles').files;
+  var status=document.getElementById('decUploadStatus');
+  var btn=document.getElementById('decUploadBtn');
+  if(!files||!files.length){status.textContent='Please select at least one file first.';return;}
+  btn.disabled=true; btn.textContent='Uploading...';
+  var fd=new FormData();
+  fd.append('form-name','dec-upload');
+  fd.append('lead_name',_leadName);
+  fd.append('lead_email',_leadEmail);
+  for(var i=0;i<files.length;i++){fd.append('file_'+(i+1),files[i]);}
+  fetch('/',{method:'POST',body:fd})
+  .then(function(){
+    status.textContent='Files sent! Brannon will have them ready when he calls.';
+    btn.style.display='none';
+  })
+  .catch(function(){
+    status.textContent='Upload failed — please email your dec pages to info@brannoneastagency.com';
+    btn.disabled=false; btn.textContent='Try Again';
+  });
+};
+
 document.addEventListener('DOMContentLoaded',function(){
-  // Tab switching
   var tabs=document.querySelectorAll('.quote-tab');
   tabs.forEach(function(tab){
     tab.addEventListener('click',function(){
@@ -105,12 +147,8 @@ document.addEventListener('DOMContentLoaded',function(){
       if(tab.dataset.panel==='panel-chat'&&!ready)startChat();
     });
   });
-
-  // Enter key in input
   var inp=document.getElementById('chatInput');
   if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();sendMessage();}});
-
-  // Auto-start if chat panel is the default active panel
   var cp=document.getElementById('panel-chat');
   if(cp&&cp.classList.contains('active'))startChat();
 });
