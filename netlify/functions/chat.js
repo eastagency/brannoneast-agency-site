@@ -342,13 +342,13 @@ Then ask "Do you have the VIN number(s) handy?"
 If they say NO to VINs:
   Reply "No worries, we can skip those!"
   For each RV ask: "What is the year, make, and model for RV #[N]?"
-  Store all combined as vehicles field.
+  Store all combined as rv field.
 
 If they say YES to VINs:
   For each RV ask these two questions before moving to the next:
     "What is the year, make, and model for RV #[N]?"
     "What is the VIN for RV #[N]?"
-  Store all combined as vehicles field.
+  Store all combined as rv field.
 
 Then ask one at a time:
 - "What type of RV is it?" (Class A motorhome / Class B camper van / Class C motorhome / travel trailer / 5th wheel / pop-up camper)
@@ -377,7 +377,7 @@ ${FINAL_STEPS}
 
 When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","rv_type":"","rv_value":"","usage":"","storage":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"RV Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","rv":"","rv_type":"","rv_value":"","usage":"","storage":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"RV Insurance"}
 ===END===`,
 'Boat Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Feel free to mention Lake Allatoona if they seem local!
 
@@ -466,7 +466,7 @@ export default async (req, context) => {
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 120,
+        max_tokens: 350,
         system: prompt,
         messages: msgs
       })
