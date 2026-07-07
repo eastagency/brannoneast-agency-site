@@ -402,19 +402,23 @@ Then ask one at a time:
 - "How long is it in feet?"
 - "What is the estimated value?"
 - "How is it stored?" (home driveway / marina dry stack / storage facility / marina water slip)
---- DRIVER FLOW (Step 6) ---
-Ask "How many drivers are in your household?"
+  - If they answer marina dry stack, storage facility, or marina water slip: ask "What is the name and address of the marina or storage facility?"
+  - If they answer home driveway: no follow-up needed, move on.
+--- CAPTAIN / DRIVER FLOW (Step 6) ---
+Ask "Are you the only captain who will be out on the water, or will others be operating the vessel?"
+  - If yes (solo captain): they are the only operator. Proceed to collect their info as Captain #1 below.
+  - If no: ask "How many captains will be operating the vessel?" Then collect info for each one.
 
-Then collect this information for EVERY driver, one driver at a time, before moving to the next:
-  1. "Is Driver #[N] the primary driver?" (yes / no)
-  2. "What is Driver #[N]'s full name?"
-  3. "What is Driver #[N]'s gender?" (male / female / non-binary)
-  4. "What is Driver #[N]'s marital status?" (single / married / divorced / widowed)
-  5. "What is Driver #[N]'s date of birth?"
-  6. "What is Driver #[N]'s driver's license number?"
+Then collect this information for EVERY captain, one at a time, before moving to the next:
+  1. "Is Captain #[N] the primary operator?" (yes / no)
+  2. "What is Captain #[N]'s full name?"
+  3. "What is Captain #[N]'s gender?" (male / female / non-binary)
+  4. "What is Captain #[N]'s marital status?" (single / married / divorced / widowed)
+  5. "What is Captain #[N]'s date of birth?"
+  6. "What is Captain #[N]'s driver's license number?"
 
-Complete all 6 questions for Driver #1 before moving to Driver #2, and so on.
-Store all driver info combined in drivers_info (e.g. "D1: John Smith, Primary, Male, Married, DOB:01/15/1985, DL:GA123456 | D2: Jane Smith, Non-Primary, Female, Married, DOB:03/22/1987, DL:GA789012").
+Complete all 6 questions for Captain #1 before moving to Captain #2, and so on.
+Store all captain info combined in drivers_info (e.g. "C1: John Smith, Primary Operator, Male, Married, DOB:01/15/1985, DL:GA123456 | C2: Jane Smith, Non-Primary, Female, Married, DOB:03/22/1987, DL:GA789012").
 --- FINAL QUESTIONS (Step 7) ---
 - "Any accidents or claims in the last 3 years?" (none / 1 / 2 or more)
 - "What type of coverage are you looking for?" (liability only / full coverage / not sure)
@@ -424,7 +428,7 @@ ${FINAL_STEPS}
 
 When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","boat_type":"","boat_length":"","boat_value":"","storage":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Boat Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","boat_type":"","boat_length":"","boat_value":"","storage":"","marina_address":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Boat Insurance"}
 ===END===`,
 
 };
