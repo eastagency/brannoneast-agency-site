@@ -401,7 +401,7 @@ Then ask one at a time:
 - "What type of watercraft is it?" (fishing boat / bass boat / pontoon / ski boat / jet ski / sailboat / other)
 - "How long is it in feet?"
 - "What is the estimated value?"
-- "How is it stored?" (home driveway / marina dry stack / storage facility / water slip)
+- "How is it stored?" (home driveway / marina dry stack / storage facility / marina water slip)
 --- DRIVER FLOW (Step 6) ---
 Ask "How many drivers are in your household?"
 
