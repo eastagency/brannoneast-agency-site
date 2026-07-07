@@ -129,6 +129,8 @@ ${CONTACT_STEPS}
 Insurance questions (Steps 5 onward, one at a time):
 - What is the name of your business?
 - What type of business is it?
+- How long have you been in business? (less than 1 year / 1-3 years / 3-10 years / 10+ years)
+- What is your approximate annual revenue? (under $100k / $100k-$500k / $500k-$1M / $1M-$5M / over $5M)
 - How many employees do you have? (just me / 2-5 / 6-15 / 16-50 / 50+)
 - What type of coverage are you looking for? (general liability / BOP / workers comp / commercial property / not sure)
 - Are you currently insured? (yes comparing rates / new business / lapsed)
@@ -137,7 +139,7 @@ ${FINAL_STEPS}
 
 When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","business_name":"","industry":"","employees":"","coverage_type":"","currently_insured":"","comments":"","wants_upload":"","policy_type":"Business Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","business_name":"","industry":"","years_in_business":"","revenue":"","employees":"","coverage_type":"","currently_insured":"","comments":"","wants_upload":"","policy_type":"Business Insurance"}
 ===END===`,
 
 'Classic Car Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Show genuine enthusiasm for their vehicle!
