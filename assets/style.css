@@ -447,7 +447,7 @@ img{max-width:100%;display:block}
 .hero-bg-layer {
   position: absolute;
   inset: -8% -12%;
-  background: url('assets/hero-truck-boat.png') no-repeat 18% 50%;
+  background: url('/assets/hero-truck-boat.png') no-repeat 18% 50%;
   background-size: cover;
   animation:
     truck-arrive   6s   cubic-bezier(.4,0,.2,1) forwards,
