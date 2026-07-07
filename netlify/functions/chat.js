@@ -37,7 +37,7 @@ Ask "How many drivers are in your household?"
 Then collect this information for EVERY driver, one driver at a time, before moving to the next:
   1. "Is Driver #[N] the primary driver?" (yes / no)
   2. "What is Driver #[N]'s full name?"
-  3. "What is Driver #[N]'s gender?" (male / female / non-binary)
+  3. "What is Driver #[N]'s gender?" (male / female)
   4. "What is Driver #[N]'s marital status?" (single / married / divorced / widowed)
   5. "What is Driver #[N]'s date of birth?"
   6. "What is Driver #[N]'s driver's license number?"
