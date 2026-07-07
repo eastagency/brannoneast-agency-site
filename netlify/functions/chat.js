@@ -171,7 +171,7 @@ Ask "How many drivers are in your household?"
 Then collect this information for EVERY driver, one driver at a time, before moving to the next:
   1. "Is Driver #[N] the primary driver?" (yes / no)
   2. "What is Driver #[N]'s full name?"
-  3. "What is Driver #[N]'s gender?" (male / female / non-binary)
+  3. "What is Driver #[N]'s gender?" (male / female )
   4. "What is Driver #[N]'s marital status?" (single / married / divorced / widowed)
   5. "What is Driver #[N]'s date of birth?"
   6. "What is Driver #[N]'s driver's license number?"
@@ -310,7 +310,7 @@ Ask "How many drivers are in your household?"
 Then collect this information for EVERY driver, one driver at a time, before moving to the next:
   1. "Is Driver #[N] the primary driver?" (yes / no)
   2. "What is Driver #[N]'s full name?"
-  3. "What is Driver #[N]'s gender?" (male / female / non-binary)
+  3. "What is Driver #[N]'s gender?" (male / female)
   4. "What is Driver #[N]'s marital status?" (single / married / divorced / widowed)
   5. "What is Driver #[N]'s date of birth?"
   6. "What is Driver #[N]'s driver's license number?"
@@ -359,7 +359,7 @@ Ask "How many drivers are in your household?"
 Then collect this information for EVERY driver, one driver at a time, before moving to the next:
   1. "Is Driver #[N] the primary driver?" (yes / no)
   2. "What is Driver #[N]'s full name?"
-  3. "What is Driver #[N]'s gender?" (male / female / non-binary)
+  3. "What is Driver #[N]'s gender?" (male / female)
   4. "What is Driver #[N]'s marital status?" (single / married / divorced / widowed)
   5. "What is Driver #[N]'s date of birth?"
   6. "What is Driver #[N]'s driver's license number?"
@@ -412,7 +412,7 @@ Ask "Are you the only captain who will be out on the water, or will others be op
 Then collect this information for EVERY captain, one at a time, before moving to the next:
   1. "Is Captain #[N] the primary operator?" (yes / no)
   2. "What is Captain #[N]'s full name?"
-  3. "What is Captain #[N]'s gender?" (male / female / non-binary)
+  3. "What is Captain #[N]'s gender?" (male / female)
   4. "What is Captain #[N]'s marital status?" (single / married / divorced / widowed)
   5. "What is Captain #[N]'s date of birth?"
   6. "What is Captain #[N]'s driver's license number?"
