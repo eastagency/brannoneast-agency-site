@@ -183,6 +183,7 @@ img{max-width:100%;display:block}
 }
 .page-hero h1{color:var(--white);font-size:clamp(28px,4vw,42px)}
 .page-hero p{color:#D5EDE9;max-width:600px;margin:14px auto 0}
+.page-hero .tagline-quote{color:var(--white);border-top-color:rgba(255,255,255,.3)}
 
 
 /* Photo hero (interior pages) */
@@ -286,6 +287,13 @@ img{max-width:100%;display:block}
   border:2px solid var(--teal);
   padding:11px 28px;border-radius:100px;
   transition:background .25s,color .25s;
+}
+/* ===== TAGLINE ===== */
+.tagline-quote{
+  font-family:'Poppins',sans-serif;font-weight:600;font-style:italic;
+  color:var(--teal-dark);font-size:18px;line-height:1.5;
+  max-width:600px;margin:22px auto 0;padding-top:20px;
+  border-top:2px solid var(--sand-dark);
 }
 .t-all-reviews:hover{background:var(--teal);color:var(--white)}
 /* ===== COVERAGE MAP SECTION ===== */
@@ -435,4 +443,5 @@ img{max-width:100%;display:block}
 .chat-success.show{display:block}
 .chat-success h3{color:var(--teal,#0d9488);font-size:20px;margin:0 0 10px}
 .chat-success p{color:#555;font-size:14px;line-height:1.6;margin:0}
+
 
