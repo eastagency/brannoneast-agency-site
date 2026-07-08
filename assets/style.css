@@ -37,6 +37,7 @@ img{max-width:100%;display:block}
   display:flex;align-items:center;justify-content:space-between;gap:20px;
 }
 .nav-logo{display:flex;align-items:center;gap:10px;font-family:'Pacifico',cursive;font-weight:400;font-size:26px;color:var(--ocean);text-decoration:none}
+.nav-logo img{height:64px;width:auto;object-fit:contain;mix-blend-mode:multiply}
 
 .nav-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
 .nav-links a{font-size:15px;font-weight:600;color:var(--ink-soft);transition:color .2s}
