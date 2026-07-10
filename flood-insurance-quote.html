@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact The East Agency | Insurance in Cartersville GA</title>
-<meta name="description" content="Contact The East Agency in Cartersville, GA. Call (678) 562-6905 or send a message - we're here to help with all your insurance needs.">
-<link rel="canonical" href="https://www.brannoneast.agency/contact.html">
+<title>Flood Insurance Georgia | The East Agency</title>
+<meta name="description" content="Get a flood insurance quote in Georgia. The East Agency shops NFIP and private flood carriers to protect your home near rivers, lakes, and flood zones. Quote fast.">
+<link rel="canonical" href="https://www.brannoneast.agency/flood-insurance-quote.html">
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo"><img src="/assets/logo-east-agency.jpg" alt="The East Agency"><span class="sr-only">The East Agency</span></a>
@@ -27,34 +26,72 @@
     </div>
   </div>
 </nav>
-
-<section class="page-hero">
+<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/categories/flood.png')">
   <div class="container">
-    <h1>Let's talk.</h1>
-    <p>Call, email, or stop by - whatever's easiest for you.</p>
+    <h1>Flood Insurance Quote</h1>
+    <p>Standard home insurance doesn't cover floods. Make sure you're protected.</p>
   </div>
 </section>
-
 <section class="section">
-  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:60px">
-    <div>
-      <h2>Get In Touch</h2>
-      <p style="color:var(--ink-soft);margin-bottom:24px">Not sure what you need, or just have a question? Reach out directly - no forms required.</p>
-      <div class="quote-frame" style="padding:24px">
-        <p style="margin:0 0 14px"><strong>?? Phone:</strong> <a href="tel:6785626905" style="color:var(--teal-dark)">(678) 562-6905</a></p>
-        <p style="margin:0 0 14px"><strong>?? Email:</strong> <a href="mailto:info@brannoneastagency.com" style="color:var(--teal-dark)">info@brannoneastagency.com</a></p>
-        <p style="margin:0 0 14px"><strong>?? Location:</strong> 47 Stonewall St, Cartersville, GA 30120</p>
-        <p style="margin:0"><strong>?? Hours:</strong><br>Mon-Thu: 8:30am-4:30pm<br>Fri: 8:00am-4:00pm<br>Weekend: By appointment</p>
-      </div>
-    </div>
-    <div>
-      <h2>Or Get a Quote</h2>
-      <p style="color:var(--ink-soft);margin-bottom:24px">Skip the back-and-forth - get an instant estimate online.</p>
-      <a href="/quotes.html" class="btn-primary" style="display:inline-block">Start My Quote ?</a>
-    </div>
+  <div class="container lead-form">
+    <div class="quote-frame">
+<div class="quote-tabs">
+<button class="quote-tab active" data-panel="panel-chat">Chat with Us</button>
+<button class="quote-tab" data-panel="panel-form">Quick Form</button>
+</div>
+<div id="panel-chat" class="quote-panel active">
+<div class="chat-window" id="chatWindow"></div>
+<div class="chat-input-row" id="chatInputRow">
+<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
+</div>
+<div class="chat-success" id="chatSuccess">
+<h3>Quote Request Received!</h3>
+<p>Brannon will review your info and reach out within 24 hours. Watch for his call or email!</p>
+</div>
+</div>
+<div id="panel-form" class="quote-panel">
+<form name="flood-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="flood-insurance-quote">
+<input type="hidden" name="policy_type" value="Flood Insurance">
+<p style="display:none"><label>Skip: <input name="bot-field"></label></p>
+<div class="qf-row">
+  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+</div>
+<div class="qf-row">
+  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+</div>
+<div class="qf-row">
+  <div><label>Property Address</label><input type="text" name="address" placeholder="123 Main St"></div>
+  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+</div>
+<div class="qf-row">
+  <div><label>Property Type</label><select name="property_type"><option value="">Select...</option><option>Single-Family Home</option><option>Condo / Townhome</option><option>Rental / Investment Property</option><option>Commercial Building</option><option>Mobile / Manufactured Home</option></select></div>
+  <div><label>Year Built</label><input type="text" name="year_built" placeholder="e.g. 1998"></div>
+</div>
+<div class="qf-row">
+  <div><label>FEMA Flood Zone (if known)</label><select name="flood_zone"><option value="">Select / Unknown</option><option>Zone A or AE (High Risk)</option><option>Zone X (Low to Moderate Risk)</option><option>Zone V (Coastal High Risk)</option><option>Unknown</option></select></div>
+  <div><label>Estimated Building Value</label><input type="text" name="building_value" placeholder="e.g. $280,000"></div>
+</div>
+<div class="qf-row">
+  <div><label>Current Homeowners Carrier</label><input type="text" name="current_carrier" placeholder="e.g. Allstate or None"></div>
+  <div><label>Prior Flood Damage?</label><select name="prior_flood"><option value="">Select...</option><option>No prior flood damage</option><option>Yes — minor damage</option><option>Yes — significant damage</option></select></div>
+</div>
+<button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
+<div class="qf-success" id="qfSuccess">
+  <h3>Quote Request Received!</h3>
+  <p>Brannon will review your info and reach out within 24 hours. Check your email for a confirmation.</p>
+</div>
+</form>
+</div>
+</div>
+    <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
   </div>
 </section>
-
+<script src="/assets/form.js"></script>
+<script src="/assets/chat.js"></script>
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
@@ -83,6 +120,5 @@
   </div>
   <div class="footer-bottom">&copy; 2026 The East Agency. All rights reserved.</div>
 </footer>
-
 </body>
 </html>

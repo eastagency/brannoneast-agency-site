@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RV Insurance Georgia | The East Agency</title>
-<meta name="description" content="Get RV insurance in Georgia from The East Agency. We cover motorhomes, travel trailers &amp; campers with top-rated carriers. QUOTE today.">
-<link rel="canonical" href="https://www.brannoneast.agency/rv-insurance-quote.html">
+<title>Special Event Insurance Georgia | The East Agency</title>
+<meta name="description" content="Get special event insurance for weddings, corporate events and parties in Georgia. The East Agency covers liability, cancellation and vendor issues. Quote fast.">
+<link rel="canonical" href="https://www.brannoneast.agency/special-event-insurance-quote.html">
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo"><img src="/assets/logo-east-agency.jpg" alt="The East Agency"><span class="sr-only">The East Agency</span></a>
@@ -27,14 +26,12 @@
     </div>
   </div>
 </nav>
-
-<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/categories/rv.png')">
+<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/categories/event.png')">
   <div class="container">
-    <h1>RV Insurance Quote</h1>
-    <p>Your home away from home, protected. Get a free RV insurance quote.</p>
+    <h1>Special Event Insurance Quote</h1>
+    <p>One day. One policy. Full peace of mind for your wedding, event, or celebration.</p>
   </div>
 </section>
-
 <section class="section">
   <div class="container lead-form">
     <div class="quote-frame">
@@ -54,9 +51,9 @@
 </div>
 </div>
 <div id="panel-form" class="quote-panel">
-<form name="rv-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
-<input type="hidden" name="form-name" value="rv-insurance-quote">
-<input type="hidden" name="policy_type" value="RV Insurance">
+<form name="special-event-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="special-event-insurance-quote">
+<input type="hidden" name="policy_type" value="Special Event Insurance">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
   <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
@@ -67,16 +64,20 @@
   <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>RV Year / Make / Model</label><input type="text" name="rv" placeholder="e.g. 2019 Thor Axis 24.1"></div>
-  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label>Event Type</label><select name="event_type"><option value="">Select...</option><option>Wedding / Reception</option><option>Corporate Event</option><option>Birthday / Milestone Party</option><option>Concert / Festival</option><option>Sporting Event</option><option>Fundraiser / Non-Profit</option><option>Other</option></select></div>
+  <div><label>Event Date</label><input type="text" name="event_date" placeholder="e.g. October 15, 2026"></div>
 </div>
 <div class="qf-row">
-  <div><label>RV Class / Type</label><select name="rv_type"><option value="">Select...</option><option>Class A Motorhome</option><option>Class B (Van Conversion)</option><option>Class C Motorhome</option><option>Travel Trailer</option><option>5th Wheel</option><option>Pop-up / Tent Trailer</option></select></div>
-  <div><label>Estimated RV Value</label><input type="text" name="rv_value" placeholder="e.g. $85,000"></div>
+  <div><label>Expected Attendance</label><select name="attendance"><option value="">Select...</option><option>Under 50 guests</option><option>50–150 guests</option><option>150–300 guests</option><option>300–500 guests</option><option>500+ guests</option></select></div>
+  <div><label>Event Location / ZIP</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
 </div>
 <div class="qf-row">
-  <div><label>How Do You Use It?</label><select name="usage"><option value="">Select...</option><option>Full-timer (primary home)</option><option>Frequent (6+ months/yr)</option><option>Occasional / seasonal</option><option>Weekends only</option></select></div>
-  <div><label>Primary Storage When Not in Use</label><select name="storage"><option value="">Select...</option><option>Home / driveway</option><option>RV storage facility</option><option>RV park or campground</option></select></div>
+  <div><label>Venue Type</label><select name="venue_type"><option value="">Select...</option><option>Rented Venue / Banquet Hall</option><option>Hotel / Resort</option><option>Outdoor / Tent</option><option>Private Property (owned)</option><option>Park / Public Space</option></select></div>
+  <div><label>Alcohol Served?</label><select name="alcohol"><option value="">Select...</option><option>No alcohol</option><option>Yes — cash bar / licensed bartender</option><option>Yes — open bar</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label>Coverage Amount Needed</label><select name="coverage_limit"><option value="">Select / Not Sure</option><option>$500,000</option><option>$1,000,000</option><option>$2,000,000</option><option>Not Sure — advise me</option></select></div>
+  <div><label>Cancellation Coverage?</label><select name="cancellation"><option value="">Select...</option><option>No — liability only</option><option>Yes — include cancellation coverage</option></select></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -89,7 +90,6 @@
     <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
   </div>
 </section>
-
 <script src="/assets/form.js"></script>
 <script src="/assets/chat.js"></script>
 <footer class="site-footer">
@@ -120,6 +120,5 @@
   </div>
   <div class="footer-bottom">&copy; 2026 The East Agency. All rights reserved.</div>
 </footer>
-
 </body>
 </html>

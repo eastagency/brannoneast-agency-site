@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insurance Products | The East Agency - Cartersville, GA</title>
-<meta name="description" content="Auto, home, life, health &amp; business insurance from The East Agency. Independent agency serving Cartersville, GA and the Southeast.">
-<link rel="canonical" href="https://www.brannoneast.agency/insurance.html">
+<title>Landlord Insurance Georgia | The East Agency</title>
+<meta name="description" content="Protect your rental properties with landlord insurance from The East Agency. We cover single-family, multi-family and vacation rentals across Georgia. Quote today.">
+<link rel="canonical" href="https://www.brannoneast.agency/landlord-insurance-quote.html">
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo"><img src="/assets/logo-east-agency.jpg" alt="The East Agency"><span class="sr-only">The East Agency</span></a>
@@ -27,46 +26,72 @@
     </div>
   </div>
 </nav>
-
-<section class="page-hero">
+<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/categories/landlord.png')">
   <div class="container">
-    <h1>Insurance Products &amp; Services</h1>
-    <p>Everything you need, covered by someone who actually shops the market for you.</p>
+    <h1>Landlord Insurance Quote</h1>
+    <p>Protect your rental income and investment properties with the right landlord coverage.</p>
   </div>
 </section>
-
 <section class="section">
-  <div class="container">
-    <div class="grid grid-3">
-      <a href="/auto-insurance-quote.html" class="quote-card photo">
-        <div class="photo-wrap"><img src="assets/categories/auto.png" alt="Auto Insurance"></div>
-        <div class="photo-body"><h3>Auto Insurance</h3><p>Cars, trucks, motorcycles &amp; more.</p></div>
-      </a>
-      <a href="/home-insurance-quote.html" class="quote-card photo">
-        <div class="photo-wrap"><img src="assets/categories/home.png" alt="Home Insurance"></div>
-        <div class="photo-body"><h3>Home Insurance</h3><p>Homeowners, renters &amp; landlord policies.</p></div>
-      </a>
-      <a href="/life-insurance-quote.html" class="quote-card photo">
-        <div class="photo-wrap"><img src="assets/categories/life.png" alt="Life Insurance"></div>
-        <div class="photo-body"><h3>Life Insurance</h3><p>Term, mortgage protection &amp; universal life.</p></div>
-      </a>
-      <a href="/health-insurance-quote.html" class="quote-card photo">
-        <div class="photo-wrap"><img src="assets/categories/health.png" alt="Health Insurance"></div>
-        <div class="photo-body"><h3>Health Insurance</h3><p>Individual, family &amp; Medicare plans.</p></div>
-      </a>
-      <a href="/business-insurance-quote.html" class="quote-card photo">
-        <div class="photo-wrap"><img src="assets/categories/business.png" alt="Business Insurance"></div>
-        <div class="photo-body"><h3>Business Insurance</h3><p>General liability, workers comp &amp; more.</p></div>
-      </a>
-      <a href="/contact.html" class="quote-card">
-        <div class="icon">??</div>
-        <h3>Something Else?</h3>
-        <p>Boat, umbrella, or not sure - just ask.</p>
-      </a>
-    </div>
+  <div class="container lead-form">
+    <div class="quote-frame">
+<div class="quote-tabs">
+<button class="quote-tab active" data-panel="panel-chat">Chat with Us</button>
+<button class="quote-tab" data-panel="panel-form">Quick Form</button>
+</div>
+<div id="panel-chat" class="quote-panel active">
+<div class="chat-window" id="chatWindow"></div>
+<div class="chat-input-row" id="chatInputRow">
+<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
+</div>
+<div class="chat-success" id="chatSuccess">
+<h3>Quote Request Received!</h3>
+<p>Brannon will review your info and reach out within 24 hours. Watch for his call or email!</p>
+</div>
+</div>
+<div id="panel-form" class="quote-panel">
+<form name="landlord-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="landlord-insurance-quote">
+<input type="hidden" name="policy_type" value="Landlord Insurance">
+<p style="display:none"><label>Skip: <input name="bot-field"></label></p>
+<div class="qf-row">
+  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+</div>
+<div class="qf-row">
+  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+</div>
+<div class="qf-row">
+  <div><label>Number of Rental Properties</label><select name="property_count"><option value="">Select...</option><option>1</option><option>2–5</option><option>6–10</option><option>10+</option></select></div>
+  <div><label>Primary Property Type</label><select name="property_type"><option value="">Select...</option><option>Single-Family Rental Home</option><option>Duplex / Multi-Family</option><option>Condo Unit</option><option>Vacation / Short-Term Rental</option><option>Commercial / Mixed-Use</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label>ZIP Code of Primary Property</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label>Estimated Property Value</label><input type="text" name="property_value" placeholder="e.g. $220,000"></div>
+</div>
+<div class="qf-row">
+  <div><label>Currently Rented?</label><select name="occupancy"><option value="">Select...</option><option>Yes — currently tenant-occupied</option><option>Vacant — looking for tenants</option><option>Seasonal / Short-Term Rental</option></select></div>
+  <div><label>Annual Rental Income (approx)</label><input type="text" name="rental_income" placeholder="e.g. $18,000/yr"></div>
+</div>
+<div class="qf-row">
+  <div><label>Current Insurance Carrier</label><input type="text" name="current_carrier" placeholder="e.g. Farmers or None"></div>
+  <div><label>Policy Renewal Date (if known)</label><input type="text" name="renewal_date" placeholder="e.g. March 2026 or Unknown"></div>
+</div>
+<button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
+<div class="qf-success" id="qfSuccess">
+  <h3>Quote Request Received!</h3>
+  <p>Brannon will review your info and reach out within 24 hours. Check your email for a confirmation.</p>
+</div>
+</form>
+</div>
+</div>
+    <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
   </div>
 </section>
-
+<script src="/assets/form.js"></script>
+<script src="/assets/chat.js"></script>
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
@@ -95,6 +120,5 @@
   </div>
   <div class="footer-bottom">&copy; 2026 The East Agency. All rights reserved.</div>
 </footer>
-
 </body>
 </html>
