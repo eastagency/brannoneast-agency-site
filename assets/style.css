@@ -61,7 +61,7 @@ img{max-width:100%;display:block}
   content:'';position:absolute;inset:0;
   background:linear-gradient(180deg, rgba(14,29,32,.15) 0%, rgba(14,29,32,.55) 70%, rgba(14,29,32,.8) 100%);
 }
-.hero-content{position:relative;z-index:2;max-width:680px;padding:0 24px 60px;margin:0 auto;width:100%}
+.hero-content{position:relative;z-index:2;max-width:680px;padding:0 24px 60px;margin:0 auto;width:100%;text-align:center}
 .hero-eyebrow{
   color:#FFD9A8;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:13px;margin-bottom:14px;
 }
@@ -69,8 +69,8 @@ img{max-width:100%;display:block}
   color:var(--white);font-size:clamp(34px,5.2vw,58px);line-height:1.08;margin-bottom:18px;
   text-shadow:0 4px 20px rgba(0,0,0,.3);
 }
-.hero p{color:#F0EAD8;font-size:19px;max-width:520px;margin-bottom:30px}
-.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.hero p{color:#F0EAD8;font-size:19px;max-width:520px;margin:0 auto 30px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
 .btn-primary{
   background:var(--coral);color:var(--white);padding:16px 34px;border-radius:34px;
   font-weight:700;font-size:16px;box-shadow:0 8px 24px rgba(232,121,74,.4);
@@ -445,5 +445,6 @@ img{max-width:100%;display:block}
 .chat-success.show{display:block}
 .chat-success h3{color:var(--teal,#0d9488);font-size:20px;margin:0 0 10px}
 .chat-success p{color:#555;font-size:14px;line-height:1.6;margin:0}
+
 
 
