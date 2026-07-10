@@ -92,8 +92,9 @@ ${CONTACT_STEPS}
 
 Insurance questions (Steps 5 onward, one at a time):
 - What is your date of birth?
-- How much coverage are you looking for? ($100k / $250k / $500k / $1M+ / not sure)
-- Are you interested in term or whole life insurance? (or not sure)
+- What type of policy are you looking for? (Term / Whole Life / Mortgage Protection / IUL / Not Sure )
+- How much coverage are you looking for? ($5-25k / $25k- $50k / $100k / $250k / $500k / $1M+ / not sure)
+- Gender? ( Male / Female )
 - Do you use tobacco? (yes / no / former user)
 - How would you describe your overall health? (excellent / good / fair / prefer not to say)
 
