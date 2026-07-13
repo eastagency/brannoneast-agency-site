@@ -372,7 +372,9 @@ img{max-width:100%;display:block}
 .blog-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(14,76,92,.14)}
 .blog-card-img-wrap{position:relative;display:block;overflow:hidden;text-decoration:none}
 .blog-card-img{width:100%;height:200px;object-fit:cover;display:block;transition:transform .35s ease}
+div.blog-card-img{position:relative;overflow:hidden;background-size:cover;background-position:center}
 .blog-card:hover .blog-card-img{transform:scale(1.04)}
+div.blog-card-img{position:relative;overflow:hidden;background-size:cover;background-position:center}
 .blog-cat-badge{position:absolute;bottom:12px;left:12px;background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.6px}
 .blog-card-body{padding:22px 24px 26px;flex:1;display:flex;flex-direction:column}
 .blog-card-title{font-size:16px;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:10px}
@@ -510,3 +512,4 @@ img{max-width:100%;display:block}
 /* seasonal-banner position fix */
 .seasonal-banner{top:14%!important;transform:translateX(-50%)!important;}
 @keyframes seasonal-fade{from{opacity:0;transform:translateX(-50%) translateY(16px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
