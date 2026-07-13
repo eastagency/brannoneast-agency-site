@@ -14,6 +14,7 @@
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo"><img src="/assets/logo-east-agency.jpg" alt="The East Agency"><span class="sr-only">The East Agency</span></a>
+    <button class="nav-hamburger" aria-label="Open navigation" id="navToggle"><span></span><span></span><span></span></button>
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="/quotes.html">Quotes</a>
@@ -171,5 +172,6 @@
   <div class="footer-bottom">&copy; 2026 The East Agency. All rights reserved.</div>
 </footer>
 
+<script>(function(){var b=document.getElementById('navToggle'),n=document.querySelector('.nav-links');if(!b||!n)return;b.addEventListener('click',function(){b.classList.toggle('is-open');n.classList.toggle('nav-open');document.body.classList.toggle('nav-is-open');});})();</script>
 </body>
 </html>
