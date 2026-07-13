@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATV Insurance Quote Georgia | The East Agency</title>
+<meta name="description" content="Get ATV, UTV, and side-by-side insurance quotes in Georgia. The East Agency shops top carriers for the best rate. Serving Cartersville and Bartow County. Free quote.">
+<link rel="canonical" href="https://www.brannoneast.agency/atv-insurance-quote.html">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "InsuranceAgency",
+  "name": "The East Agency",
+  "url": "https://www.brannoneast.agency",
+  "telephone": "(678) 562-6905",
+  "address": {"@type": "PostalAddress", "streetAddress": "47 Stonewall St", "addressLocality": "Cartersville", "addressRegion": "GA", "postalCode": "30120"},
+  "areaServed": "Georgia",
+  "description": "ATV and UTV insurance quotes in Georgia from an independent agent who shops multiple carriers."
+}
+</script>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/assets/logo-east-agency.jpg" alt="The East Agency"><span class="sr-only">The East Agency</span></a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/quotes.html">Quotes</a>
+      <a href="/insurance.html">Insurance</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/knowledge.html">Knowledge</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="tel:6785626905" class="nav-phone">(678) 562-6905</a>
+      <a href="/quotes.html" class="nav-cta">Get a Quote</a>
+    </div>
+  </div>
+</nav>
+<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/categories/atv.jpg')">
+  <div class="container">
+    <h1>ATV Insurance Quote</h1>
+    <p>Protect your ATV, UTV, or side-by-side on Georgia trails, farms, and back roads.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container lead-form">
+    <div class="quote-frame">
+<div class="quote-tabs">
+<button class="quote-tab active" data-panel="panel-chat">Chat with Us</button>
+<button class="quote-tab" data-panel="panel-form">Quick Form</button>
+</div>
+<div id="panel-chat" class="quote-panel active">
+<div class="chat-window" id="chatWindow"></div>
+<div class="chat-input-row" id="chatInputRow">
+<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
+</div>
+<div class="chat-success" id="chatSuccess">
+<h3>Quote Request Received!</h3>
+<p>Brannon will review your info and reach out within 24 hours. Watch for his call or email!</p>
+</div>
+</div>
+<div id="panel-form" class="quote-panel">
+<form name="atv-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="atv-insurance-quote">
+<input type="hidden" name="policy_type" value="ATV Insurance">
+<p style="display:none"><label>Skip: <input name="bot-field"></label></p>
+<div class="qf-row">
+  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+</div>
+<div class="qf-row">
+  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+</div>
+<div class="qf-row">
+  <div><label>ATV / Vehicle Type</label><select name="atv_type"><option value="">Select...</option><option>Sport ATV</option><option>Utility ATV</option><option>Side-by-Side / UTV</option><option>Three-Wheeler</option><option>Other Off-Road Vehicle</option></select></div>
+  <div><label>Year</label><input type="number" name="year" placeholder="2023" min="1980" max="2027"></div>
+</div>
+<div class="qf-row">
+  <div><label>Make</label><input type="text" name="make" placeholder="e.g. Polaris, Can-Am, Honda"></div>
+  <div><label>Model</label><input type="text" name="model" placeholder="e.g. Ranger, Maverick, Rancher"></div>
+</div>
+<div class="qf-row">
+  <div><label>Primary Use</label><select name="primary_use"><option value="">Select...</option><option>Recreation / Off-Road</option><option>Farm / Ranch Work</option><option>Hunting / Outdoor Sports</option><option>Both Recreation and Work</option></select></div>
+  <div><label>Where Is It Stored?</label><select name="storage"><option value="">Select...</option><option>Garage or Shed</option><option>Barn</option><option>Outdoors / Uncovered</option><option>Storage Unit</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label>Currently Insured?</label><select name="currently_insured"><option value="">Select...</option><option>No — first time</option><option>Yes — looking to switch</option></select></div>
+</div>
+<button type="submit" class="qf-btn" id="qfSubmit">Request My Quote &rarr;</button>
+<div class="qf-success" id="qfSuccess">
+  <h3>Quote Request Received!</h3>
+  <p>Brannon will review your info and reach out within 24 hours. Check your email for a confirmation.</p>
+</div>
+</form>
+</div>
+</div>
+    <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
+  </div>
+</section>
+<script src="/assets/form.js"></script>
+<script src="/assets/chat.js"></script>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="/quotes.html">Get a Quote</a>
+      <a href="/insurance.html">Insurance Products</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/knowledge.html">Knowledge</a>
+      <a href="/about.html">About Us</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="tel:6785626905">(678) 562-6905</a>
+      <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
+      <a href="#">47 Stonewall St, Cartersville, GA 30120</a>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/brannoneastagency" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.instagram.com/brannoneastagency" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 The East Agency. All rights reserved.</div>
+</footer>
+</body>
+</html>
