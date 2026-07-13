@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -301,8 +301,31 @@
   <input name="lead_name"><input name="lead_email">
   <input type="file" name="file_1"><input type="file" name="file_2"><input type="file" name="file_3">
 </form>
-</body>
+
+<script>
+(function(){
+  var m=new Date().getMonth()+1,d=new Date().getDate();
+  var img=null,banner=null;
+  if(m>=3&&m<=5){img='/assets/hero-spring.jpg';}
+  else if((m===6&&d>=28)||(m===7&&d<=6)){img='/assets/hero-july4.jpg';}
+  else if(m===10||m===11){img='/assets/hero-fall.jpg';}
+  else if(m===12&&d>=22&&d<=30){img='/assets/hero-christmas.jpg';banner='Merry Christmas';}
+  else if((m===12&&d===31)||(m===1&&d<=4)){img='/assets/hero-newyears.jpg';}
+  if(!img)return;
+  var s=document.querySelector('.hero');
+  if(!s)return;
+  s.style.backgroundImage="url('"+img+"')";
+  if(banner){
+    var el=document.createElement('div');
+    el.className='seasonal-banner';
+    el.textContent=banner;
+    s.appendChild(el);
+  }
+})();
+</script></body>
 </html>
+
+
 
 
 
