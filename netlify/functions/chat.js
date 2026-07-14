@@ -459,9 +459,15 @@ Then for each vehicle ask these questions one at a time:
 - "What is the engine size?" (e.g. 450cc, 850cc, 1000cc — or just approximate)
 - "Is the engine stock, or has it been modified or altered?" (stock / minor mods like air filter or exhaust / major performance modifications / turbocharged or supercharged)
 - "What is the estimated current value of the vehicle?"
-- "What type of vehicle is it?" (sport ATV / utility ATV / side-by-side UTV / three-wheeler / other off-road)
-- "What is it primarily used for?" (recreation and trail riding / farm or ranch work / hunting / racing or competition / mixed use)
-- "Where is it primarily operated?" (private property only / public trails or parks / both)
+- "What type of vehicle is it?" (sport ATV / utility ATV / side-by-side UTV / three-wheeler / golf cart / street-legal LSV / other off-road)
+
+  If they answer golf cart or LSV, ask these two questions in order before continuing:
+    1. "Where is this golf cart primarily used?" (private property only / HOA or planned community / golf course only / mixed — community paths and streets)
+    2. "Do you ever drive or plan on driving this golf cart on public streets or roadways?" — This is important for making sure we get the right coverage for how you actually use it. (yes, on public roads / no, never on public roads / not sure yet)
+  Store both answers in operating_area field (e.g. "HOA community / plans to use on public roads: yes").
+  If not golf cart or LSV: ask "Where is it primarily operated?" (private property only / public trails or parks / both) and store in operating_area.
+
+- "What is it primarily used for?" (recreation and trail riding / farm or ranch work / hunting / HOA and community transportation / racing or competition / mixed use)
 - "How is it stored when not in use?" (garage or shed / barn / outdoor uncovered / storage facility)
 
 --- RIDER FLOW (Step 6) ---
@@ -604,5 +610,7 @@ export default async (req, context) => {
     );
   }
 };
+
+
 
 
