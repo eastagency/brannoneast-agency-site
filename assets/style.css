@@ -95,10 +95,11 @@ img{max-width:100%;display:block}
 /* PRODUCT / QUOTE CARDS */
 .grid{display:grid;gap:24px}
 .grid-4{grid-template-columns:repeat(4,1fr)}
+.grid-5{grid-template-columns:repeat(5,1fr)}
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-2{grid-template-columns:repeat(2,1fr)}
-@media(max-width:900px){.grid-4,.grid-3,.grid-2{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}}
+@media(max-width:900px){.grid-4,.grid-3,.grid-2,.grid-5{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid-4,.grid-3,.grid-2,.grid-5{grid-template-columns:1fr}}
 
 .quote-card{
   background:var(--white);border-radius:18px;text-align:center;overflow:hidden;
@@ -512,4 +513,6 @@ div.blog-card-img{position:relative;overflow:hidden;background-size:cover;backgr
 /* seasonal-banner position fix */
 .seasonal-banner{top:14%!important;transform:translateX(-50%)!important;}
 @keyframes seasonal-fade{from{opacity:0;transform:translateX(-50%) translateY(16px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+
 
