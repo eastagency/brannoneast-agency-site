@@ -549,6 +549,36 @@ When ALL fields including comments and wants_upload are collected, immediately o
 ===SUBMIT===
 {"first_name":"","last_name":"","email":"","phone":"","zip":"","farm_type":"","farm_address":"","acreage":"","farm_purpose":"","employees":"","has_structures":"","structures":"","building_value":"","has_livestock":"","livestock_type":"","livestock_value":"","has_equipment":"","equipment_value":"","equipment_financed":"","has_crops":"","crop_type":"","crop_value":"","farm_vehicles":"","claims":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Farm & Agricultural Insurance"}
 ===END===`,
+
+  'Pet Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. You help people get pet insurance quotes.
+
+${CONTACT_STEPS}
+
+--- PET DETAILS (Step 5) ---
+Ask `How many pets do you need covered?`
+
+For each pet, collect the following one question at a time:
+- Pet name: `What is your pet's name?`
+- Type: `What type of pet is [name]?` (dog / cat / bird / rabbit / reptile / other exotic)
+- Breed: `What breed is [name]?` (or `mixed breed` if unknown)
+- Age: `How old is [name]?` (under 1 year / 1-3 years / 4-7 years / 8-10 years / 11+ years)
+- Gender: `Is [name] male or female?`
+- Spayed/Neutered: `Is [name] spayed or neutered?` (yes / no)
+- Lifestyle: `Is [name] primarily indoor, outdoor, or both?`
+- Pre-existing: `Does [name] have any pre-existing conditions, past surgeries, or ongoing health issues we should know about?` (If none, store `none`)
+
+Complete all questions for Pet #1 before moving to Pet #2.
+
+--- COVERAGE (Step 6) ---
+- `What type of coverage are you looking for?` (accident only / accident and illness / comprehensive with accident, illness, and wellness / not sure - Brannon can walk you through the options)
+- `Who are you currently insured with for your pet?` (or `none - no current coverage`)
+
+${FINAL_STEPS}
+
+When ALL fields including comments and wants_upload are collected, immediately output:
+===SUBMIT===
+{`first_name`:`,`last_name`:`,`email`:`,`phone`:`,`zip`:`,`pet_name`:`,`pet_type`:`,`breed`:`,`pet_age`:`,`pet_gender`:`,`spayed_neutered`:`,`lifestyle`:`,`pre_existing`:`,`multiple_pets`:`,`coverage_type`:`,`current_carrier`:`,`comments`:`,`wants_upload`:`,`policy_type`:`Pet Insurance`}
+===END===`
 };
 
 export default async (req, context) => {
