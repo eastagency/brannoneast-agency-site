@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Insurance Quote Georgia | The East Agency</title>
+<meta name="description" content="Get pet insurance quotes in Georgia for dogs, cats, and more. The East Agency shops top carriers so your pet gets the care they deserve. Cartersville, Bartow County. Free quote.">
+<link rel="canonical" href="https://www.brannoneast.agency/pet-insurance-quote.html">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "InsuranceAgency",
+  "name": "The East Agency",
+  "url": "https://www.brannoneast.agency",
+  "telephone": "(678) 562-6905",
+  "address": {"@type": "PostalAddress", "streetAddress": "47 Stonewall St", "addressLocality": "Cartersville", "addressRegion": "GA", "postalCode": "30120"},
+  "areaServed": "Georgia",
+  "description": "Pet insurance quotes in Cartersville, Bartow County, and across Georgia from an independent agent."
+}
+</script>
+</head>
+<body>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/assets/logo-east-agency.jpg" alt="The East Agency"><span class="sr-only">The East Agency</span></a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/quotes.html">Quotes</a>
+      <a href="/insurance.html">Insurance</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/knowledge.html">Knowledge</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="tel:6785626905" class="nav-phone">(678) 562-6905</a>
+      <a href="/quotes.html" class="nav-cta">Get a Quote</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Open navigation" id="navToggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/categories/pet.jpg')">
+  <div class="container">
+    <h1>Pet Insurance Quote</h1>
+    <p>Because vet bills should never force a hard decision &mdash; protect your dog, cat, or other companion with coverage that fits your budget.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container lead-form">
+    <div class="quote-frame">
+<div class="quote-tabs">
+<button class="quote-tab active" data-panel="panel-chat">Chat with Us</button>
+<button class="quote-tab" data-panel="panel-form">Quick Form</button>
+</div>
+<div id="panel-chat" class="quote-panel active">
+<div class="chat-window" id="chatWindow"></div>
+<div class="chat-input-row" id="chatInputRow">
+<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
+</div>
+<div class="chat-success" id="chatSuccess">
+<h3>Quote Request Received!</h3>
+<p>Brannon will review your info and reach out within 24 hours. Watch for his call or email!</p>
+</div>
+</div>
+<div id="panel-form" class="quote-panel">
+<form name="pet-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="pet-insurance-quote">
+<input type="hidden" name="policy_type" value="Pet Insurance">
+<p style="display:none"><label>Skip: <input name="bot-field"></label></p>
+<div class="qf-row">
+  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+</div>
+<div class="qf-row">
+  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+</div>
+<div class="qf-row">
+  <div><label>Pet Type</label><select name="pet_type"><option value="">Select...</option><option>Dog</option><option>Cat</option><option>Bird</option><option>Rabbit</option><option>Reptile</option><option>Other Exotic</option></select></div>
+  <div><label>Pet Name</label><input type="text" name="pet_name" placeholder="e.g. Buddy"></div>
+</div>
+<div class="qf-row">
+  <div><label>Breed</label><input type="text" name="breed" placeholder="e.g. Golden Retriever, Mixed"></div>
+  <div><label>Age</label><select name="pet_age"><option value="">Select...</option><option>Under 1 year</option><option>1-3 years</option><option>4-7 years</option><option>8-10 years</option><option>11+ years</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label>Gender</label><select name="pet_gender"><option value="">Select...</option><option>Male</option><option>Female</option></select></div>
+  <div><label>Spayed / Neutered?</label><select name="spayed_neutered"><option value="">Select...</option><option>Yes</option><option>No</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label>Coverage Type</label><select name="coverage_type"><option value="">Select...</option><option>Accident Only</option><option>Accident &amp; Illness</option><option>Accident, Illness &amp; Wellness</option></select></div>
+  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+</div>
+<div class="qf-row">
+  <div style="grid-column:1/-1"><label>Pre-existing conditions or anything we should know?</label><textarea name="notes" placeholder="e.g. Buddy had knee surgery last year..." rows="3" style="width:100%;padding:10px;border:1px solid #DDD8CF;border-radius:8px;font-family:inherit;font-size:14px;resize:vertical"></textarea></div>
+</div>
+<button type="submit" class="qf-btn" id="qfSubmit">Request My Quote &rarr;</button>
+<div class="qf-success" id="qfSuccess">
+  <h3>Quote Request Received!</h3>
+  <p>Brannon will review your info and reach out within 24 hours. Check your email for a confirmation.</p>
+</div>
+</form>
+</div>
+</div>
+    <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container" style="max-width:800px">
+    <h2>Pet Insurance in Georgia &mdash; What It Covers and Why It Matters</h2>
+    <p>Georgia pet owners love their animals, but veterinary care costs have risen sharply over the past decade. A single emergency surgery can run $3,000&ndash;$8,000 or more. Pet insurance helps make sure a surprise vet bill never forces you into a difficult decision about your pet&rsquo;s care.</p>
+    <h3>What Does Pet Insurance Cover?</h3>
+    <p>Most policies fall into three tiers. <strong>Accident-only</strong> covers broken bones, cuts, and ingested objects &mdash; the unexpected emergencies. <strong>Accident and illness</strong> adds coverage for cancer, diabetes, infections, and hereditary diseases. <strong>Comprehensive with wellness</strong> goes furthest, adding routine care like annual exams, vaccines, flea prevention, and dental cleanings. As an independent agent, Brannon shops carriers including Nationwide, Embrace, Figo, and others to find the right fit for your pet and budget.</p>
+    <h3>Does Breed or Age Affect My Rate?</h3>
+    <p>Yes &mdash; both matter. Larger breeds and purebreds with known hereditary conditions typically cost more to insure. Age is a major factor too: insuring a puppy or kitten is significantly cheaper than insuring a senior pet, and many carriers have enrollment age limits. Pre-existing conditions are generally excluded, which is why starting a policy while your pet is young and healthy is the smartest move.</p>
+    <h3>Serving Pet Owners Across Bartow County</h3>
+    <p>Whether you have a working farm dog in Cartersville, a house cat in Emerson, or an exotic pet in White, Brannon can find coverage that fits. Most pet insurance policies reimburse you after the vet visit &mdash; you pay the vet, file a claim, and get reimbursed based on your deductible and reimbursement percentage. Simple, straightforward, and worth every penny when you need it.</p>
+  </div>
+</section>
+<script src="/assets/form.js"></script>
+<script src="/assets/chat.js"></script>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="/quotes.html">Get a Quote</a>
+      <a href="/insurance.html">Insurance Products</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/knowledge.html">Knowledge</a>
+      <a href="/about.html">About Us</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="tel:6785626905">(678) 562-6905</a>
+      <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
+      <a href="#">47 Stonewall St, Cartersville, GA 30120</a>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/brannoneastagency" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.instagram.com/brannoneastagency" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 The East Agency. All rights reserved.</div>
+</footer>
+<script>(function(){var b=document.getElementById('navToggle'),n=document.querySelector('.nav-links');if(!b||!n)return;b.addEventListener('click',function(){b.classList.toggle('is-open');n.classList.toggle('nav-open');document.body.classList.toggle('nav-is-open');});})();</script>
+</body>
+</html>
