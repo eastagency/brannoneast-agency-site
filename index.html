@@ -317,6 +317,7 @@
   else if(m===10||m===11){img='/assets/hero-fall.jpg';}
   else if(m===12&&d>=22&&d<=30){img='/assets/hero-christmas.jpg';banner='Merry Christmas';}
   else if((m===12&&d===31)||(m===1&&d<=4)){img='/assets/hero-newyears.jpg';}
+  else if((m===12&&d<=21)||(m===1&&d>=5)||m===2){img='/assets/hero-winter.jpg';}
   if(!img)return;
   var s=document.querySelector('.hero');
   if(!s)return;
