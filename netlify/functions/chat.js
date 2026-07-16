@@ -599,9 +599,8 @@ export default async (req, context) => {
   try {
     const { messages, insuranceType } = await req.json();
     const prompt = PROMPTS[insuranceType] || PROMPTS['Auto Insurance'];
-    const msgs = (messages && messages.length > 0)
-      ? messages.slice(-16)
-      : [{ role: 'user', content: '[START]' }];
+    const all = (messages && messages.length > 0) ? messages : [{ role: 'user', content: '[START]' }];
+    const msgs = all.length > 25 ? [...all.slice(0, 9), ...all.slice(-16)] : all;
 
     const apiRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
