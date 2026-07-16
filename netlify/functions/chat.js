@@ -1,4 +1,4 @@
-﻿﻿﻿﻿const CONTACT_STEPS = `QUESTION ORDER — follow exactly, one question per message, never skip, never repeat:
+﻿﻿﻿﻿﻿const CONTACT_STEPS = `QUESTION ORDER — follow exactly, one question per message, never skip, never repeat:
 Step 1: Ask only "What's your first and last name?"
 Step 2: Ask only "What's your email address?"
 Step 3: Ask only "What's the best phone number to reach you?"
@@ -518,7 +518,7 @@ Then collect the following for EVERY rider, one rider at a time, before moving t
   7. "What is Rider #[N]'s driver's license number?"
 
 Complete all 7 questions for Rider #1 before moving to Rider #2.
-Store all rider info combined in riders_info (e.g. "R1: John Smith, Primary, Male, DOB:01/15/1985, 5+ yrs riding, safety course: yes, DL:GA123456 | R2: Jane Smith, Non-Primary, Female, DOB:03/22/2001, 1-3 yrs riding, safety course: no, DL:GA789012").
+Store all rider info in riders_info, with each rider on its own line separated by \n (e.g. "R1: John Smith, Primary, Male, DOB:01/15/1985, 5+ yrs riding, safety course: yes, DL:GA123456\nR2: Jane Smith, Non-Primary, Female, DOB:03/22/2001, 1-3 yrs riding, safety course: no, DL:GA789012").
 
 --- FINAL COVERAGE QUESTIONS (Step 7) ---
 - "Any accidents, incidents, or off-road claims in the last 3 years?" (none / 1 / 2 or more)
@@ -529,8 +529,10 @@ ${FINAL_STEPS}
 
 When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","engine_size":"","engine_mods":"","vehicle_value":"","atv_type":"","primary_use":"","operating_area":"","storage":"","riders_info":"","violations":"","coverage":"","currently_insured":"","comments":"","wants_upload":"","policy_type":"ATV Insurance"}
-===END===`,
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","year":"","make":"","model":"","engine_size":"","engine_mods":"","vehicle_value":"","atv_type":"","primary_use":"","operating_area":"","storage":"","riders_info":"","violations":"","coverage":"","currently_insured":"","comments":"","wants_upload":"","policy_type":"ATV Insurance"}
+===END===
+
+For the year, make, and model fields: parse Vehicle #1's answer (e.g. "2026 Polaris RZR 900") and extract the 4-digit year into year, the brand name into make, and the remaining model name into model. The vehicles field still holds the full combined string for all vehicles.`,
 'Farm & Agricultural Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Be knowledgeable and respectful — farmers and ranchers are busy and practical people.
 
 ${CONTACT_STEPS}
@@ -673,6 +675,7 @@ export default async (req, context) => {
     );
   }
 };
+
 
 
 
