@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 var API='/.netlify/functions/chat';
-var GHL='https://6a281ed24f83faaed2904894.functions.base44.app/createGHLContact';
+var GHL='/.netlify/functions/ghl-create';
 var hist=[];
 var ready=false;
 var _leadEmail='';
