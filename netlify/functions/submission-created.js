@@ -19,7 +19,7 @@ function isValidPhone(p) { return p && p.replace(/\D/g,'').length >= 10; }
 function isValidZip(z) { return !z || /^\d{5}$/.test(z.trim()); }
 function hasSpam(v) { return v && /<[^>]+>|https?:\/\/|www\./i.test(v); }
 
-function spamCheck(data, created) {
+function spamCheck(data) {
   const reasons = [];
   if (data['bot-field']) reasons.push('honeypot');
   if (!data.email || !isValidEmail(data.email)) reasons.push('bad email');
@@ -30,11 +30,6 @@ function spamCheck(data, created) {
   if (hasSpam(data.email)) reasons.push('spam in email');
   if (data.phone && !isValidPhone(data.phone)) reasons.push('bad phone');
   if (!isValidZip(data.zip)) reasons.push('bad zip');
-  // Submissions filled in under 4 seconds are almost certainly bots
-  if (created) {
-    const age = Date.now() - new Date(created).getTime();
-    if (age < 4000) reasons.push('too fast');
-  }
   return reasons;
 }
 
@@ -45,14 +40,12 @@ export default async (req) => {
     const body = await req.json();
     const data = body.payload?.data || {};
     const formName = body.payload?.form_name || '';
-    const created = body.payload?.created_at;
-
     // Only process quote forms (skip contact page, etc.)
     const isQuoteForm = formName.includes('insurance') || formName.includes('quote');
     if (!isQuoteForm) return new Response('{}', { status: 200 });
 
     // Spam check
-    const spamReasons = spamCheck(data, created);
+    const spamReasons = spamCheck(data);
     if (spamReasons.length > 0) {
       console.log(`[GHL] Blocked "${formName}" from ${data.email}: ${spamReasons.join(', ')}`);
       return new Response(JSON.stringify({ blocked: true, reasons: spamReasons }), { status: 200 });
