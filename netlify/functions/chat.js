@@ -1,4 +1,4 @@
-﻿﻿﻿const CONTACT_STEPS = `QUESTION ORDER — follow exactly, one question per message, never skip, never repeat:
+﻿﻿﻿﻿const CONTACT_STEPS = `QUESTION ORDER — follow exactly, one question per message, never skip, never repeat:
 Step 1: Ask only "What's your first and last name?"
 Step 2: Ask only "What's your email address?"
 Step 3: Ask only "What's the best phone number to reach you?"
@@ -14,7 +14,16 @@ CRITICAL OUTPUT RULES — apply these exactly when writing the ===SUBMIT=== JSON
 - An empty string "" means the question was NEVER asked or the user never answered it. If the user gave any answer at all — even "no" or "none" — output that answer, not "".
 - Breed: output exactly what the user said (e.g. if they said "mix", output "mix" — never substitute a specific breed based on the pet name or any other field).
 - Age: map the user's words to the closest listed option. "2 years old" = "1-3 years", "5 years" = "4-7 years". Never guess if unclear.
-- Name: split "First Last" into first_name and last_name. If only one name given, put it in first_name.`;
+- Name: split "First Last" into first_name and last_name. If only one name given, put it in first_name.
+- ABBREVIATION EXPANSION — before writing any JSON field value, expand these shortcuts automatically:
+  Y or y (alone, as a yes/no answer) → Yes
+  N or n (alone, as a yes/no answer — NOT part of "none", "n/a", or any other word) → No
+  Side (for vehicle type/usage) → Side by Side
+  Trail (for riding type) → Trail Riding
+  M or m (for gender fields only) → Male
+  F or f (for gender fields only) → Female
+  Liability (for coverage type) → Liability Only
+  Full (for coverage type) → Full Coverage`;
 
 
 const FINAL_STEPS = `FINAL QUESTIONS — ask these after all insurance-specific questions are done, one at a time:
@@ -664,6 +673,7 @@ export default async (req, context) => {
     );
   }
 };
+
 
 
 
