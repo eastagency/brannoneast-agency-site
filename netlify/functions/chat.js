@@ -192,7 +192,7 @@ When ALL fields including comments and wants_upload are collected, immediately o
 ===SUBMIT===
 {"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","vehicle_value":"","annual_mileage":"","storage":"","usage":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Classic Car Insurance"}
 ===END===`,
-'Collectibles Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
+'Collectible Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
 ${CONTACT_STEPS}
 
@@ -640,6 +640,7 @@ export default async (req, context) => {
     );
   }
 };
+
 
 
 
