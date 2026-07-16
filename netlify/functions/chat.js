@@ -10,10 +10,11 @@ Once a question is answered, never ask it again. Move to the next step immediate
 const SUBMISSION_RULES = `
 CRITICAL OUTPUT RULES — apply these exactly when writing the ===SUBMIT=== JSON:
 - Use ONLY the exact words the user provided. Never infer, guess, or correct any value based on context.
-- Breed: output exactly what the user said (e.g. if they said "mix" output "mix", never substitute a specific breed).
-- Age: map the user's words to the closest listed option only if they match clearly. "2 years old" = "1-3 years". Never guess if unclear.
-- Name: split "First Last" into first_name and last_name. If only one name given, put it in first_name.
-- If you are unsure of any value, leave it as an empty string. Do not guess.`;
+- If the user said "no", "none", "n/a", or "skip", output that exact word. Never convert these to an empty string.
+- An empty string "" means the question was NEVER asked or the user never answered it. If the user gave any answer at all — even "no" or "none" — output that answer, not "".
+- Breed: output exactly what the user said (e.g. if they said "mix", output "mix" — never substitute a specific breed based on the pet name or any other field).
+- Age: map the user's words to the closest listed option. "2 years old" = "1-3 years", "5 years" = "4-7 years". Never guess if unclear.
+- Name: split "First Last" into first_name and last_name. If only one name given, put it in first_name.`;
 
 
 const FINAL_STEPS = `FINAL QUESTIONS — ask these after all insurance-specific questions are done, one at a time:

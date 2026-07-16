@@ -1,4 +1,4 @@
-// submission-created.js
+﻿// submission-created.js
 // Fires automatically on every Netlify form submission.
 // Validates for spam, then creates a contact in GoHighLevel.
 
@@ -62,14 +62,6 @@ export default async (req) => {
     const rawPhone = data.phone?.replace(/\D/g, '') || '';
     const phone = rawPhone.length >= 10 ? `+1${rawPhone.slice(-10)}` : undefined;
 
-    // Build notes from any extra form fields
-    const notesFields = ['notes','comments','farm_type','acreage','pet_type','breed',
-      'atv_type','coverage_type','coverage_needed','farm_purpose'];
-    const notesParts = notesFields
-      .filter(k => data[k] && data[k].toString().trim())
-      .map(k => `${k}: ${data[k]}`);
-    const notes = notesParts.join(' | ') || undefined;
-
     const contact = {
       locationId: GHL_LOCATION_ID,
       firstName: data.first_name.trim(),
@@ -82,8 +74,7 @@ export default async (req) => {
         'Website Lead',
         data.policy_type || formName,
         'Needs Quote'
-      ],
-      ...(notes && { customField: { notes } })
+      ]
     };
 
     const resp = await fetch('https://services.leadconnectorhq.com/contacts/', {
