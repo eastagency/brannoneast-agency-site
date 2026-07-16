@@ -261,17 +261,21 @@ When ALL fields including comments and wants_upload are collected, immediately o
 ${CONTACT_STEPS}
 
 Insurance questions (Steps 5 onward, one at a time):
-- What is the address of the rental property?
-- How many units does the property have? (single family / duplex / 3-4 units / 5-10 / 10+)
-- Is it currently occupied? (yes tenant in place / vacant between tenants / vacant preparing to rent)
-- What is the monthly rental income?
-- Any insurance claims in the last 3 years? (none / 1 claim / 2 or more)
+- "What is the address of the rental property?" — store in property_address
+- "What type of rental property is it?" (Single-Family Rental Home / Duplex or Multi-Family / Condo Unit / Vacation or Short-Term Rental / Commercial or Mixed-Use) — store in property_type
+- "How many rental properties do you need covered?" (1 / 2-5 / 6-10 / 10+) — store in property_count
+- "What is the estimated value of the property?" — store in property_value
+- "Is the property currently rented?" (Yes — currently tenant-occupied / Vacant — looking for tenants / Seasonal or Short-Term Rental) — store in occupancy
+- "What is the approximate annual rental income?" — store in rental_income
+- "Any insurance claims on this property in the last 3 years?" (none / 1 claim / 2 or more) — store in claims
+- "Who are you currently insured with?" (or say none if not currently insured) — store in current_carrier
+- "When does your current policy renew?" (month and year, or say unknown) — store in renewal_date
 
 ${FINAL_STEPS}
 
 When ALL fields including comments and wants_upload are collected, immediately output:
 ===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","units":"","occupied":"","rental_income":"","claims":"","comments":"","wants_upload":"","policy_type":"Landlord Insurance"}
+{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","property_type":"","property_count":"","property_value":"","occupancy":"","rental_income":"","claims":"","current_carrier":"","renewal_date":"","comments":"","wants_upload":"","policy_type":"Landlord Insurance"}
 ===END===`,
 
 'Renters Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Keep it upbeat — this one is quick and affordable!
