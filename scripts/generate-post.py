@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """East Agency Auto Blog Post Generator — runs weekly via GitHub Actions."""
 
 import anthropic, os, re, json
@@ -178,6 +178,31 @@ def update_blog_index(topic, data, date_display):
         f.write(html)
 
 
+def update_sitemap(slug, date_iso):
+    with open("sitemap.xml", "r", encoding="utf-8") as f:
+        xml = f.read()
+
+    url = f"https://www.brannoneast.agency/blog/{slug}.html"
+    # Skip if already present
+    if url in xml:
+        print(f"Sitemap: already contains {slug}, skipping")
+        return
+
+    entry = (
+        f'\n  <url>\n'
+        f'    <loc>{url}</loc>\n'
+        f'    <lastmod>{date_iso}</lastmod>\n'
+        f'    <changefreq>yearly</changefreq>\n'
+        f'    <priority>0.6</priority>\n'
+        f'  </url>'
+    )
+    xml = xml.replace("</urlset>", entry + "\n</urlset>")
+
+    with open("sitemap.xml", "w", encoding="utf-8") as f:
+        f.write(xml)
+    print(f"Sitemap updated: added {slug}")
+
+
 def main():
     topic = pick_topic()
     print(f"Topic: {topic['keyword']}")
@@ -192,6 +217,7 @@ def main():
 
     post_path = build_post(topic, data, date_iso, date_display)
     update_blog_index(topic, data, date_display)
+    update_sitemap(data["slug"], date_iso)
     print(f"Written:  {post_path}")
     print(f"Index updated: blog.html")
 
@@ -203,3 +229,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
