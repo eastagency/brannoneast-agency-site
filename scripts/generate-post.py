@@ -41,6 +41,7 @@ TOPICS = [
     {"keyword": "business liability insurance Cartersville GA",                            "cat": "Business",          "img": "/assets/categories/business.jpg",     "quote": "/business-insurance-quote.html"},
     {"keyword": "motorcycle insurance Georgia seasonal riders save",                       "cat": "Motorcycle",        "img": "/assets/categories/motorcycle.jpg",   "quote": "/motorcycle-insurance-quote.html"},
     {"keyword": "collector car vs regular auto insurance Georgia",                         "cat": "Classic Car",       "img": "/assets/categories/classic-car.jpg",  "quote": "/classic-car-insurance-quote.html"},
+    {"keyword": "pet insurance Georgia dogs and cats coverage cost",                       "cat": "Pet Insurance",     "img": "/assets/categories/pet.jpg",          "quote": "/pet-insurance-quote.html"},
 ]
 
 
