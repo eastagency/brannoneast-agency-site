@@ -1,8 +1,14 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """East Agency Auto Blog Post Generator — runs weekly via GitHub Actions."""
 
-import anthropic, os, re, json
+import anthropic, os, re, json, base64
 from datetime import date
+
+try:
+    import requests as _requests
+    _HAS_REQUESTS = True
+except ImportError:
+    _HAS_REQUESTS = False
 
 # 29 topics — weekly rotation, one full cycle = ~7 months, then repeats with fresh content
 TOPICS = [
@@ -45,12 +51,111 @@ def pick_topic():
     return TOPICS[index]
 
 
-def generate_content(topic):
+def get_keyword_data(keyword):
+    """Pull related keywords + search volume from DataForSEO. Returns a dict or None on failure."""
+    if not _HAS_REQUESTS:
+        print("requests not installed — skipping DataForSEO lookup")
+        return None
+
+    login    = os.environ.get("DATAFORSEO_LOGIN", "")
+    password = os.environ.get("DATAFORSEO_PASSWORD", "")
+    if not login or not password:
+        print("DataForSEO credentials not set — skipping keyword lookup")
+        return None
+
+    creds = base64.b64encode(f"{login}:{password}".encode()).decode()
+    headers = {
+        "Authorization": f"Basic {creds}",
+        "Content-Type": "application/json",
+    }
+
+    # 1. Search volume for the primary keyword (United States scope)
+    volume = None
+    competition = None
+    try:
+        r = _requests.post(
+            "https://api.dataforseo.com/v3/keywords_data/google_ads/search_volume/live",
+            headers=headers,
+            json=[{"keywords": [keyword], "language_name": "English", "location_name": "United States"}],
+            timeout=15,
+        )
+        data = r.json()
+        items = (data.get("tasks") or [{}])[0].get("result") or []
+        if items:
+            kd = items[0]
+            volume      = kd.get("search_volume")
+            competition = kd.get("competition_level", "").lower()
+    except Exception as e:
+        print(f"DataForSEO volume lookup failed: {e}")
+
+    # 2. Related / long-tail keywords
+    related = []
+    try:
+        r = _requests.post(
+            "https://api.dataforseo.com/v3/keywords_data/google_ads/keywords_for_keywords/live",
+            headers=headers,
+            json=[{
+                "keywords": [keyword],
+                "language_name": "English",
+                "location_name": "United States",
+                "sort_by": "search_volume",
+            }],
+            timeout=20,
+        )
+        data = r.json()
+        items = (data.get("tasks") or [{}])[0].get("result") or []
+        for item in items[:10]:
+            kw   = item.get("keyword", "")
+            vol  = item.get("search_volume") or 0
+            # Filter out low-volume and exact duplicates
+            if kw and kw.lower() != keyword.lower() and vol >= 50:
+                related.append({"keyword": kw, "volume": vol})
+        # Keep top 6 by volume
+        related = sorted(related, key=lambda x: x["volume"], reverse=True)[:6]
+    except Exception as e:
+        print(f"DataForSEO related-keywords lookup failed: {e}")
+
+    result = {"primary_volume": volume, "competition": competition, "related": related}
+    print(f"DataForSEO: volume={volume}, competition={competition}, related_count={len(related)}")
+    return result
+
+
+def _build_keyword_block(kw_data):
+    """Format keyword research data into a prompt block."""
+    if not kw_data:
+        return ""
+
+    lines = ["\n--- KEYWORD RESEARCH DATA (DataForSEO) ---"]
+    vol = kw_data.get("primary_volume")
+    comp = kw_data.get("competition")
+    if vol is not None:
+        lines.append(f"Primary keyword monthly search volume (US): {vol:,}")
+    if comp:
+        lines.append(f"Competition level: {comp}")
+
+    related = kw_data.get("related") or []
+    if related:
+        lines.append("Related keywords to weave naturally into the article:")
+        for r in related:
+            lines.append(f"  - {r['keyword']}  ({r['volume']:,}/mo)")
+
+    lines.append(
+        "SEO instructions: Use the primary keyword in the H1, first paragraph, one H2 subheading, "
+        "and meta description. Use the related keywords naturally in the body — never force them. "
+        "Do not list keywords; incorporate them into real sentences."
+    )
+    lines.append("--- END KEYWORD RESEARCH ---\n")
+    return "\n".join(lines)
+
+
+def generate_content(topic, kw_data=None):
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    kw_block = _build_keyword_block(kw_data)
     prompt = (
         f'You are the content writer for The East Agency — an independent insurance agency in Cartersville, GA run by Brannon East.\n'
-        f'Write a blog post targeting the search keyword: "{topic["keyword"]}"\n\n'
-        f'Rules:\n'
+        f'Write a blog post targeting the search keyword: "{topic["keyword"]}"\n'
+        f'{kw_block}'
+        f'\nRules:\n'
         f'- Warm, conversational tone. Not corporate. Brannon speaks like a trusted neighbor.\n'
         f'- Mention Cartersville, GA or Bartow County at least once naturally.\n'
         f'- Mention that The East Agency shops 20+ carriers to find the best rate.\n'
@@ -139,7 +244,7 @@ def build_post(topic, data, date_iso, date_display):
         html
     )
 
-    # sidebar — update CTA text and quote link (all occurrences, covers both sidebar and in-article)
+    # sidebar — update CTA text and quote link
     html = html.replace(
         "We shop 20+ carriers to find the best home insurance rate in Georgia.",
         f"We shop 20+ carriers to find the best {topic['cat'].lower()} rate in Georgia."
@@ -183,7 +288,6 @@ def update_sitemap(slug, date_iso):
         xml = f.read()
 
     url = f"https://www.brannoneast.agency/blog/{slug}.html"
-    # Skip if already present
     if url in xml:
         print(f"Sitemap: already contains {slug}, skipping")
         return
@@ -207,7 +311,10 @@ def main():
     topic = pick_topic()
     print(f"Topic: {topic['keyword']}")
 
-    data = generate_content(topic)
+    # Pull keyword data from DataForSEO before writing
+    kw_data = get_keyword_data(topic["keyword"])
+
+    data = generate_content(topic, kw_data)
     print(f"Title: {data['title']}")
     print(f"Slug:  {data['slug']}")
 
@@ -229,4 +336,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
