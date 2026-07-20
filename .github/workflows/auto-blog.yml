@@ -21,17 +21,19 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install anthropic
+        run: pip install anthropic requests
 
       - name: Generate blog post
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
         run: python scripts/generate-post.py
 
       - name: Commit and push
         run: |
           git config user.name "East Agency Bot"
           git config user.email "brannoneast1@gmail.com"
-          git add blog/ blog.html
+          git add blog/ blog.html sitemap.xml
           git diff --staged --quiet && echo "No new post generated" || git commit -m "Auto blog: ${{ env.POST_TITLE }}"
           git push
