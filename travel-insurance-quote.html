@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Insurance Quote | The East Agency</title>
+<meta name="description" content="Get a free travel insurance quote from The East Agency. Trip cancellation, emergency medical &amp; baggage coverage for your next trip. Cartersville, GA.">
+<link rel="canonical" href="https://www.brannoneast.agency/travel-insurance-quote.html">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does travel insurance cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most travel insurance plans cover trip cancellation and interruption, emergency medical care and evacuation, delayed or lost baggage, and trip delays. Comprehensive plans bundle all of these; cheaper plans may cover only one or two categories."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does travel insurance cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Travel insurance typically costs 4% to 10% of your total trip cost. A $4,000 trip might cost $160 to $400 to insure, depending on your age, trip length, and how much cancellation and medical coverage you choose."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get travel insurance for a cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Cruise-specific plans often add benefits standard travel policies miss, like missed port coverage, cabin confinement benefits, and emergency medical evacuation from a ship at sea. Brannon can point you to a plan built for cruising."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I buy travel insurance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Buy within 10 to 21 days of making your first trip payment to unlock time-sensitive benefits like pre-existing condition waivers and \"cancel for any reason\" upgrades. You can still buy later, but you may lose access to those extras."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/assets/logo-east-agency.jpg" alt="The East Agency"><span class="sr-only">The East Agency</span></a>
+    <button class="nav-hamburger" aria-label="Open navigation" id="navToggle"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/quotes.html">Quotes</a>
+      <a href="/insurance.html">Insurance</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/knowledge.html">Knowledge</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="tel:6785626905" class="nav-phone">(678) 562-6905</a>
+      <a href="/quotes.html" class="nav-cta">Get a Quote</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <h1>Travel Insurance Quote</h1>
+    <p>Trip cancellations, medical emergencies &amp; lost bags happen. Get covered before you go.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container lead-form">
+    <div class="quote-frame">
+<div class="quote-tabs">
+<button class="quote-tab active" data-panel="panel-chat">Chat with Us</button>
+<button class="quote-tab" data-panel="panel-form">Quick Form</button>
+</div>
+<div id="panel-chat" class="quote-panel active">
+<div class="chat-window" id="chatWindow"></div>
+<div class="chat-input-row" id="chatInputRow">
+<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
+</div>
+<div class="chat-success" id="chatSuccess">
+<h3>Quote Request Received!</h3>
+<p>Brannon will review your info and reach out within 24 hours. Watch for his call or email!</p>
+</div>
+</div>
+<div id="panel-form" class="quote-panel">
+<form name="travel-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="travel-insurance-quote">
+<input type="hidden" name="policy_type" value="Travel Insurance">
+<input type="hidden" name="is_cruise" value="">
+<input type="hidden" name="pre_existing" value="">
+<input type="hidden" name="comments" value="">
+<input type="hidden" name="wants_upload" value="">
+<p style="display:none"><label>Skip: <input name="bot-field"></label></p>
+<div class="qf-row">
+  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+</div>
+<div class="qf-row">
+  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+</div>
+<div class="qf-row">
+  <div><label>Destination(s)</label><input type="text" name="destination" placeholder="e.g. Cancun, Mexico"></div>
+  <div><label>Number of Travelers</label><input type="text" name="travelers" placeholder="e.g. 2"></div>
+</div>
+<div class="qf-row">
+  <div><label>Departure Date</label><input type="date" name="departure_date"></div>
+  <div><label>Return Date</label><input type="date" name="return_date"></div>
+</div>
+<div class="qf-row">
+  <div><label>Total Trip Cost</label><input type="text" name="trip_cost" placeholder="e.g. $4,500"></div>
+  <div><label>Coverage Type</label><select name="coverage_type"><option value="">Select...</option><option>Trip Cancellation Only</option><option>Comprehensive (Cancellation, Medical &amp; Baggage)</option><option>Emergency Medical Only</option><option>Not Sure</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+</div>
+<button type="submit" class="qf-btn" id="qfSubmit">Request My Quote &rarr;</button>
+<div class="qf-success" id="qfSuccess">
+  <h3>Quote Request Received!</h3>
+  <p>Brannon will review your info and reach out within 24 hours. Check your email for a confirmation.</p>
+</div>
+</form>
+</div>
+</div>
+    <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container" style="max-width:800px">
+    <h2>Travel Insurance for Your Next Trip</h2>
+    <p>Whether you're headed on a family vacation, a cruise, or an international trip, a lot can go wrong between booking and boarding &mdash; a cancelled flight, a sudden illness, a lost suitcase, or a trip cut short by an emergency back home. Travel insurance protects the money you've already put down and gives you a safety net once you're on the road.</p>
+    <h3>What Travel Insurance Covers</h3>
+    <p>A typical plan includes trip cancellation and interruption coverage that reimburses prepaid, non-refundable trip costs; emergency medical and dental coverage while you're away from home; emergency medical evacuation and repatriation; baggage delay and loss coverage; and trip delay benefits for meals and lodging when you're stuck waiting on a delayed flight or connection.</p>
+    <h3>What Your Other Coverage Misses</h3>
+    <p>Most health insurance plans provide little to no coverage once you leave the country, and none of them reimburse you for a cancelled trip. Credit card travel benefits are often limited and full of exclusions. A standalone travel policy is built specifically to cover the financial risks of travel that your other policies simply don't touch.</p>
+    <h3>Cruises &amp; International Trips</h3>
+    <p>Brannon can point you toward cruise-specific plans with missed port and cabin confinement benefits, as well as plans built for international travel with medical evacuation limits high enough to matter. Fill out the form above with your trip details and he'll help you find the right plan for how and where you're traveling.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:800px">
+    <h2 style="margin-bottom:1.5rem">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details style='border-bottom:1px solid rgba(13,148,136,.18);padding:1.1rem 0'>
+        <summary style='font-weight:600;cursor:pointer;color:var(--dark,#1b2a2e);font-family:Poppins,sans-serif;font-size:1.02rem;list-style:none'>What does travel insurance cover?</summary>
+        <p style='margin:.75rem 0 0;color:#444;line-height:1.75;font-size:.97rem'>Most travel insurance plans cover trip cancellation and interruption, emergency medical care and evacuation, delayed or lost baggage, and trip delays. Comprehensive plans bundle all of these; cheaper plans may cover only one or two categories.</p>
+      </details>
+      <details style='border-bottom:1px solid rgba(13,148,136,.18);padding:1.1rem 0'>
+        <summary style='font-weight:600;cursor:pointer;color:var(--dark,#1b2a2e);font-family:Poppins,sans-serif;font-size:1.02rem;list-style:none'>How much does travel insurance cost?</summary>
+        <p style='margin:.75rem 0 0;color:#444;line-height:1.75;font-size:.97rem'>Travel insurance typically costs 4% to 10% of your total trip cost. A $4,000 trip might cost $160 to $400 to insure, depending on your age, trip length, and how much cancellation and medical coverage you choose.</p>
+      </details>
+      <details style='border-bottom:1px solid rgba(13,148,136,.18);padding:1.1rem 0'>
+        <summary style='font-weight:600;cursor:pointer;color:var(--dark,#1b2a2e);font-family:Poppins,sans-serif;font-size:1.02rem;list-style:none'>Can I get travel insurance for a cruise?</summary>
+        <p style='margin:.75rem 0 0;color:#444;line-height:1.75;font-size:.97rem'>Yes. Cruise-specific plans often add benefits standard travel policies miss, like missed port coverage, cabin confinement benefits, and emergency medical evacuation from a ship at sea. Brannon can point you to a plan built for cruising.</p>
+      </details>
+      <details style='border-bottom:1px solid rgba(13,148,136,.18);padding:1.1rem 0'>
+        <summary style='font-weight:600;cursor:pointer;color:var(--dark,#1b2a2e);font-family:Poppins,sans-serif;font-size:1.02rem;list-style:none'>When should I buy travel insurance?</summary>
+        <p style='margin:.75rem 0 0;color:#444;line-height:1.75;font-size:.97rem'>Buy within 10 to 21 days of making your first trip payment to unlock time-sensitive benefits like pre-existing condition waivers and &quot;cancel for any reason&quot; upgrades. You can still buy later, but you may lose access to those extras.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<script src="/assets/form.js"></script>
+<script src="/assets/chat.js"></script>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="/quotes.html">Get a Quote</a>
+      <a href="/insurance.html">Insurance Products</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/knowledge.html">Knowledge</a>
+      <a href="/about.html">About Us</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="tel:6785626905">(678) 562-6905</a>
+      <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
+      <a href="#">47 Stonewall St, Cartersville, GA 30120</a>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/brannoneastagency" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.instagram.com/brannoneastagency" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 The East Agency. All rights reserved.</div>
+</footer>
+
+<script>(function(){var b=document.getElementById('navToggle'),n=document.querySelector('.nav-links');if(!b||!n)return;b.addEventListener('click',function(){b.classList.toggle('is-open');n.classList.toggle('nav-open');document.body.classList.toggle('nav-is-open');});})();</script>
+</body>
+</html>
