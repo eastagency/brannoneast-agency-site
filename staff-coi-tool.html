@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>COI Tool — Staff Only</title>
+<style>
+  :root{--ink:#1B2A2E;--ocean:#1F4E5F;--teal:#1F7A75;--coral:#E8623D;--cream:#FBF8F2;--sand:#E4DCCB;--white:#fff;--danger:#B3261E;--warn:#8A6D00;}
+  *{box-sizing:border-box}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--cream);color:var(--ink);margin:0;padding:0}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 20px 80px}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:rgba(27,42,46,.6);font-size:14px;margin-bottom:24px}
+  .card{background:var(--white);border:1px solid var(--sand);border-radius:10px;padding:20px;margin-bottom:20px}
+  .card h2{font-size:16px;margin:0 0 14px;color:var(--ocean)}
+  label{display:block;font-size:12px;font-weight:600;color:rgba(27,42,46,.7);margin-bottom:4px;margin-top:10px}
+  input[type=text],input[type=email],textarea,select{width:100%;padding:8px 10px;border:1px solid var(--sand);border-radius:6px;font-size:14px;font-family:inherit}
+  textarea{min-height:80px;resize:vertical}
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:160px}
+  button{background:var(--teal);color:#fff;border:none;padding:11px 20px;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer}
+  button:hover{opacity:.9}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  button.secondary{background:var(--ocean)}
+  button.danger{background:var(--danger)}
+  #gate{position:fixed;inset:0;background:rgba(27,42,46,.92);display:flex;align-items:center;justify-content:center;z-index:50}
+  #gate .box{background:#fff;padding:28px;border-radius:10px;width:320px}
+  #gate input{margin-bottom:10px}
+  #gate .err{color:var(--danger);font-size:13px;margin-top:6px;display:none}
+  .checklist-item{border:1px solid var(--sand);border-radius:8px;padding:12px 14px;margin-bottom:10px}
+  .checklist-item .top{display:flex;align-items:center;gap:10px}
+  .checklist-item .top label{margin:0;font-weight:600;color:var(--ink);font-size:14px;flex:1;cursor:pointer}
+  .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.03em}
+  .badge.present{background:#DFF3E5;color:#1E7A3C}
+  .badge.not_found{background:#EFEFEF;color:#666}
+  .badge.excluded{background:#FBE4E1;color:var(--danger)}
+  .badge.unclear{background:#FDF3D6;color:var(--warn)}
+  .checklist-item .detail{font-size:12.5px;color:rgba(27,42,46,.75);margin-top:8px;line-height:1.5;display:none}
+  .checklist-item.expanded .detail{display:block}
+  .help{color:var(--ocean);cursor:pointer;font-weight:700;border:1px solid var(--ocean);border-radius:50%;width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:11px}
+  .policy-line{border:1px solid var(--sand);border-radius:8px;padding:14px;margin-bottom:12px}
+  .policy-line h3{font-size:14px;margin:0 0 10px;color:var(--ocean)}
+  .warn-box{background:#FDF3D6;border:1px solid #E7CE7A;color:var(--warn);padding:10px 12px;border-radius:6px;font-size:13px;margin-bottom:14px}
+  .hidden{display:none !important}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin-right:6px;vertical-align:middle}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .status-msg{font-size:13px;margin-top:10px}
+  .status-msg.error{color:var(--danger)}
+  .status-msg.ok{color:#1E7A3C}
+  .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .checkbox-row{display:flex;align-items:center;gap:8px;margin-top:10px}
+  .checkbox-row label{margin:0;font-weight:400}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <h2 style="margin-top:0">Staff Login</h2>
+    <input type="text" id="gatePw" placeholder="Password" autocomplete="off">
+    <button id="gateBtn" style="width:100%">Enter</button>
+    <div class="err" id="gateErr">Incorrect password.</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <h1>Certificate of Insurance Generator</h1>
+  <div class="sub">Upload a client's commercial policy → review the extracted data → generate an ACORD 25. Internal staff tool.</div>
+
+  <div class="card" id="uploadCard">
+    <h2>1. Upload Policy</h2>
+    <label>Client's commercial policy PDF</label>
+    <input type="file" id="policyFile" accept="application/pdf">
+    <div style="margin-top:14px">
+      <button id="extractBtn">Extract Policy Data</button>
+    </div>
+    <div class="status-msg" id="extractStatus"></div>
+  </div>
+
+  <div class="card hidden" id="reviewCard">
+    <h2>2. Review Extracted Data</h2>
+    <div id="naicWarning"></div>
+
+    <label>Named Insured</label>
+    <div class="row">
+      <div><input type="text" id="niName" placeholder="Business name"></div>
+    </div>
+    <div class="row">
+      <div><input type="text" id="niAddr1" placeholder="Address line 1"></div>
+      <div><input type="text" id="niCity" placeholder="City"></div>
+      <div style="max-width:80px"><input type="text" id="niState" placeholder="ST"></div>
+      <div style="max-width:110px"><input type="text" id="niZip" placeholder="ZIP"></div>
+    </div>
+
+    <label style="margin-top:18px">Insurer</label>
+    <div id="insurerBlock"></div>
+
+    <label style="margin-top:18px">Policy Lines <span style="font-weight:400;color:rgba(27,42,46,.5)">(edit any value that needs correcting)</span></label>
+    <div id="policyLines"></div>
+  </div>
+
+  <div class="card hidden" id="checklistCard">
+    <h2>3. Special Requests <span style="font-weight:400;font-size:13px;color:rgba(27,42,46,.5)">— check anything the certificate holder is asking for</span></h2>
+    <div id="checklistItems"></div>
+  </div>
+
+  <div class="card hidden" id="holderCard">
+    <h2>4. Certificate Holder</h2>
+    <div class="row">
+      <div><input type="text" id="chName" placeholder="Certificate holder name"></div>
+    </div>
+    <div class="row">
+      <div><input type="text" id="chAddr1" placeholder="Address line 1"></div>
+      <div><input type="text" id="chCity" placeholder="City"></div>
+      <div style="max-width:80px"><input type="text" id="chState" placeholder="ST"></div>
+      <div style="max-width:110px"><input type="text" id="chZip" placeholder="ZIP"></div>
+    </div>
+    <label>Description of Operations (auto-filled from checked items above — edit as needed)</label>
+    <textarea id="descOps"></textarea>
+    <label>Certificate Number</label>
+    <input type="text" id="certNumber" placeholder="e.g. internal reference number">
+  </div>
+
+  <div class="card hidden" id="generateCard">
+    <h2>5. Generate</h2>
+    <button id="generateBtn">Generate Certificate PDF</button>
+    <div class="status-msg" id="generateStatus"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var STAFF_PASSWORD = '';
+  var extractedData = null;
+
+  var CHECKLIST_META = {
+    waiverOfSubrogation: {
+      label: 'Waiver of subrogation (may include additional charge)',
+      help: 'Carrier gives up its right to recover a paid claim from the certificate holder. Only real if the policy actually carries this endorsement (often ISO form CG 24 04).',
+    },
+    primaryNonContributory: {
+      label: 'Primary and non-contributory',
+      help: "This policy pays first and won't seek contribution from the certificate holder's own insurance. Requires a Primary & Non-Contributory endorsement (often ISO CG 20 01).",
+    },
+    ongoingOperationsAI: {
+      label: 'Ongoing operations (Form CG2010)',
+      help: 'Certificate holder is added as an Additional Insured, but only for injury/damage from your ongoing work — not after the job is finished.',
+    },
+    completedOperationsAI: {
+      label: 'Completed operations (Form CG2037)',
+      help: 'Certificate holder is added as an Additional Insured for injury/damage arising after your work is finished (products-completed operations hazard).',
+    },
+    jobServiceLocation: {
+      label: 'Job/service location',
+      help: 'Additional Insured or coverage is restricted to a specific job site/location, rather than applying everywhere you work.',
+    },
+    jobServiceProvided: {
+      label: 'Job/service you provide',
+      help: 'Additional Insured or coverage is restricted to specific described work/operations, rather than everything you do.',
+    },
+    cancellationNotice30Day: {
+      label: '30 day notice of cancellation',
+      help: 'Carrier is required to notify the certificate holder directly (not just the named insured) a set number of days before cancellation.',
+    },
+  };
+
+  function $(id){ return document.getElementById(id); }
+
+  // ---- Password gate ----
+  $('gateBtn').addEventListener('click', function(){
+    var pw = $('gatePw').value.trim();
+    if (!pw) return;
+    STAFF_PASSWORD = pw;
+    $('gate').style.display = 'none';
+  });
+  $('gatePw').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('gateBtn').click(); });
+
+  function showError(elId, msg){
+    var el = $(elId);
+    el.textContent = msg;
+    el.className = 'status-msg error';
+  }
+  function showOk(elId, msg){
+    var el = $(elId);
+    el.textContent = msg;
+    el.className = 'status-msg ok';
+  }
+
+  var MAX_UPLOAD_BYTES = 5.5 * 1024 * 1024;
+
+  // ---- Step 1: Extract ----
+  // Extraction runs as a background job (not a single synchronous request):
+  // reading a real policy PDF can take 45-60+ seconds, well past Netlify's
+  // real 30-second synchronous function ceiling. coi-extract-start kicks the
+  // job off and returns a jobId immediately; we poll coi-status until it's
+  // done.
+  function sleep(ms){ return new Promise(function(resolve){ setTimeout(resolve, ms); }); }
+
+  $('extractBtn').addEventListener('click', async function(){
+    var file = $('policyFile').files[0];
+    if (!file) { showError('extractStatus', 'Choose a policy PDF first.'); return; }
+    if (!STAFF_PASSWORD) { $('gate').style.display = 'flex'; return; }
+    if (file.size > MAX_UPLOAD_BYTES) {
+      showError('extractStatus', 'This PDF is ' + (file.size/1024/1024).toFixed(1) + 'MB — over the ' + (MAX_UPLOAD_BYTES/1024/1024).toFixed(0) + 'MB limit this tool currently supports. Ask Brannon to add large-file support, or try a smaller/compressed copy.');
+      return;
+    }
+
+    $('extractBtn').disabled = true;
+    $('extractStatus').innerHTML = '<span class="spinner"></span>Starting...';
+    $('extractStatus').className = 'status-msg';
+
+    try {
+      var startRes = await fetch('/.netlify/functions/coi-extract-start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/pdf', 'X-Coi-Password': STAFF_PASSWORD },
+        body: file
+      });
+      var startJson = await startRes.json();
+      if (!startRes.ok) {
+        if (startRes.status === 401) { $('gate').style.display = 'flex'; $('gateErr').style.display = 'block'; }
+        showError('extractStatus', startJson.error || 'Could not start extraction.');
+        $('extractBtn').disabled = false;
+        return;
+      }
+
+      var jobId = startJson.jobId;
+      var attempts = 0;
+      var maxAttempts = 60; // ~3 minutes at 3s intervals
+
+      while (attempts < maxAttempts) {
+        $('extractStatus').innerHTML = '<span class="spinner"></span>Reading policy and checking endorsements — this can take 30–60 seconds...';
+        await sleep(3000);
+        attempts++;
+
+        var statusRes = await fetch('/.netlify/functions/coi-status?jobId=' + encodeURIComponent(jobId), {
+          headers: { 'X-Coi-Password': STAFF_PASSWORD }
+        });
+        var statusJson = await statusRes.json();
+        if (!statusRes.ok) {
+          if (statusRes.status === 401) { $('gate').style.display = 'flex'; $('gateErr').style.display = 'block'; }
+          showError('extractStatus', statusJson.error || 'Extraction failed.');
+          $('extractBtn').disabled = false;
+          return;
+        }
+
+        if (statusJson.status === 'done') {
+          extractedData = statusJson.extracted;
+          populateReview(statusJson.extracted, statusJson.naicWarnings || []);
+          showOk('extractStatus', 'Extracted. Review everything below carefully before generating — nothing is final yet.');
+          $('extractBtn').disabled = false;
+          return;
+        }
+        if (statusJson.status === 'error') {
+          showError('extractStatus', statusJson.message || 'Extraction failed.');
+          $('extractBtn').disabled = false;
+          return;
+        }
+        if (statusJson.status === 'not_found') {
+          showError('extractStatus', 'Lost track of this job — please try uploading again.');
+          $('extractBtn').disabled = false;
+          return;
+        }
+        // status === 'processing' — keep polling
+      }
+
+      showError('extractStatus', 'This policy is taking unusually long to process. It may still finish — check back, or tell Brannon if this keeps happening.');
+      $('extractBtn').disabled = false;
+    } catch (err) {
+      showError('extractStatus', 'Network or server error: ' + err.message);
+      $('extractBtn').disabled = false;
+    }
+  });
+
+  function populateReview(data, naicWarnings){
+    $('niName').value = (data.namedInsured && data.namedInsured.fullName) || '';
+    $('niAddr1').value = (data.namedInsured && data.namedInsured.addressLine1) || '';
+    $('niCity').value = (data.namedInsured && data.namedInsured.city) || '';
+    $('niState').value = (data.namedInsured && data.namedInsured.state) || '';
+    $('niZip').value = (data.namedInsured && data.namedInsured.postalCode) || '';
+
+    var naicWarnEl = $('naicWarning');
+    naicWarnEl.innerHTML = '';
+    if (naicWarnings.length) {
+      var box = document.createElement('div');
+      box.className = 'warn-box';
+      box.textContent = '⚠ No NAIC number on file for: ' + naicWarnings.join(', ') + '. Look it up (NAIC company search) and tell Brannon to add it to the carrier list before this certificate goes out — the NAIC field will be blank otherwise.';
+      naicWarnEl.appendChild(box);
+    }
+
+    var insBlock = $('insurerBlock');
+    insBlock.innerHTML = '';
+    (data.insurers || []).forEach(function(ins){
+      var div = document.createElement('div');
+      div.className = 'row';
+      div.style.marginBottom = '6px';
+      div.innerHTML = '<div><input type="text" value="' + escapeAttr(ins.fullName) + '" data-insurer-letter="' + ins.letter + '" data-field="fullName"></div>' +
+        '<div style="max-width:140px"><input type="text" value="' + escapeAttr(ins.naic || '') + '" data-insurer-letter="' + ins.letter + '" data-field="naic" placeholder="NAIC #"></div>';
+      insBlock.appendChild(div);
+    });
+
+    renderPolicyLines(data.policies || []);
+    renderChecklist(data.checklistFindings || {});
+
+    $('reviewCard').classList.remove('hidden');
+    $('checklistCard').classList.remove('hidden');
+    $('holderCard').classList.remove('hidden');
+    $('generateCard').classList.remove('hidden');
+  }
+
+  var GL_FIELDS = [
+    ['eachOccurrence','Each Occurrence'],['damageToRentedPremises','Damage to Rented Premises'],
+    ['medExpense','Med Expense'],['personalAdvertisingInjury','Personal & Adv Injury'],
+    ['generalAggregate','General Aggregate'],['productsCompletedOpsAggregate','Products-Comp/Op Agg']
+  ];
+  var AUTO_FIELDS = [
+    ['combinedSingleLimit','Combined Single Limit'],['bodilyInjuryPerPerson','Bodily Injury (per person)'],
+    ['bodilyInjuryPerAccident','Bodily Injury (per accident)'],['propertyDamage','Property Damage']
+  ];
+  var UMBRELLA_FIELDS = [['eachOccurrence','Each Occurrence'],['aggregate','Aggregate'],['deductibleOrRetention','Deductible/Retention']];
+  var WC_FIELDS = [
+    ['eachAccident','E.L. Each Accident'],['diseaseEachEmployee','E.L. Disease - Ea Employee'],
+    ['diseasePolicyLimit','E.L. Disease - Policy Limit']
+  ];
+  var LINE_LABELS = { generalLiability: 'General Liability', automobile: 'Automobile Liability', umbrella: 'Umbrella Liability', excess: 'Excess Liability', workersComp: "Workers' Compensation" };
+
+  function renderPolicyLines(policies){
+    var container = $('policyLines');
+    container.innerHTML = '';
+    policies.forEach(function(p, idx){
+      var fieldsDef = p.lineOfBusiness === 'generalLiability' ? GL_FIELDS
+        : p.lineOfBusiness === 'automobile' ? AUTO_FIELDS
+        : (p.lineOfBusiness === 'umbrella' || p.lineOfBusiness === 'excess') ? UMBRELLA_FIELDS
+        : p.lineOfBusiness === 'workersComp' ? WC_FIELDS : [];
+
+      var div = document.createElement('div');
+      div.className = 'policy-line';
+      div.dataset.idx = idx;
+      var html = '<h3>' + (LINE_LABELS[p.lineOfBusiness] || p.lineOfBusiness) + ' — ' + escapeAttr(p.policyNumber || '') + '</h3>';
+      html += '<div class="row">' +
+        '<div><label>Policy Number</label><input type="text" data-pf="policyNumber" value="' + escapeAttr(p.policyNumber || '') + '"></div>' +
+        '<div><label>Effective</label><input type="text" data-pf="effectiveDate" value="' + escapeAttr(p.effectiveDate || '') + '"></div>' +
+        '<div><label>Expiration</label><input type="text" data-pf="expirationDate" value="' + escapeAttr(p.expirationDate || '') + '"></div>' +
+        '</div>';
+      html += '<div class="field-grid" style="margin-top:10px">';
+      fieldsDef.forEach(function(f){
+        html += '<div><label>' + f[1] + '</label><input type="text" data-pf="' + f[0] + '" value="' + escapeAttr(p[f[0]] || '') + '"></div>';
+      });
+      html += '</div>';
+      div.innerHTML = html;
+      container.appendChild(div);
+    });
+  }
+
+  function renderChecklist(findings){
+    var container = $('checklistItems');
+    container.innerHTML = '';
+    Object.keys(CHECKLIST_META).forEach(function(key){
+      var meta = CHECKLIST_META[key];
+      var finding = findings[key] || { status: 'not_found', detail: 'Not evaluated.', relevantForms: [], parties: [] };
+      var checked = finding.status === 'present' ? 'checked' : '';
+      var div = document.createElement('div');
+      div.className = 'checklist-item';
+      div.dataset.key = key;
+      div.innerHTML =
+        '<div class="top">' +
+          '<input type="checkbox" ' + checked + ' data-checklist="' + key + '">' +
+          '<label>' + meta.label + '</label>' +
+          '<span class="badge ' + finding.status + '">' + finding.status.replace('_',' ') + '</span>' +
+          '<span class="help" data-help="' + key + '">?</span>' +
+        '</div>' +
+        '<div class="detail">' + escapeHtml(finding.detail) + '</div>';
+      container.appendChild(div);
+    });
+
+    container.addEventListener('click', function(e){
+      if (e.target.classList.contains('help')) {
+        alert(CHECKLIST_META[e.target.dataset.help].help);
+      } else if (e.target.tagName === 'LABEL' || e.target.classList.contains('badge')) {
+        e.target.closest('.checklist-item').classList.toggle('expanded');
+      }
+    });
+
+    updateDescriptionOps();
+    container.addEventListener('change', function(e){
+      if (e.target.dataset.checklist) updateDescriptionOps();
+    });
+  }
+
+  function updateDescriptionOps(){
+    var lines = [];
+    document.querySelectorAll('[data-checklist]').forEach(function(cb){
+      if (!cb.checked) return;
+      var key = cb.dataset.checklist;
+      var finding = (extractedData.checklistFindings || {})[key];
+      if (!finding) return;
+      if (finding.status !== 'present') {
+        lines.push('⚠ ' + CHECKLIST_META[key].label + ' was requested but is NOT confirmed present in the policy (' + finding.status + ') — verify with the carrier before promising this.');
+      } else {
+        lines.push(CHECKLIST_META[key].label + ' applies per ' + (finding.relevantForms || []).join(', ') + '.');
+      }
+    });
+    $('descOps').value = lines.join(' ');
+  }
+
+  function escapeAttr(s){ return String(s || '').replace(/"/g, '&quot;'); }
+  function escapeHtml(s){ return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // ---- Step 5: Generate ----
+  $('generateBtn').addEventListener('click', async function(){
+    if (!STAFF_PASSWORD) { $('gate').style.display = 'flex'; return; }
+    $('generateBtn').disabled = true;
+    $('generateStatus').innerHTML = '<span class="spinner"></span>Generating...';
+    $('generateStatus').className = 'status-msg';
+
+    try {
+      var data = assembleData();
+      var res = await fetch('/.netlify/functions/coi-generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: STAFF_PASSWORD, data: data })
+      });
+      if (!res.ok) {
+        var json = await res.json();
+        if (res.status === 401) { $('gate').style.display = 'flex'; $('gateErr').style.display = 'block'; }
+        showError('generateStatus', json.error || 'Generation failed.');
+        $('generateBtn').disabled = false;
+        return;
+      }
+      var blob = await res.blob();
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'COI-' + (data.namedInsured.fullName || 'certificate').replace(/[^a-z0-9]+/gi, '-') + '.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showOk('generateStatus', 'Downloaded. Open it and double-check everything before sending.');
+    } catch (err) {
+      showError('generateStatus', 'Network or server error: ' + err.message);
+    }
+    $('generateBtn').disabled = false;
+  });
+
+  function assembleData(){
+    var insurers = [];
+    document.querySelectorAll('[data-insurer-letter]').forEach(function(input){
+      var letter = input.dataset.insurerLetter;
+      var existing = insurers.find(function(i){ return i.letter === letter; });
+      if (!existing) { existing = { letter: letter }; insurers.push(existing); }
+      existing[input.dataset.field] = input.value;
+    });
+
+    var checkedKeys = {};
+    document.querySelectorAll('[data-checklist]').forEach(function(cb){
+      checkedKeys[cb.dataset.checklist] = cb.checked;
+    });
+    var subrogationWaived = !!checkedKeys.waiverOfSubrogation;
+    var additionalInsured = !!(checkedKeys.ongoingOperationsAI || checkedKeys.completedOperationsAI);
+
+    var policies = [];
+    document.querySelectorAll('.policy-line').forEach(function(lineEl){
+      var idx = parseInt(lineEl.dataset.idx, 10);
+      var original = extractedData.policies[idx];
+      var updated = Object.assign({}, original);
+      lineEl.querySelectorAll('[data-pf]').forEach(function(input){
+        updated[input.dataset.pf] = input.value;
+      });
+      updated.subrogationWaived = subrogationWaived;
+      updated.additionalInsured = additionalInsured;
+      policies.push(updated);
+    });
+
+    return {
+      namedInsured: {
+        fullName: $('niName').value,
+        addressLine1: $('niAddr1').value,
+        addressLine2: '',
+        city: $('niCity').value,
+        state: $('niState').value,
+        postalCode: $('niZip').value,
+      },
+      certificateHolder: {
+        fullName: $('chName').value,
+        addressLine1: $('chAddr1').value,
+        addressLine2: '',
+        city: $('chCity').value,
+        state: $('chState').value,
+        postalCode: $('chZip').value,
+      },
+      certificateNumber: $('certNumber').value,
+      descriptionOfOperations: $('descOps').value,
+      insurers: insurers,
+      policies: policies,
+    };
+  }
+})();
+</script>
+</body>
+</html>

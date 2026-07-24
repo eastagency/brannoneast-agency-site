@@ -1,0 +1,515 @@
+[
+  {
+    "name": "CertificateHolder_FullName_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateHolder_MailingAddress_CityName_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateHolder_MailingAddress_LineOne_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateHolder_MailingAddress_LineTwo_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateHolder_MailingAddress_PostalCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateHolder_MailingAddress_StateOrProvinceCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateOfInsurance_AdditionalInsuredCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateOfInsurance_AdditionalInsuredCode_B",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateOfInsurance_AdditionalInsuredCode_D",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateOfInsurance_AdditionalInsuredCode_F",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateOfInsurance_CertificateNumberIdentifier_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateOfInsurance_RevisionNumberIdentifier_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "CertificateOfLiabilityInsurance_ACORDForm_RemarkText_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "ExcessUmbrella_ClaimsMadeIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "ExcessUmbrella_DeductibleIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "ExcessUmbrella_InsurerLetterCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "ExcessUmbrella_OccurrenceIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "ExcessUmbrella_OtherCoverageDescription_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "ExcessUmbrella_OtherCoverageLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "ExcessUmbrella_RetentionIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "ExcessUmbrella_Umbrella_AggregateAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "ExcessUmbrella_Umbrella_DeductibleOrRetentionAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "ExcessUmbrella_Umbrella_EachOccurrenceAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Form_CompletionDate_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_ClaimsMadeIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "GeneralLiability_CoverageIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "GeneralLiability_EachOccurrence_LimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_FireDamageRentedPremises_EachOccurrenceLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_GeneralAggregate_LimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_GeneralAggregate_LimitAppliesPerLocationIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "GeneralLiability_GeneralAggregate_LimitAppliesPerPolicyIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "GeneralLiability_GeneralAggregate_LimitAppliesPerProjectIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "GeneralLiability_InsurerLetterCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_MedicalExpense_EachPersonLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_OccurrenceIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "GeneralLiability_OtherCoverageDescription_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_OtherCoverageDescription_B",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_OtherCoverageIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "GeneralLiability_OtherCoverageIndicator_B",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "GeneralLiability_OtherCoverageLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_OtherCoverageLimitDescription_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_PersonalAndAdvertisingInjury_LimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "GeneralLiability_ProductsAndCompletedOperations_AggregateLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Insurer_FullName_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Insurer_FullName_B",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Insurer_FullName_C",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Insurer_FullName_D",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Insurer_FullName_E",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Insurer_FullName_F",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Insurer_NAICCode_A",
+    "type": "PDFTextField",
+    "maxLength": 9
+  },
+  {
+    "name": "Insurer_NAICCode_B",
+    "type": "PDFTextField",
+    "maxLength": 9
+  },
+  {
+    "name": "Insurer_NAICCode_C",
+    "type": "PDFTextField",
+    "maxLength": 9
+  },
+  {
+    "name": "Insurer_NAICCode_D",
+    "type": "PDFTextField",
+    "maxLength": 9
+  },
+  {
+    "name": "Insurer_NAICCode_E",
+    "type": "PDFTextField",
+    "maxLength": 9
+  },
+  {
+    "name": "Insurer_NAICCode_F",
+    "type": "PDFTextField",
+    "maxLength": 9
+  },
+  {
+    "name": "NamedInsured_FullName_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "NamedInsured_MailingAddress_CityName_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "NamedInsured_MailingAddress_LineOne_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "NamedInsured_MailingAddress_LineTwo_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "NamedInsured_MailingAddress_PostalCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "NamedInsured_MailingAddress_StateOrProvinceCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "OtherPolicy_CoverageLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "OtherPolicy_InsurerLetterCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "OtherPolicy_OtherPolicyDescription_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_EffectiveDate_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_EffectiveDate_B",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_EffectiveDate_D",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_EffectiveDate_E",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_EffectiveDate_F",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_ExpirationDate_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_ExpirationDate_B",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_ExpirationDate_D",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_ExpirationDate_E",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_ExpirationDate_F",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_PolicyNumberIdentifier_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_PolicyNumberIdentifier_B",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_PolicyNumberIdentifier_D",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_PolicyNumberIdentifier_E",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_PolicyNumberIdentifier_F",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_PolicyType_ExcessIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "Policy_PolicyType_UmbrellaIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "Policy_SubrogationWaivedCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_SubrogationWaivedCode_B",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_SubrogationWaivedCode_D",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_SubrogationWaivedCode_E",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Policy_SubrogationWaivedCode_F",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_AuthorizedRepresentative_Signature_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_ContactPerson_EmailAddress_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_ContactPerson_FullName_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_ContactPerson_PhoneNumber_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_FaxNumber_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_FullName_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_MailingAddress_CityName_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_MailingAddress_LineOne_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_MailingAddress_LineTwo_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_MailingAddress_PostalCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Producer_MailingAddress_StateOrProvinceCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_AllOwnedAutosIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "Vehicle_AnyAutoIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "Vehicle_BodilyInjury_PerAccidentLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_BodilyInjury_PerPersonLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_CombinedSingleLimit_EachAccidentAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_HiredAutosIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "Vehicle_InsurerLetterCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_NonOwnedAutosIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "Vehicle_OtherCoverage_CoverageDescription_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_OtherCoverage_LimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_OtherCoveredAutoDescription_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_OtherCoveredAutoDescription_B",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_OtherCoveredAutoIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "Vehicle_OtherCoveredAutoIndicator_B",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "Vehicle_PropertyDamage_PerAccidentLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "Vehicle_ScheduledAutosIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "WorkersCompensationEmployersLiability_AnyPersonsExcludedIndicator_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "WorkersCompensationEmployersLiability_EmployersLiability_DiseaseEachEmployeeLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "WorkersCompensationEmployersLiability_EmployersLiability_DiseasePolicyLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "WorkersCompensationEmployersLiability_EmployersLiability_EachAccidentLimitAmount_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "WorkersCompensationEmployersLiability_InsurerLetterCode_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "WorkersCompensationEmployersLiability_OtherCoverageDescription_A",
+    "type": "PDFTextField"
+  },
+  {
+    "name": "WorkersCompensationEmployersLiability_OtherCoverageIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  },
+  {
+    "name": "WorkersCompensationEmployersLiability_WorkersCompensationStatutoryLimitIndicator_A",
+    "type": "PDFCheckBox",
+    "onValue": "/On"
+  }
+]

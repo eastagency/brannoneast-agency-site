@@ -1,0 +1,12 @@
+{
+  "name": "coi-tool-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prototype: extract commercial policy data and fill an ACORD 25 COI",
+  "type": "commonjs",
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "pdf-parse": "^1.1.1",
+    "@anthropic-ai/sdk": "^0.32.1"
+  }
+}

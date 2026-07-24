@@ -1,0 +1,10 @@
+{
+  "name": "brannoneast-agency-site",
+  "private": true,
+  "description": "Dependencies for Netlify Functions (site itself is static HTML/CSS/JS)",
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "@anthropic-ai/sdk": "^0.32.1",
+    "@netlify/blobs": "^8.1.0"
+  }
+}
