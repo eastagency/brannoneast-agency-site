@@ -15,6 +15,7 @@
 // job id), and return the job id immediately so the staff page can poll
 // coi-status for the result.
 import { getStore } from '@netlify/blobs';
+import { randomUUID } from 'node:crypto';
 
 const MAX_BYTES = 5.5 * 1024 * 1024; // stay under Netlify's ~6MB request payload limit with headroom
 
@@ -55,9 +56,9 @@ export default async (req) => {
     return new Response(JSON.stringify({ error: 'Could not read uploaded file' }), { status: 400, headers: cors });
   }
 
-  const jobId = crypto.randomUUID();
-
+  let jobId;
   try {
+    jobId = randomUUID();
     const pdfStore = getStore({ name: 'coi-pdf-uploads', consistency: 'strong' });
     await pdfStore.set(jobId, pdfBuffer);
 
