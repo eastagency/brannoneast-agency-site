@@ -187,7 +187,7 @@
     el.className = 'status-msg ok';
   }
 
-  var MAX_UPLOAD_BYTES = 5.5 * 1024 * 1024;
+  var MAX_UPLOAD_BYTES = 4.2 * 1024 * 1024;
 
   // ---- Step 1: Extract ----
   // Extraction runs as a background job (not a single synchronous request):
@@ -202,7 +202,7 @@
     if (!file) { showError('extractStatus', 'Choose a policy PDF first.'); return; }
     if (!STAFF_PASSWORD) { $('gate').style.display = 'flex'; return; }
     if (file.size > MAX_UPLOAD_BYTES) {
-      showError('extractStatus', 'This PDF is ' + (file.size/1024/1024).toFixed(1) + 'MB — over the ' + (MAX_UPLOAD_BYTES/1024/1024).toFixed(0) + 'MB limit this tool currently supports. Ask Brannon to add large-file support, or try a smaller/compressed copy.');
+      showError('extractStatus', 'This PDF is ' + (file.size/1024/1024).toFixed(1) + 'MB — over the ' + (MAX_UPLOAD_BYTES/1024/1024).toFixed(1) + 'MB limit this tool currently supports. Ask Brannon to add large-file support, or try a smaller/compressed copy.');
       return;
     }
 

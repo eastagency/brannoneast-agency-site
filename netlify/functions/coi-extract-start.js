@@ -17,7 +17,12 @@
 import { getStore } from '@netlify/blobs';
 import { randomUUID } from 'node:crypto';
 
-const MAX_BYTES = 5.5 * 1024 * 1024; // stay under Netlify's ~6MB request payload limit with headroom
+// Netlify's Lambda transport appears to base64-encode the request body
+// internally before invocation, even for raw binary content — so a raw file
+// hits AWS Lambda's real 6MB synchronous-invoke ceiling well before the file
+// itself reaches 6MB. Confirmed empirically against production: a 4.4MB raw
+// body succeeded, 4.6MB failed with a platform-level 500. 4.2MB leaves margin.
+const MAX_BYTES = 4.2 * 1024 * 1024;
 
 const cors = {
   'Access-Control-Allow-Origin': '*',
@@ -46,7 +51,7 @@ export default async (req) => {
     if (arrayBuffer.byteLength > MAX_BYTES) {
       return new Response(
         JSON.stringify({
-          error: `This policy PDF is ${(arrayBuffer.byteLength / 1024 / 1024).toFixed(1)}MB, which is over the ${(MAX_BYTES / 1024 / 1024).toFixed(0)}MB limit this tool currently supports. Ask Brannon to add large-file support (it needs a direct-to-storage upload path), or split/compress the PDF if possible.`,
+          error: `This policy PDF is ${(arrayBuffer.byteLength / 1024 / 1024).toFixed(1)}MB, which is over the ${(MAX_BYTES / 1024 / 1024).toFixed(1)}MB limit this tool currently supports. Ask Brannon to add large-file support (it needs a direct-to-storage upload path), or split/compress the PDF if possible.`,
         }),
         { status: 413, headers: cors }
       );
