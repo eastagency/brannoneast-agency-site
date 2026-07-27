@@ -3,12 +3,13 @@ Step 1: Ask only "What's your first and last name?"
 Step 2: Ask only "What's your email address?"
 Step 3: Ask only "What's the best phone number to reach you?"
 Step 4: Ask only "What's your ZIP code?"
-Step 5 onward: Ask the insurance-specific questions below, one at a time.
+Step 5: Ask only "What's your date of birth?"
+Step 6 onward: Ask the insurance-specific questions below, one at a time.
 
 Once a question is answered, never ask it again. Move to the next step immediately.`;
 
 const SUBMISSION_RULES = `
-CRITICAL OUTPUT RULES — apply these exactly when writing the ===SUBMIT=== JSON:
+CRITICAL OUTPUT RULES — apply these exactly when filling in the submit_lead_data tool:
 - Use ONLY the exact words the user provided. Never infer, guess, or correct any value based on context.
 - If the user said "no", "none", "n/a", or "skip", output that exact full word. Never abbreviate — "none" must be "none", never "n". Never convert these to an empty string.
 - An empty string "" means the question was NEVER asked or the user never answered it. If the user gave any answer at all — even "no" or "none" — output that answer, not "".
@@ -41,7 +42,7 @@ const PROMPTS = {
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
+Insurance questions (ask these next, one at a time):
 
 --- VEHICLE FLOW (Step 5) ---
 Ask "How many vehicles do you need covered?"
@@ -81,15 +82,12 @@ Store all driver info combined in drivers (e.g. "D1: John Smith, Primary, Male, 
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","drivers":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Auto Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 'Home Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
+Insurance questions (ask these next, one at a time):
 - What is the property address?
 - What year was the home built?
 - Approximately how many square feet is the home?
@@ -100,17 +98,13 @@ Insurance questions (Steps 5 onward, one at a time):
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","year_built":"","sq_footage":"","home_value":"","construction":"","roof_age":"","reason":"","comments":"","wants_upload":"","policy_type":"Home Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 'Life Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Be warm and reassuring throughout.
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
-- What is your date of birth?
+Insurance questions (ask these next, one at a time):
 - What type of policy are you looking for? (Term / Whole Life / Mortgage Protection / IUL / Not Sure )
 - How much coverage are you looking for? ($5-25k / $25k- $50k / $100k / $250k / $500k / $1M+ / not sure)
 - Gender? ( Male / Female )
@@ -119,17 +113,13 @@ Insurance questions (Steps 5 onward, one at a time):
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","dob":"","coverage_amount":"","coverage_type":"","tobacco":"","health_status":"","comments":"","wants_upload":"","policy_type":"Life Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 'Health Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
-- What is your date of birth?
+Insurance questions (ask these next, one at a time):
 - Who needs coverage? (just me / me and spouse / family with kids)
 - How many people are in your household?
 - What is your current coverage situation? (uninsured / employer plan / self-pay / COBRA / Medicaid)
@@ -137,16 +127,13 @@ Insurance questions (Steps 5 onward, one at a time):
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","dob":"","coverage_for":"","household_size":"","current_coverage":"","tobacco":"","comments":"","wants_upload":"","policy_type":"Health Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 'Business Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
+Insurance questions (ask these next, one at a time):
 - What is the name of your business?
 - What type of business is it? — store in business_type
 - How long have you been in business? (less than 1 year / 1-3 years / 3-10 years / 10+ years)
@@ -159,10 +146,7 @@ Insurance questions (Steps 5 onward, one at a time):
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","business_name":"","business_type":"","years_in_business":"","annual_revenue":"","employees":"","coverage_type":"","currently_insured":"","current_carrier":"","renewal_date":"","comments":"","wants_upload":"","policy_type":"Business Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 'Classic Car Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Show genuine enthusiasm for their vehicle!
 
@@ -209,15 +193,12 @@ Store all driver info combined in drivers_info (e.g. "D1: John Smith, Primary, M
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicle":"","vehicle_value":"","annual_mileage":"","storage":"","usage":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Classic Car Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 'Collectible Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
+Insurance questions (ask these next, one at a time):
 - What type of collectibles do you have? (firearms / jewelry / art / coins / sports cards / instruments / wine / other)
 - Approximately how many individual items are in your collection?
 - What is the approximate total value of your collection?
@@ -226,16 +207,13 @@ Insurance questions (Steps 5 onward, one at a time):
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","collectible_type":"","item_count":"","collection_value":"","storage":"","currently_insured":"","comments":"","wants_upload":"","policy_type":"Collectible Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 'Flood Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
+Insurance questions (ask these next, one at a time):
 - What is the property address? — store in address
 - What type of property is it? (single family home / condo / townhome / manufactured home / commercial) — store in property_type
 - What year was the home built?
@@ -248,16 +226,13 @@ Insurance questions (Steps 5 onward, one at a time):
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","address":"","property_type":"","year_built":"","building_value":"","flood_zone":"","prior_flood":"","basement":"","current_carrier":"","reason":"","comments":"","wants_upload":"","policy_type":"Flood Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 'Special Event Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
+Insurance questions (ask these next, one at a time):
 - What type of event is it? (wedding / graduation / birthday / corporate / festival / other)
 - What is the event date?
 - How many guests are you expecting? (under 50 / 50-150 / 150-300 / 300+)
@@ -269,16 +244,13 @@ Insurance questions (Steps 5 onward, one at a time):
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","event_type":"","event_date":"","attendance":"","venue_type":"","alcohol":"","coverage_limit":"","cancellation":"","venue_required":"","comments":"","wants_upload":"","policy_type":"Special Event Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 'Landlord Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
+Insurance questions (ask these next, one at a time):
 - "What is the address of the rental property?" — store in property_address
 - "What type of rental property is it?" (Single-Family Rental Home / Duplex or Multi-Family / Condo Unit / Vacation or Short-Term Rental / Commercial or Mixed-Use) — store in property_type
 - "How many rental properties do you need covered?" (1 / 2-5 / 6-10 / 10+) — store in property_count
@@ -291,16 +263,13 @@ Insurance questions (Steps 5 onward, one at a time):
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","property_address":"","property_type":"","property_count":"","property_value":"","occupancy":"","rental_income":"","claims":"","current_carrier":"","renewal_date":"","comments":"","wants_upload":"","policy_type":"Landlord Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 'Renters Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Keep it upbeat — this one is quick and affordable!
 
 ${CONTACT_STEPS}
 
-Insurance questions (Steps 5 onward, one at a time):
+Insurance questions (ask these next, one at a time):
 - What is your rental address? — store in rental_address
 - What type of rental is it? (apartment / house / condo / townhome / mobile home) — store in rental_type
 - How many residents will be covered? (just me / 2 people / 3-4 people / 5+) — store in residents
@@ -311,10 +280,7 @@ Insurance questions (Steps 5 onward, one at a time):
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","rental_address":"","rental_type":"","residents":"","property_value":"","high_value_items":"","currently_insured":"","pets":"","comments":"","wants_upload":"","policy_type":"Renters Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 'Motorcycle Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
@@ -362,10 +328,7 @@ Store all driver info combined in drivers_info (e.g. "D1: John Smith, Primary, M
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","bike_type":"","engine_cc":"","usage":"","storage":"","endorsement":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Motorcycle Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 'RV Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East.
 
 ${CONTACT_STEPS}
@@ -411,10 +374,7 @@ Store all driver info combined in drivers_info (e.g. "D1: John Smith, Primary, M
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","rv":"","rv_type":"","rv_value":"","usage":"","storage":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"RV Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 'Boat Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Feel free to mention Lake Allatoona if they seem local!
 
 ${CONTACT_STEPS}
@@ -464,10 +424,7 @@ Store all captain info combined in drivers_info (e.g. "C1: John Smith, Primary O
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","boat_type":"","boat_length":"","boat_value":"","storage":"","marina_address":"","drivers_info":"","violations":"","coverage":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Boat Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
 
 'ATV Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. You help people get ATV, UTV, and off-road vehicle insurance quotes.
@@ -527,12 +484,7 @@ Store all rider info in riders_info, with each rider on its own line separated b
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","vehicles":"","year":"","make":"","model":"","engine_size":"","engine_mods":"","vehicle_value":"","atv_type":"","primary_use":"","operating_area":"","storage":"","riders_info":"","violations":"","coverage":"","currently_insured":"","comments":"","wants_upload":"","policy_type":"ATV Insurance"}
-===END===
-
-For the year, make, and model fields: parse Vehicle #1's answer (e.g. "2026 Polaris RZR 900") and extract the 4-digit year into year, the brand name into make, and the remaining model name into model. The vehicles field still holds the full combined string for all vehicles.`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 'Farm & Agricultural Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. Be knowledgeable and respectful — farmers and ranchers are busy and practical people.
 
 ${CONTACT_STEPS}
@@ -582,16 +534,13 @@ Ask one at a time:
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","farm_type":"","farm_address":"","acreage":"","farm_purpose":"","employees":"","has_structures":"","structures":"","building_value":"","has_livestock":"","livestock_type":"","livestock_value":"","has_equipment":"","equipment_value":"","equipment_financed":"","has_crops":"","crop_type":"","crop_value":"","farm_vehicles":"","claims":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Farm & Agricultural Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
   'Travel Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. You help people get travel insurance quotes.
 
 ${CONTACT_STEPS}
 
---- TRIP DETAILS (Step 5 onward) ---
+--- TRIP DETAILS ---
 Ask one at a time:
 - "Where are you traveling to?" — store in destination
 - "What is your departure date?" — store in departure_date
@@ -604,10 +553,7 @@ Ask one at a time:
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","destination":"","departure_date":"","return_date":"","travelers":"","trip_cost":"","is_cruise":"","coverage_type":"","pre_existing":"","comments":"","wants_upload":"","policy_type":"Travel Insurance"}
-===END===`,
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`,
 
   'Pet Insurance': `You are a warm friendly assistant for The East Agency, an independent insurance agency in Cartersville GA run by Brannon East. You help people get pet insurance quotes.
 
@@ -634,11 +580,112 @@ Complete all questions for Pet #1 before asking about Pet #2.
 
 ${FINAL_STEPS}
 
-When ALL fields including comments and wants_upload are collected, immediately output:
-===SUBMIT===
-{"first_name":"","last_name":"","email":"","phone":"","zip":"","pet_name":"","pet_type":"","breed":"","pet_age":"","pet_gender":"","spayed_neutered":"","lifestyle":"","pre_existing":"","multiple_pets":"","coverage_type":"","current_carrier":"","comments":"","wants_upload":"","policy_type":"Pet Insurance"}
-===END===`
+Once wants_upload has been answered, end your reply with the token [LEAD_COMPLETE] on a line by itself, with nothing else on that line.`
 };
+
+// Ordered field list per policy type — used to build the forced tool-use
+// schema for the extraction step. "policy_type" is NOT included here: it's
+// filled in from the known insuranceType server-side, never asked of the model.
+const FIELD_LISTS = {
+  'Auto Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','drivers','violations','coverage','current_carrier','comments','wants_upload'],
+  'Home Insurance': ['first_name','last_name','email','phone','zip','dob','property_address','year_built','sq_footage','home_value','construction','roof_age','reason','comments','wants_upload'],
+  'Life Insurance': ['first_name','last_name','email','phone','zip','dob','coverage_amount','coverage_type','tobacco','health_status','comments','wants_upload'],
+  'Health Insurance': ['first_name','last_name','email','phone','zip','dob','coverage_for','household_size','current_coverage','tobacco','comments','wants_upload'],
+  'Business Insurance': ['first_name','last_name','email','phone','zip','dob','business_name','business_type','years_in_business','annual_revenue','employees','coverage_type','currently_insured','current_carrier','renewal_date','comments','wants_upload'],
+  'Classic Car Insurance': ['first_name','last_name','email','phone','zip','dob','vehicle','vehicle_value','annual_mileage','storage','usage','drivers_info','violations','coverage','current_carrier','comments','wants_upload'],
+  'Collectible Insurance': ['first_name','last_name','email','phone','zip','dob','collectible_type','item_count','collection_value','storage','currently_insured','comments','wants_upload'],
+  'Flood Insurance': ['first_name','last_name','email','phone','zip','dob','address','property_type','year_built','building_value','flood_zone','prior_flood','basement','current_carrier','reason','comments','wants_upload'],
+  'Special Event Insurance': ['first_name','last_name','email','phone','zip','dob','event_type','event_date','attendance','venue_type','alcohol','coverage_limit','cancellation','venue_required','comments','wants_upload'],
+  'Landlord Insurance': ['first_name','last_name','email','phone','zip','dob','property_address','property_type','property_count','property_value','occupancy','rental_income','claims','current_carrier','renewal_date','comments','wants_upload'],
+  'Renters Insurance': ['first_name','last_name','email','phone','zip','dob','rental_address','rental_type','residents','property_value','high_value_items','currently_insured','pets','comments','wants_upload'],
+  'Motorcycle Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','bike_type','engine_cc','usage','storage','endorsement','drivers_info','violations','coverage','current_carrier','comments','wants_upload'],
+  'RV Insurance': ['first_name','last_name','email','phone','zip','dob','rv','rv_type','rv_value','usage','storage','drivers_info','violations','coverage','current_carrier','comments','wants_upload'],
+  'Boat Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','boat_type','boat_length','boat_value','storage','marina_address','drivers_info','violations','coverage','current_carrier','comments','wants_upload'],
+  'ATV Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','year','make','model','engine_size','engine_mods','vehicle_value','atv_type','primary_use','operating_area','storage','riders_info','violations','coverage','currently_insured','comments','wants_upload'],
+  'Farm & Agricultural Insurance': ['first_name','last_name','email','phone','zip','dob','farm_type','farm_address','acreage','farm_purpose','employees','has_structures','structures','building_value','has_livestock','livestock_type','livestock_value','has_equipment','equipment_value','equipment_financed','has_crops','crop_type','crop_value','farm_vehicles','claims','current_carrier','comments','wants_upload'],
+  'Travel Insurance': ['first_name','last_name','email','phone','zip','dob','destination','departure_date','return_date','travelers','trip_cost','is_cruise','coverage_type','pre_existing','comments','wants_upload'],
+  'Pet Insurance': ['first_name','last_name','email','phone','zip','dob','pet_name','pet_type','breed','pet_age','pet_gender','spayed_neutered','lifestyle','pre_existing','multiple_pets','coverage_type','current_carrier','comments','wants_upload'],
+};
+
+// Per-type extra guidance for the extraction step only (not shown during the
+// conversation itself, since the conversation prompt no longer constructs JSON).
+const EXTRACTION_NOTES = {
+  'ATV Insurance': 'For the year, make, and model fields: parse Vehicle #1\'s answer (e.g. "2026 Polaris RZR 900") and extract the 4-digit year into year, the brand name into make, and the remaining model name into model. The vehicles field should still hold the full combined string for all vehicles.',
+};
+
+function buildExtractionTool(insuranceType) {
+  const keys = FIELD_LISTS[insuranceType] || FIELD_LISTS['Auto Insurance'];
+  const properties = {};
+  keys.forEach((k) => { properties[k] = { type: 'string' }; });
+  return {
+    name: 'submit_lead_data',
+    description: 'Submit the structured lead data collected during this conversation.',
+    input_schema: {
+      type: 'object',
+      properties,
+      required: keys,
+      additionalProperties: false,
+    },
+  };
+}
+
+const EXTRACTION_FINAL_FIELD_RULES = `
+- comments: if the visitor skipped, said no, or declined to leave a note, store exactly "none" (not "no", not an empty string). Otherwise store their actual note.
+- wants_upload: store exactly "yes" or "no" based on whether the visitor wants to upload declaration pages — never any other word or an empty string.`;
+
+function extractionSystemPrompt(insuranceType) {
+  const extra = EXTRACTION_NOTES[insuranceType] ? `\n\n${EXTRACTION_NOTES[insuranceType]}` : '';
+  return `You are reading a complete conversation transcript between an insurance agency's chat assistant and a website visitor, and extracting the structured lead data from it into the submit_lead_data tool.
+
+Read the ENTIRE conversation from the very beginning, message by message. Do not rely on a summary or your memory of the conversation — actually re-scan every message for where each field was answered. Every question in the transcript that the visitor actually answered MUST have its answer reflected in the corresponding field — leaving a field blank when the transcript clearly contains an answer is a serious error.
+${SUBMISSION_RULES}
+${EXTRACTION_FINAL_FIELD_RULES}${extra}`;
+}
+
+// Forced tool-use call, isolated from the conversational reply, so extraction
+// is a single-purpose task (re-read the whole transcript, fill the schema)
+// instead of sharing a completion with writing a warm closing message. One
+// retry on failure/malformed response before giving up — better than losing
+// the whole request over one bad extraction attempt.
+async function callExtractionTool(transcript, insuranceType) {
+  const tool = buildExtractionTool(insuranceType);
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': process.env.ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01'
+    },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 2048,
+      system: extractionSystemPrompt(insuranceType),
+      tools: [tool],
+      tool_choice: { type: 'tool', name: 'submit_lead_data' },
+      messages: transcript
+    })
+  });
+  const data = await res.json();
+  const toolUse = (data.content || []).find((b) => b.type === 'tool_use');
+  if (!toolUse) throw new Error('No tool_use block in extraction response');
+  return toolUse.input;
+}
+
+async function extractLeadData(transcript, insuranceType) {
+  try {
+    const result = await callExtractionTool(transcript, insuranceType);
+    return { ...result, policy_type: insuranceType };
+  } catch (e) {
+    console.error('[chat] extraction attempt 1 failed:', e.message);
+    try {
+      const result = await callExtractionTool(transcript, insuranceType);
+      return { ...result, policy_type: insuranceType };
+    } catch (e2) {
+      console.error('[chat] extraction attempt 2 failed:', e2.message);
+      return null;
+    }
+  }
+}
 
 export default async (req, context) => {
   const cors = {
@@ -657,7 +704,8 @@ export default async (req, context) => {
 
   try {
     const { messages, insuranceType } = await req.json();
-    const prompt = (PROMPTS[insuranceType] || PROMPTS['Auto Insurance']) + SUBMISSION_RULES;
+    const type = PROMPTS[insuranceType] ? insuranceType : 'Auto Insurance';
+    const prompt = PROMPTS[type];
     const msgs = (messages && messages.length > 0) ? messages : [{ role: 'user', content: '[START]' }];
 
     const apiRes = await fetch('https://api.anthropic.com/v1/messages', {
@@ -678,15 +726,13 @@ export default async (req, context) => {
     const data = await apiRes.json();
     const raw = data.content[0].text;
 
-    const match = raw.match(/===SUBMIT===\s*([\s\S]*?)\s*===END===/);
+    const isComplete = /\[LEAD_COMPLETE\]/.test(raw);
+    const reply = raw.replace(/\[LEAD_COMPLETE\]/g, '').trim();
     let formData = null;
-    let reply = raw;
 
-    if (match) {
-      try {
-        formData = JSON.parse(match[1]);
-        reply = raw.replace(/===SUBMIT===[\s\S]*?===END===/g, '').trim();
-      } catch (e) {}
+    if (isComplete) {
+      const transcript = msgs.concat([{ role: 'assistant', content: reply }]);
+      formData = await extractLeadData(transcript, type);
     }
 
     return new Response(JSON.stringify({ reply, formData }), { status: 200, headers: cors });
