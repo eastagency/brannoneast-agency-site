@@ -3,4 +3,4 @@ Allow: /
 Disallow: /staff-coi-tool.html
 Disallow: /coi
 
-Sitemap: https://www.brannoneast.agency/sitemap.xml
+Sitemap: https://brannoneast.agency/sitemap.xml
