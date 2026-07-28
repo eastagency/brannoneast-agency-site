@@ -118,6 +118,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://brannoneast.agency/pet-insurance-quote.html</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
   <url>
     <loc>https://brannoneast.agency/knowledge.html</loc>
@@ -141,6 +147,13 @@
     <loc>https://brannoneast.agency/travel-insurance-quote.html</loc>
     <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://brannoneast.agency/blog.html</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 

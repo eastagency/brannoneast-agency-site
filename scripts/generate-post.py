@@ -162,6 +162,16 @@ def generate_content(topic, kw_data=None):
         f'- Mention that The East Agency shops 20+ carriers to find the best rate.\n'
         f'- 700-900 words of article body content.\n'
         f'- End with a <p> calling readers to get a free quote from The East Agency.\n\n'
+        f'Write like a real person, not an AI assistant. Specifically avoid:\n'
+        f'- Em dashes (use a comma, period, or "and"/"but" instead).\n'
+        f'- Inflated claims about significance ("stands as a testament," "plays a vital role," "in the ever-evolving landscape of").\n'
+        f'- Vague attributions ("industry experts agree," "many homeowners find") — say something concrete instead, or nothing.\n'
+        f'- Formulaic transitions ("it is important to note that," "when it comes to," "at the end of the day").\n'
+        f'- Rule-of-three lists and manufactured punchlines ("It is not just X, it is Y").\n'
+        f'- Excessive hedging ("can potentially," "may sometimes") and false ranges ("whether X or Y").\n'
+        f'- Title Case Headings — use normal sentence case.\n'
+        f'- Chatbot sign-offs or closing summaries that restate the whole post.\n'
+        f'Just write the way Brannon would actually talk to someone in his office.\n\n'
         f'Return ONLY a raw JSON object — no markdown fences, no commentary:\n'
         f'{{\n'
         f'  "title": "Engaging title, 60 chars max, keyword included naturally",\n'
@@ -194,10 +204,10 @@ def build_post(topic, data, date_iso, date_display):
     # head
     html = re.sub(r"<title>.*?</title>", f"<title>{data['title']} | The East Agency</title>", html)
     html = re.sub(r'(<meta name="description" content=")[^"]*"', f"\\g<1>{data['excerpt']}\"", html)
-    html = re.sub(r'(<link rel="canonical" href=")[^"]*"', f"\\g<1>https://www.brannoneast.agency/blog/{data['slug']}.html\"", html)
+    html = re.sub(r'(<link rel="canonical" href=")[^"]*"', f"\\g<1>https://brannoneast.agency/blog/{data['slug']}.html\"", html)
     html = re.sub(r'(<meta property="og:title" content=")[^"]*"', f"\\g<1>{data['title']}\"", html)
     html = re.sub(r'(<meta property="og:description" content=")[^"]*"', f"\\g<1>{data['excerpt']}\"", html)
-    html = re.sub(r'(<meta property="og:image" content=")[^"]*"', f"\\g<1>https://www.brannoneast.agency{topic['img']}\"", html)
+    html = re.sub(r'(<meta property="og:image" content=")[^"]*"', f"\\g<1>https://brannoneast.agency{topic['img']}\"", html)
 
     schema = {
         "@context": "https://schema.org",
@@ -205,10 +215,10 @@ def build_post(topic, data, date_iso, date_display):
         "headline": data["title"],
         "description": data["excerpt"],
         "datePublished": date_iso,
-        "image": f"https://www.brannoneast.agency{topic['img']}",
+        "image": f"https://brannoneast.agency{topic['img']}",
         "author": {"@type": "Person", "name": "Brannon East"},
-        "publisher": {"@type": "Organization", "name": "The East Agency", "url": "https://www.brannoneast.agency"},
-        "url": f"https://www.brannoneast.agency/blog/{data['slug']}.html"
+        "publisher": {"@type": "Organization", "name": "The East Agency", "url": "https://brannoneast.agency"},
+        "url": f"https://brannoneast.agency/blog/{data['slug']}.html"
     }
     html = re.sub(
         r'<script type="application/ld\+json">.*?</script>',
@@ -288,7 +298,7 @@ def update_sitemap(slug, date_iso):
     with open("sitemap.xml", "r", encoding="utf-8") as f:
         xml = f.read()
 
-    url = f"https://www.brannoneast.agency/blog/{slug}.html"
+    url = f"https://brannoneast.agency/blog/{slug}.html"
     if url in xml:
         print(f"Sitemap: already contains {slug}, skipping")
         return
