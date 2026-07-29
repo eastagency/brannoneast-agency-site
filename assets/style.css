@@ -132,7 +132,7 @@ img{max-width:100%;display:block}
 
 /* FOOTER */
 .site-footer{background:var(--ocean);color:#DCEAE8;padding:60px 0 30px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
 @media(max-width:700px){.footer-grid{grid-template-columns:1fr}}
 .site-footer h4{color:var(--white);font-size:15px;letter-spacing:1px;text-transform:uppercase}
 .site-footer a{color:#B9D3D0;font-size:14px;display:block;margin-bottom:10px;transition:color .2s}
