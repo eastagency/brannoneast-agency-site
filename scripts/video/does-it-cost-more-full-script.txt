@@ -1,0 +1,27 @@
+DOES IT COST MORE TO USE AN INSURANCE AGENT? — FULL SCRIPT
+Source: blog/does-it-cost-more-independent-agent-georgia.html
+Length: ~2 minutes spoken
+Use: YouTube / Facebook / website video
+
+I get this question all the time, usually from someone who's a little embarrassed to ask it out loud: does it actually cost more to buy insurance through me instead of just going straight to a company like GEICO or Progressive?
+
+No. Flat out, no.
+
+The rate you'd get calling the carrier directly, and the rate I get you from that same carrier, is the same rate. The carrier pays me a commission out of their own overhead for bringing them the business. It's not added to your premium. You're not paying extra for me to be involved.
+
+So if the price is identical, why does anyone go direct at all? Honestly, a lot of people just don't know there's another option. And for some people, shopping around themselves works fine — if you've got twenty minutes and you enjoy calling four different companies and comparing quotes line by line, more power to you. But most people don't have that kind of time. They call two companies, get tired, and just pick one.
+
+So what am I actually doing that you couldn't do yourself? Scale, mostly. I've got relationships with twenty-plus carriers. When you come to me, I'm not calling two companies — I'm running your information against all of them and bringing back whichever ones are actually competitive for your specific situation. Your age, your driving record, your car, your zip code — all of that changes which carrier is cheapest, and it's different for everybody. A great deal for your neighbor might not be a great deal for you.
+
+Now, what if you already have insurance and it seems fine? Why bother switching? Rate creep is the biggest one. Carriers raise renewal rates over time, and most people never re-shop — they just pay it. I've had clients come to me paying a hundred and forty dollars a month for coverage I got them for eighty-nine, same coverage, different carrier. Their old carrier didn't do anything wrong. Pricing just shifts every year, and nobody's calling to tell you when a better option shows up. That's the job I actually do.
+
+If it doesn't cost you anything extra, what's in it for me? The same thing the carrier gets — keeping you as a happy client. I get paid when I place your policy, and my whole business runs on referrals and people staying with me year after year. If I put you in a bad policy, you'd leave, and you'd tell your neighbors not to call me. So the incentive lines up. I do right by you, or I don't have a business.
+
+And here's where the value really shows up — what happens if you actually have a claim? If you call an eight-hundred number, you're one ticket in a queue. If you call me, I already know your policy, I know your carrier, and I can push on your behalf if something's moving slowly. I'm not the one paying the claim, but I'm the person in your corner while it's happening.
+
+Is there any downside to going through an agent instead of buying online? Honestly, the only real trade-off is you're talking to a person instead of clicking through a website at eleven p.m. But if you want an actual comparison, and someone to call when something goes sideways — that's what an agent is for.
+
+So if you want to see what an actual comparison looks like for your situation, get a free quote with me. I'll shop twenty-plus carriers to find your best option, at no extra cost to you.
+
+NOTES:
+- Numbers spelled out phonetically ($140 -> "a hundred and forty dollars", 20+ -> "twenty-plus") since some TTS/avatar engines stumble on digits and symbols. Check how your specific HeyGen voice handles numerals before assuming this is necessary every time.
