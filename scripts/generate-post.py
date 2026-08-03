@@ -203,12 +203,16 @@ def build_post(topic, data, date_iso, date_display):
         html = f.read()
 
     # head
-    html = re.sub(r"<title>.*?</title>", f"<title>{data['title']} | The East Agency</title>", html)
-    html = re.sub(r'(<meta name="description" content=")[^"]*"', f"\\g<1>{data['excerpt']}\"", html)
-    html = re.sub(r'(<link rel="canonical" href=")[^"]*"', f"\\g<1>https://brannoneast.agency/blog/{data['slug']}.html\"", html)
-    html = re.sub(r'(<meta property="og:title" content=")[^"]*"', f"\\g<1>{data['title']}\"", html)
-    html = re.sub(r'(<meta property="og:description" content=")[^"]*"', f"\\g<1>{data['excerpt']}\"", html)
-    html = re.sub(r'(<meta property="og:image" content=")[^"]*"', f"\\g<1>https://brannoneast.agency{topic['img']}\"", html)
+    # NOTE: replacements use functions, not f-strings, because re.sub() interprets
+    # backslashes in a string replacement as regex escapes (\1, \g<1>, etc). LLM-generated
+    # title/excerpt text can contain characters that trip this (see build_post schema below
+    # for the concrete failure mode); a function replacement is used verbatim instead.
+    html = re.sub(r"<title>.*?</title>", lambda m: f"<title>{data['title']} | The East Agency</title>", html)
+    html = re.sub(r'(<meta name="description" content=")[^"]*"', lambda m: f'{m.group(1)}{data["excerpt"]}"', html)
+    html = re.sub(r'(<link rel="canonical" href=")[^"]*"', lambda m: f'{m.group(1)}https://brannoneast.agency/blog/{data["slug"]}.html"', html)
+    html = re.sub(r'(<meta property="og:title" content=")[^"]*"', lambda m: f'{m.group(1)}{data["title"]}"', html)
+    html = re.sub(r'(<meta property="og:description" content=")[^"]*"', lambda m: f'{m.group(1)}{data["excerpt"]}"', html)
+    html = re.sub(r'(<meta property="og:image" content=")[^"]*"', lambda m: f'{m.group(1)}https://brannoneast.agency{topic["img"]}"', html)
 
     schema = {
         "@context": "https://schema.org",
@@ -223,7 +227,7 @@ def build_post(topic, data, date_iso, date_display):
     }
     html = re.sub(
         r'<script type="application/ld\+json">.*?</script>',
-        f'<script type="application/ld+json">\n{json.dumps(schema, indent=2)}\n</script>',
+        lambda m: f'<script type="application/ld+json">\n{json.dumps(schema, indent=2, ensure_ascii=False)}\n</script>',
         html, flags=re.DOTALL
     )
 
@@ -252,7 +256,7 @@ def build_post(topic, data, date_iso, date_display):
     # share URL
     html = re.sub(
         r'sharer\.php\?u=https%3A%2F%2F[^"]+',
-        f"sharer.php?u=https%3A%2F%2Fbrannoneast.agency%2Fblog%2F{data['slug']}.html",
+        lambda m: f"sharer.php?u=https%3A%2F%2Fbrannoneast.agency%2Fblog%2F{data['slug']}.html",
         html
     )
 
