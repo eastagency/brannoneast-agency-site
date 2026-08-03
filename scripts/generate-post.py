@@ -46,11 +46,53 @@ TOPICS = [
 ]
 
 
+TOPIC_HISTORY_PATH = "scripts/topic_history.json"
+
+
+def _load_topic_history():
+    try:
+        with open(TOPIC_HISTORY_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+
+def _save_topic_history(history):
+    with open(TOPIC_HISTORY_PATH, "w", encoding="utf-8") as f:
+        json.dump(history, f, indent=2)
+
+
+def record_topic_used(topic, slug, date_iso):
+    history = _load_topic_history()
+    history.append({"keyword": topic["keyword"], "slug": slug, "date": date_iso})
+    _save_topic_history(history)
+
+
 def pick_topic():
+    # NOTE: index-by-week-number alone isn't safe -- editing TOPICS (adding,
+    # removing, or reordering entries, as happens whenever a new topic is added)
+    # shifts every future week's index, and can silently collide with a topic
+    # published only a week or two prior (this happened 2026-08-03: adding one
+    # topic on 2026-07-30 caused the very next run to re-pick and overwrite the
+    # 2026-07-27 post). The week number is kept only as a starting point for
+    # variety; recorded history is the actual source of truth for what's used.
+    history = _load_topic_history()
+    used_keywords = {h["keyword"] for h in history}
+
     today = date.today()
     iso = today.isocalendar()
-    index = ((iso[0] - 2026) * 52 + iso[1]) % len(TOPICS)
-    return TOPICS[index]
+    start_index = ((iso[0] - 2026) * 52 + iso[1]) % len(TOPICS)
+
+    for offset in range(len(TOPICS)):
+        candidate = TOPICS[(start_index + offset) % len(TOPICS)]
+        if candidate["keyword"] not in used_keywords:
+            return candidate
+
+    # Every topic has been used at least once -- start a fresh cycle instead
+    # of refusing to publish.
+    print("Full topic rotation complete -- starting a new cycle.")
+    _save_topic_history([])
+    return TOPICS[start_index]
 
 
 def get_keyword_data(keyword):
@@ -341,6 +383,7 @@ def main():
     post_path = build_post(topic, data, date_iso, date_display)
     update_blog_index(topic, data, date_display)
     update_sitemap(data["slug"], date_iso)
+    record_topic_used(topic, data["slug"], date_iso)
     print(f"Written:  {post_path}")
     print(f"Index updated: blog.html")
 
