@@ -117,13 +117,20 @@ def pick_seasonal(today):
     history = _load_json(SEASONAL_HISTORY_PATH, [])
 
     for entry in IG_SEASONAL:
-        target = _seasonal_target_date(entry, today.year)
-        if not (monday <= target <= sunday):
-            continue
-        already_this_year = any(h["name"] == entry["name"] and h["year"] == today.year for h in history)
-        if already_this_year:
-            continue
-        return entry
+        # Check the target date under both the Monday's year and the Sunday's
+        # year -- a week spanning Dec 31/Jan 1 has a Monday in one calendar
+        # year and a Sunday in the next, so New Year's Day only matches if we
+        # check both (missed this initially: the week of 2026-12-28 contains
+        # 2027-01-01, but today.year alone only resolves to 2026-01-01).
+        for candidate_year in {monday.year, sunday.year}:
+            target = _seasonal_target_date(entry, candidate_year)
+            if not (monday <= target <= sunday):
+                continue
+            already = any(h["name"] == entry["name"] and h["year"] == candidate_year for h in history)
+            if already:
+                continue
+            return entry, candidate_year
+    return None, None
     return None
 
 
@@ -219,9 +226,9 @@ def generate_image(image_prompt, out_path):
 
 def cmd_generate():
     today = date.today()
-    seasonal = pick_seasonal(today)
-    entry = seasonal if seasonal else pick_topic(today)
+    seasonal, seasonal_year = pick_seasonal(today)
     is_seasonal = seasonal is not None
+    entry = seasonal if is_seasonal else pick_topic(today)
 
     print(f"{'Seasonal' if is_seasonal else 'Regular'} topic: {entry['topic']}")
 
@@ -244,7 +251,7 @@ def cmd_generate():
         "caption": caption,
         "image_url": f"{SITE}/{IMAGE_DIR}/{filename}",
         "date_iso": today.isoformat(),
-        "year": today.year,
+        "year": seasonal_year if is_seasonal else today.year,
     })
     print(f"Pending state written to {PENDING_PATH}")
 
