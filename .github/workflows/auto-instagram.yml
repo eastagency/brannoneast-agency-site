@@ -1,0 +1,73 @@
+name: Weekly Instagram Post
+
+on:
+  schedule:
+    - cron: '0 15 * * 1'  # Every Monday at 3pm UTC (11am ET) -- after the blog + Facebook posts
+  workflow_dispatch:       # Run manually any time from GitHub Actions tab
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic requests
+
+      - name: Generate caption + image
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python scripts/generate-instagram-post.py generate
+
+      - name: Commit and push image
+        run: |
+          git config user.name "East Agency Bot"
+          git config user.email "brannoneast1@gmail.com"
+          git add assets/instagram/
+          git diff --staged --quiet && echo "No image to commit" || git commit -m "Auto Instagram: add generated image"
+          git push
+
+      - name: Get image URL
+        id: image
+        run: |
+          URL=$(python -c "import json; print(json.load(open('scripts/.ig_pending.json'))['image_url'])")
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for image to go live
+        run: |
+          URL="${{ steps.image.outputs.url }}"
+          for i in $(seq 1 30); do
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+            if [ "$CODE" = "200" ]; then
+              echo "Image is live after attempt $i."
+              exit 0
+            fi
+            echo "Attempt $i: got $CODE, waiting..."
+            sleep 10
+          done
+          echo "Image never went live after 5 minutes"
+          exit 1
+
+      - name: Publish to Instagram
+        env:
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+        run: python scripts/generate-instagram-post.py publish
+
+      - name: Commit history
+        run: |
+          git config user.name "East Agency Bot"
+          git config user.email "brannoneast1@gmail.com"
+          git add scripts/instagram_topic_history.json scripts/instagram_seasonal_history.json
+          git diff --staged --quiet && echo "No history change" || git commit -m "Auto Instagram: record weekly post"
+          git push

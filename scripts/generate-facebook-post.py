@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
-"""East Agency Weekly Social Post Generator — runs weekly via GitHub Actions.
+"""East Agency Weekly Facebook Post Generator — runs weekly via GitHub Actions.
 
 Repurposes that week's auto-generated blog post (scripts/topic_history.json)
-into a Facebook + Instagram caption, then publishes both via the Meta Graph API.
+into a Facebook caption, then publishes via the Meta Graph API.
+
+Instagram is handled separately by generate-instagram-post.py, which has its
+own dedicated topic rotation rather than reusing blog content.
 """
 
 import anthropic, os, re, json
@@ -10,7 +13,7 @@ import requests
 
 SITE = "https://brannoneast.agency"
 TOPIC_HISTORY_PATH = "scripts/topic_history.json"
-SOCIAL_HISTORY_PATH = "scripts/social_history.json"
+FACEBOOK_HISTORY_PATH = "scripts/facebook_history.json"
 GRAPH_API = "https://graph.facebook.com/v21.0"
 
 
@@ -55,22 +58,22 @@ def load_latest_post():
 
 
 def already_posted(slug):
-    history = _load_json(SOCIAL_HISTORY_PATH, [])
+    history = _load_json(FACEBOOK_HISTORY_PATH, [])
     return any(h["slug"] == slug for h in history)
 
 
-def record_posted(slug, fb_ok, ig_ok):
-    history = _load_json(SOCIAL_HISTORY_PATH, [])
-    history.append({"slug": slug, "facebook": fb_ok, "instagram": ig_ok})
-    _save_json(SOCIAL_HISTORY_PATH, history)
+def record_posted(slug, fb_ok):
+    history = _load_json(FACEBOOK_HISTORY_PATH, [])
+    history.append({"slug": slug, "facebook": fb_ok})
+    _save_json(FACEBOOK_HISTORY_PATH, history)
 
 
 def generate_caption(post):
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     prompt = (
-        f'You are writing a Facebook + Instagram caption for The East Agency, an independent '
+        f'You are writing a Facebook caption for The East Agency, an independent '
         f'insurance agency in Cartersville, GA run by Brannon East. Repurpose this blog post '
-        f'into a short social caption that works on both platforms:\n\n'
+        f'into a short Facebook caption:\n\n'
         f'Blog title: "{post["title"]}"\n'
         f'Blog summary: "{post["description"]}"\n'
         f'Blog link: {post["url"]}\n\n'
@@ -80,12 +83,10 @@ def generate_caption(post):
         f'- 80-130 words, short punchy lines, conversational, not corporate.\n'
         f'- Mention Cartersville, GA or Bartow County naturally if it fits.\n'
         f'- End with a clear call to action to read the full post or get a free quote.\n'
-        f'- Add 3-5 relevant hashtags on their own line at the very end (e.g. #CartersvilleGA '
-        f'#GeorgiaInsurance -- tailor to the actual topic).\n'
         f'- No em dashes. No "in today\'s world," "when it comes to," or similar filler.\n'
         f'- Do not include the raw blog link in the caption body -- it goes in a separate field.\n\n'
         f'Return ONLY a raw JSON object, no markdown fences, no commentary:\n'
-        f'{{"caption": "the full caption text including hashtags at the end"}}'
+        f'{{"caption": "the full caption text"}}'
     )
     for attempt in range(3):
         try:
@@ -120,41 +121,12 @@ def post_to_facebook(image_url, caption):
     return True
 
 
-def post_to_instagram(image_url, caption):
-    ig_id = os.environ["IG_BUSINESS_ACCOUNT_ID"]
-    token = os.environ["FB_PAGE_ACCESS_TOKEN"]
-
-    create = requests.post(
-        f"{GRAPH_API}/{ig_id}/media",
-        data={"image_url": image_url, "caption": caption, "access_token": token},
-        timeout=30,
-    )
-    create_result = create.json()
-    if "error" in create_result:
-        print(f"Instagram media creation FAILED: {create_result['error']}")
-        return False
-
-    creation_id = create_result["id"]
-    publish = requests.post(
-        f"{GRAPH_API}/{ig_id}/media_publish",
-        data={"creation_id": creation_id, "access_token": token},
-        timeout=30,
-    )
-    publish_result = publish.json()
-    if "error" in publish_result:
-        print(f"Instagram publish FAILED: {publish_result['error']}")
-        return False
-
-    print(f"Instagram post OK: media_id={publish_result.get('id')}")
-    return True
-
-
 def main():
     post = load_latest_post()
     print(f"Latest blog post: {post['title']} ({post['slug']})")
 
     if already_posted(post["slug"]):
-        print(f"Already posted '{post['slug']}' to social -- no new blog post since last run. Skipping.")
+        print(f"Already posted '{post['slug']}' to Facebook -- no new blog post since last run. Skipping.")
         return
 
     caption = generate_caption(post)
@@ -163,12 +135,10 @@ def main():
     print("---------------")
 
     fb_ok = post_to_facebook(post["image"], caption)
-    ig_ok = post_to_instagram(post["image"], caption)
+    record_posted(post["slug"], fb_ok)
 
-    record_posted(post["slug"], fb_ok, ig_ok)
-
-    if not fb_ok and not ig_ok:
-        raise RuntimeError("Both Facebook and Instagram posts failed -- see logs above")
+    if not fb_ok:
+        raise RuntimeError("Facebook post failed -- see logs above")
 
 
 if __name__ == "__main__":

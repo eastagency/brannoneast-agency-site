@@ -1,4 +1,4 @@
-name: Weekly Social Post
+name: Weekly Facebook Post
 
 on:
   schedule:
@@ -23,18 +23,17 @@ jobs:
       - name: Install dependencies
         run: pip install anthropic requests
 
-      - name: Generate and publish social post
+      - name: Generate and publish Facebook post
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
-          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
-        run: python scripts/generate-social-post.py
+        run: python scripts/generate-facebook-post.py
 
       - name: Commit history
         run: |
           git config user.name "East Agency Bot"
           git config user.email "brannoneast1@gmail.com"
-          git add scripts/social_history.json
-          git diff --staged --quiet && echo "No history change" || git commit -m "Auto social: record weekly post"
+          git add scripts/facebook_history.json
+          git diff --staged --quiet && echo "No history change" || git commit -m "Auto Facebook: record weekly post"
           git push
