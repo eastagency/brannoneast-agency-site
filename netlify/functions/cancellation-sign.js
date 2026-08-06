@@ -3,11 +3,9 @@
 // moment: typed name + certification checkbox + timestamp + IP are all
 // captured from the CLIENT'S own request here, not entered by staff.
 //
-// Only once this fires do the real sends go out:
-// - Type 1: client gets their signed copy, BCC to STAFF_EMAILS.
-// - Type 2: client gets their signed copy immediately. The copy meant for
-//   the prior agent goes to STAFF_EMAILS for Brannon to review and forward
-//   manually — never straight to the prior agent.
+// Once signed, the client gets their signed copy and staff are BCC'd. If a
+// copy needs to go to a prior agent/carrier, staff forward the signed PDF
+// themselves from their own inbox — this tool doesn't send it directly.
 import { getStore } from '@netlify/blobs';
 import { sendEmail } from './lib/resend.mjs';
 import { renderLetterPdf } from './lib/cancellation-pdf.mjs';
@@ -63,39 +61,22 @@ export default async (req) => {
     const ip = req.headers.get('x-nf-client-connection-ip') || req.headers.get('x-forwarded-for') || 'unknown';
     const meta = { typedName: String(typedName).trim(), dateStr, timestamp, ip };
 
-    const { letterType, data } = record;
-    const letter = buildFinal(letterType, data, meta);
+    const { data } = record;
+    const letter = buildFinal(data, meta);
 
     const pdfBytes = await renderLetterPdf({ heading: letter.pdfHeading, paragraphs: letter.pdfParagraphs });
     const pdfBase64 = Buffer.from(pdfBytes).toString('base64');
     const safeName = String(data.clientName || 'client').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
     const attachments = [{ filename: `cancellation-${safeName}.pdf`, content: pdfBase64 }];
 
-    if (letterType === 1) {
-      await sendEmail({
-        from: FROM_ADDRESS,
-        to: data.clientEmail,
-        bcc: STAFF_EMAILS,
-        subject: letter.clientEmailSubject,
-        html: letter.clientEmailHtml,
-        attachments,
-      });
-    } else {
-      await sendEmail({
-        from: FROM_ADDRESS,
-        to: data.clientEmail,
-        subject: letter.clientEmailSubject,
-        html: letter.clientEmailHtml,
-        attachments,
-      });
-      await sendEmail({
-        from: FROM_ADDRESS,
-        to: STAFF_EMAILS,
-        subject: letter.internalReviewSubject,
-        html: letter.internalReviewHtml,
-        attachments,
-      });
-    }
+    await sendEmail({
+      from: FROM_ADDRESS,
+      to: data.clientEmail,
+      bcc: STAFF_EMAILS,
+      subject: letter.clientEmailSubject,
+      html: letter.clientEmailHtml,
+      attachments,
+    });
 
     await store.setJSON(id, {
       ...record,

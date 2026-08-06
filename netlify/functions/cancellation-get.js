@@ -30,9 +30,8 @@ export default async (req) => {
     return new Response(JSON.stringify({ error: 'not_found' }), { status: 404, headers: cors });
   }
 
-  const body = buildBody(record.letterType, record.data);
+  const body = buildBody(record.data);
   return new Response(JSON.stringify({
-    letterType: record.letterType,
     status: record.status,
     signedAt: record.signedAt || null,
     clientName: record.data.clientName,
