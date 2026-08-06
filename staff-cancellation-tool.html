@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Cancellation Letters — Staff Only</title>
+<style>
+  :root{--ink:#1B2A2E;--ocean:#1F4E5F;--teal:#1F7A75;--coral:#E8623D;--cream:#FBF8F2;--sand:#E4DCCB;--white:#fff;--danger:#B3261E;--warn:#8A6D00;}
+  *{box-sizing:border-box}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--cream);color:var(--ink);margin:0;padding:0}
+  .wrap{max-width:760px;margin:0 auto;padding:24px 20px 80px}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:rgba(27,42,46,.6);font-size:14px;margin-bottom:24px}
+  .card{background:var(--white);border:1px solid var(--sand);border-radius:10px;padding:20px;margin-bottom:20px}
+  .card h2{font-size:16px;margin:0 0 14px;color:var(--ocean)}
+  label{display:block;font-size:12px;font-weight:600;color:rgba(27,42,46,.7);margin-bottom:4px;margin-top:10px}
+  input[type=text],input[type=email],textarea,select{width:100%;padding:8px 10px;border:1px solid var(--sand);border-radius:6px;font-size:14px;font-family:inherit}
+  .row{display:flex;gap:14px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:160px}
+  button{background:var(--teal);color:#fff;border:none;padding:11px 20px;border-radius:7px;font-size:14px;font-weight:600;cursor:pointer}
+  button:hover{opacity:.9}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  button.secondary{background:var(--ocean)}
+  .type-toggle{display:flex;gap:10px;margin-bottom:20px}
+  .type-toggle button{flex:1;background:var(--white);color:var(--ink);border:1px solid var(--sand)}
+  .type-toggle button.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+  #gate{position:fixed;inset:0;background:rgba(27,42,46,.92);display:flex;align-items:center;justify-content:center;z-index:50}
+  #gate .box{background:#fff;padding:28px;border-radius:10px;width:320px}
+  #gate input{margin-bottom:10px}
+  #gate .err{color:var(--danger);font-size:13px;margin-top:6px;display:none}
+  .hidden{display:none !important}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin-right:6px;vertical-align:middle}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .status-msg{font-size:13px;margin-top:10px}
+  .status-msg.error{color:var(--danger)}
+  .status-msg.ok{color:#1E7A3C}
+  .attest-box{background:var(--cream);border:1px solid var(--sand);border-radius:8px;padding:14px}
+  .checkbox-row{display:flex;align-items:flex-start;gap:8px;margin-top:12px}
+  .checkbox-row label{margin:0;font-weight:400;font-size:13px}
+  .note{font-size:12px;color:rgba(27,42,46,.55);margin-top:6px}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <h2 style="margin-top:0">Staff Login</h2>
+    <input type="text" id="gatePw" placeholder="Password" autocomplete="off">
+    <button id="gateBtn" style="width:100%">Enter</button>
+    <div class="err" id="gateErr">Incorrect password.</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <h1>Cancellation Letter Generator</h1>
+  <div class="sub">Internal staff tool. Fill in the details, capture attestation, and send — client (and where applicable, the prior agent copy) go out automatically.</div>
+
+  <div class="type-toggle">
+    <button id="typeBtn1" class="active">Type 1 — Internal Record</button>
+    <button id="typeBtn2">Type 2 — Request to Prior Agent</button>
+  </div>
+
+  <div class="card">
+    <h2>Client & Policy</h2>
+    <div class="row">
+      <div><label>Client Name</label><input type="text" id="clientName"></div>
+      <div><label>Client Email</label><input type="email" id="clientEmail"></div>
+    </div>
+    <div class="row">
+      <div><label>Policy Number</label><input type="text" id="policyNumber"></div>
+      <div><label>Requested Effective Date</label><input type="text" id="effectiveDate" placeholder="MM/DD/YYYY"></div>
+    </div>
+
+    <div id="type1Fields">
+      <div class="row">
+        <div><label>Carrier</label><input type="text" id="carrier"></div>
+        <div>
+          <label>Line of Business</label>
+          <select id="lineOfBusiness">
+            <option value="Auto">Auto</option>
+            <option value="Home">Home</option>
+            <option value="Life">Life</option>
+            <option value="Umbrella">Umbrella</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <label>Reason for Cancellation</label>
+      <select id="reason">
+        <option value="switched_carriers">Switched carriers</option>
+        <option value="sold_no_longer_own">Sold / no longer own insured asset</option>
+        <option value="no_longer_needed">No longer needed</option>
+        <option value="non_payment">Non-payment</option>
+        <option value="other">Other</option>
+      </select>
+      <input type="text" id="reasonOther" placeholder="Describe reason" style="margin-top:8px;display:none">
+
+      <label>Replacement Coverage Confirmed?</label>
+      <select id="replacementConfirmed">
+        <option value="yes">Yes</option>
+        <option value="no">No — client acknowledges no coverage gap risk was reviewed</option>
+      </select>
+      <input type="text" id="replacementDate" placeholder="Replacement effective date" style="margin-top:8px;display:none">
+
+      <div class="row">
+        <div>
+          <label>Refund Disposition</label>
+          <select id="refundDisposition">
+            <option value="pro_rata">Pro-rata refund due</option>
+            <option value="short_rate">Short-rate per policy terms</option>
+            <option value="none">No refund due</option>
+          </select>
+        </div>
+        <div><label>Amount (if known)</label><input type="text" id="refundAmount"></div>
+      </div>
+    </div>
+
+    <div id="type2Fields" class="hidden">
+      <div class="row">
+        <div><label>Prior Agent / Carrier Name</label><input type="text" id="priorAgentName"></div>
+        <div><label>Prior Agent Email</label><input type="email" id="priorAgentEmail"></div>
+      </div>
+      <div class="note">This copy will NOT go straight to the prior agent — it routes to info@brannoneastagency.com for you to review and forward.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="note" style="font-size:13px">The client signs this themselves — no attestation to fill in here. Sending emails them a review-and-sign link; nothing goes to any other recipient until they sign.</div>
+    <button id="sendBtn" style="margin-top:14px">Send to Client for Signature</button>
+    <div class="status-msg" id="sendStatus"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var STAFF_PASSWORD = '';
+  var letterType = 1;
+
+  function $(id){ return document.getElementById(id); }
+
+  // ---- Password gate ----
+  $('gateBtn').addEventListener('click', function(){
+    var pw = $('gatePw').value.trim();
+    if (!pw) return;
+    STAFF_PASSWORD = pw;
+    $('gate').style.display = 'none';
+  });
+  $('gatePw').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('gateBtn').click(); });
+
+  // ---- Type toggle ----
+  $('typeBtn1').addEventListener('click', function(){ setType(1); });
+  $('typeBtn2').addEventListener('click', function(){ setType(2); });
+  function setType(t){
+    letterType = t;
+    $('typeBtn1').classList.toggle('active', t === 1);
+    $('typeBtn2').classList.toggle('active', t === 2);
+    $('type1Fields').classList.toggle('hidden', t !== 1);
+    $('type2Fields').classList.toggle('hidden', t !== 2);
+  }
+
+  $('reason').addEventListener('change', function(){
+    $('reasonOther').style.display = this.value === 'other' ? 'block' : 'none';
+  });
+  $('replacementConfirmed').addEventListener('change', function(){
+    $('replacementDate').style.display = this.value === 'yes' ? 'block' : 'none';
+  });
+
+  function showError(elId, msg){
+    var el = $(elId);
+    el.textContent = msg;
+    el.className = 'status-msg error';
+  }
+  function showOk(elId, msg){
+    var el = $(elId);
+    el.textContent = msg;
+    el.className = 'status-msg ok';
+  }
+
+  function assembleData(){
+    var data = {
+      clientName: $('clientName').value.trim(),
+      clientEmail: $('clientEmail').value.trim(),
+      policyNumber: $('policyNumber').value.trim(),
+      effectiveDate: $('effectiveDate').value.trim(),
+    };
+    if (letterType === 1) {
+      data.carrier = $('carrier').value.trim();
+      data.lineOfBusiness = $('lineOfBusiness').value;
+      data.reason = $('reason').value;
+      data.reasonOther = $('reasonOther').value.trim();
+      data.replacementConfirmed = $('replacementConfirmed').value;
+      data.replacementDate = $('replacementDate').value.trim();
+      data.refundDisposition = $('refundDisposition').value;
+      data.refundAmount = $('refundAmount').value.trim();
+    } else {
+      data.priorAgentName = $('priorAgentName').value.trim();
+      data.priorAgentEmail = $('priorAgentEmail').value.trim();
+    }
+    return data;
+  }
+
+  $('sendBtn').addEventListener('click', async function(){
+    if (!STAFF_PASSWORD) { $('gate').style.display = 'flex'; return; }
+
+    $('sendBtn').disabled = true;
+    $('sendStatus').innerHTML = '<span class="spinner"></span>Sending...';
+    $('sendStatus').className = 'status-msg';
+
+    try {
+      var res = await fetch('/.netlify/functions/cancellation-create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          password: STAFF_PASSWORD,
+          letterType: letterType,
+          data: assembleData(),
+        }),
+      });
+      var json = await res.json();
+      if (!res.ok) {
+        if (res.status === 401) { $('gate').style.display = 'flex'; $('gateErr').style.display = 'block'; }
+        showError('sendStatus', json.error || 'Send failed.');
+        $('sendBtn').disabled = false;
+        return;
+      }
+      showOk('sendStatus', 'Review-and-sign link emailed to the client. You\'ll get the signed copy (and the prior-agent copy to forward, if Type 2) once they sign.');
+    } catch (err) {
+      showError('sendStatus', 'Network or server error: ' + err.message);
+    }
+    $('sendBtn').disabled = false;
+  });
+})();
+</script>
+</body>
+</html>

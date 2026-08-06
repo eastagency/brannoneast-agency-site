@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Review & Sign — The East Agency</title>
+<style>
+  :root{--ink:#1B2A2E;--ocean:#1F4E5F;--teal:#1F7A75;--cream:#FBF8F2;--sand:#E4DCCB;--white:#fff;--danger:#B3261E;}
+  *{box-sizing:border-box}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--cream);color:var(--ink);margin:0;padding:0}
+  .wrap{max-width:620px;margin:0 auto;padding:32px 20px 80px}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:rgba(27,42,46,.6);font-size:14px;margin-bottom:24px}
+  .card{background:var(--white);border:1px solid var(--sand);border-radius:10px;padding:22px;margin-bottom:20px}
+  .card h2{font-size:15px;margin:0 0 12px;color:var(--ocean)}
+  input[type=text]{width:100%;padding:10px 12px;border:1px solid var(--sand);border-radius:6px;font-size:15px;font-family:inherit}
+  button{background:var(--teal);color:#fff;border:none;padding:12px 22px;border-radius:7px;font-size:15px;font-weight:600;cursor:pointer}
+  button:hover{opacity:.9}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .checkbox-row{display:flex;align-items:flex-start;gap:10px;margin:14px 0}
+  .checkbox-row label{margin:0;font-size:14px}
+  .status-msg{font-size:14px;margin-top:12px}
+  .status-msg.error{color:var(--danger)}
+  .status-msg.ok{color:#1E7A3C}
+  .hidden{display:none !important}
+  .note{font-size:12px;color:rgba(27,42,46,.55);margin-top:8px}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin-right:6px;vertical-align:middle}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  ul{padding-left:20px}
+  li{margin-bottom:4px;font-size:14px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <h1>Review &amp; Sign</h1>
+  <div class="sub">The East Agency</div>
+
+  <div id="loading" class="card">Loading your document...</div>
+
+  <div id="content" class="hidden">
+    <div class="card">
+      <h2 id="letterHeading"></h2>
+      <div id="letterBody"></div>
+    </div>
+
+    <div class="card" id="signCard">
+      <h2>Sign to Confirm</h2>
+      <label style="display:block;font-size:12px;font-weight:600;margin-bottom:6px">Type your full name</label>
+      <input type="text" id="typedName" placeholder="Your full legal name">
+      <div class="checkbox-row">
+        <input type="checkbox" id="certified">
+        <label for="certified">I certify the above information is accurate and I am requesting this cancellation.</label>
+      </div>
+      <button id="signBtn">Sign &amp; Submit</button>
+      <div class="status-msg" id="signStatus"></div>
+      <div class="note">This is a lightweight electronic attestation, not a notarized signature. Your name, the time, and your IP address are recorded when you submit.</div>
+    </div>
+  </div>
+
+  <div id="errorCard" class="card hidden">
+    <div class="status-msg error" id="errorMsg"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var id = new URLSearchParams(window.location.search).get('id');
+
+  function showFatal(msg){
+    $('loading').classList.add('hidden');
+    $('content').classList.add('hidden');
+    $('errorCard').classList.remove('hidden');
+    $('errorMsg').textContent = msg;
+  }
+
+  if (!id) { showFatal('This link is missing its document reference. Please use the link from your email.'); return; }
+
+  fetch('/.netlify/functions/cancellation-get?id=' + encodeURIComponent(id))
+    .then(function(res){ return res.json().then(function(json){ return { ok: res.ok, status: res.status, json: json }; }); })
+    .then(function(r){
+      $('loading').classList.add('hidden');
+      if (!r.ok) {
+        showFatal(r.json.error === 'not_found' ? 'This link is no longer valid or has expired.' : 'Could not load this document.');
+        return;
+      }
+      $('content').classList.remove('hidden');
+      $('letterHeading').textContent = r.json.heading;
+      $('letterBody').innerHTML = r.json.html;
+
+      if (r.json.status === 'signed') {
+        $('signCard').innerHTML = '<h2>Already Signed</h2><p>This was signed on ' + new Date(r.json.signedAt).toLocaleString() + '. If this looks wrong, contact The East Agency.</p>';
+      }
+    })
+    .catch(function(){ $('loading').classList.add('hidden'); showFatal('Network error loading this document.'); });
+
+  $('signBtn') && $('signBtn').addEventListener('click', function(){
+    var typedName = $('typedName').value.trim();
+    var certified = $('certified').checked;
+    if (!typedName || !certified) {
+      $('signStatus').className = 'status-msg error';
+      $('signStatus').textContent = 'Please type your full name and check the certification box.';
+      return;
+    }
+    $('signBtn').disabled = true;
+    $('signStatus').className = 'status-msg';
+    $('signStatus').innerHTML = '<span class="spinner"></span>Submitting...';
+
+    fetch('/.netlify/functions/cancellation-sign', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: id, typedName: typedName, certified: certified }),
+    })
+      .then(function(res){ return res.json().then(function(json){ return { ok: res.ok, json: json }; }); })
+      .then(function(r){
+        if (!r.ok) {
+          $('signStatus').className = 'status-msg error';
+          $('signStatus').textContent = r.json.error === 'already_signed' ? 'This has already been signed.' : (r.json.error || 'Submission failed.');
+          $('signBtn').disabled = false;
+          return;
+        }
+        $('signCard').innerHTML = '<h2>Signed</h2><p>Thank you — a signed copy has been emailed to you. The East Agency has been notified.</p>';
+      })
+      .catch(function(){
+        $('signStatus').className = 'status-msg error';
+        $('signStatus').textContent = 'Network error — please try again.';
+        $('signBtn').disabled = false;
+      });
+  });
+})();
+</script>
+</body>
+</html>

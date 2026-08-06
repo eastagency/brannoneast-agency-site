@@ -12,6 +12,16 @@
   to = "/staff-coi-tool.html"
   status = 200
 
+[[redirects]]
+  from = "/cancel"
+  to = "/staff-cancellation-tool.html"
+  status = 200
+
+[[redirects]]
+  from = "/sign"
+  to = "/cancel-sign.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
