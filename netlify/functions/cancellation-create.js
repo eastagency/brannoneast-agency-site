@@ -22,10 +22,28 @@ function isValidEmail(e) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e || '');
 }
 
-const REQUIRED_FIELDS = ['clientName', 'clientEmail', 'policyNumber', 'effectiveDate', 'carrier', 'lineOfBusiness', 'reason', 'replacementConfirmed', 'refundDisposition'];
+const REQUIRED_FIELDS = ['clientName', 'clientEmail', 'effectiveDate', 'priorCarrier', 'reason', 'replacementConfirmed', 'refundDisposition'];
+const CLIENT_ADDRESS_FIELDS = ['clientAddressStreet', 'clientAddressCity', 'clientAddressState', 'clientAddressZip'];
+const FORWARDING_ADDRESS_FIELDS = ['forwardingAddressStreet', 'forwardingAddressCity', 'forwardingAddressState', 'forwardingAddressZip'];
 
 function missingFields(data) {
-  return REQUIRED_FIELDS.filter((f) => !data[f] || String(data[f]).trim() === '');
+  const missing = REQUIRED_FIELDS.concat(CLIENT_ADDRESS_FIELDS).filter((f) => !data[f] || String(data[f]).trim() === '');
+
+  if (data.useForwardingAddress) {
+    missing.push(...FORWARDING_ADDRESS_FIELDS.filter((f) => !data[f] || String(data[f]).trim() === ''));
+  }
+
+  if (!Array.isArray(data.linesOfBusiness) || data.linesOfBusiness.length === 0) {
+    missing.push('linesOfBusiness (select at least one)');
+  } else {
+    data.linesOfBusiness.forEach((l, i) => {
+      if (!l.line || !l.policyNumber || !String(l.policyNumber).trim()) {
+        missing.push(`linesOfBusiness[${i}] (policy number)`);
+      }
+    });
+  }
+
+  return missing;
 }
 
 export default async (req) => {

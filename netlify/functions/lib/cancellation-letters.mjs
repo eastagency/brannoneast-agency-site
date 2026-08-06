@@ -4,6 +4,11 @@
 // Single letter type: an internal cancellation record, signed by the
 // client. If it needs to go to a prior agent/carrier, staff forward the
 // signed PDF themselves — there's no separate "Type 2" letter anymore.
+//
+// Supports multiple lines of business cancelling together (e.g. Home + Auto
+// + Umbrella in one letter, each with its own policy number), a client
+// address, and an optional forwarding address that determines where any
+// refund/correspondence should go.
 
 const REASON_LABELS = {
   switched_carriers: 'Switched carriers',
@@ -15,6 +20,15 @@ const REASON_LABELS = {
 
 function esc(s) {
   return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function formatAddress(street, city, state, zip) {
+  if (!street) return '';
+  return `${street}, ${city}, ${state} ${zip}`;
+}
+
+function lineLabel(l) {
+  return l.line === 'Other' ? (l.otherLabel || 'Other') : l.line;
 }
 
 export function buildBody(data) {
@@ -29,11 +43,24 @@ export function buildBody(data) {
   const refundLabel = { pro_rata: 'Pro-rata refund due', short_rate: 'Short-rate per policy terms', none: 'No refund due' }[data.refundDisposition] || data.refundDisposition || '';
   const refundAmount = data.refundAmount ? ` (Amount: ${data.refundAmount})` : '';
 
+  const clientAddress = formatAddress(data.clientAddressStreet, data.clientAddressCity, data.clientAddressState, data.clientAddressZip);
+  const hasForwarding = !!(data.useForwardingAddress && data.forwardingAddressStreet);
+  const forwardingAddress = hasForwarding
+    ? formatAddress(data.forwardingAddressStreet, data.forwardingAddressCity, data.forwardingAddressState, data.forwardingAddressZip)
+    : '';
+  const refundAddress = hasForwarding ? forwardingAddress : clientAddress;
+
+  const lines = Array.isArray(data.linesOfBusiness) ? data.linesOfBusiness : [];
+  const lineItems = lines.map((l) => `${lineLabel(l)} — Policy #${l.policyNumber}`);
+
   const pdfParagraphs = [
     `Client Name: ${data.clientName}`,
-    `Policy Number: ${data.policyNumber}`,
-    `Carrier: ${data.carrier}`,
-    `Line of Business: ${data.lineOfBusiness}`,
+    `Client Address: ${clientAddress}`,
+    ...(hasForwarding ? [`Forwarding / New Address: ${forwardingAddress}`] : []),
+    '',
+    `Prior Carrier: ${data.priorCarrier}`,
+    'Policies Being Cancelled:',
+    ...lineItems.map((t) => `  - ${t}`),
     '',
     `Requested Cancellation Effective Date: ${data.effectiveDate}`,
     '',
@@ -42,16 +69,20 @@ export function buildBody(data) {
     `Replacement Coverage Confirmed? ${replacement}`,
     '',
     `Refund Disposition: ${refundLabel}${refundAmount}`,
+    `Refund / Correspondence Address: ${refundAddress}`,
   ];
 
   const html = `
     <ul>
-      <li>Policy Number: ${esc(data.policyNumber)}</li>
-      <li>Carrier: ${esc(data.carrier)} (${esc(data.lineOfBusiness)})</li>
+      <li>Client Address: ${esc(clientAddress)}</li>
+      ${hasForwarding ? `<li>Forwarding / New Address: ${esc(forwardingAddress)}</li>` : ''}
+      <li>Prior Carrier: ${esc(data.priorCarrier)}</li>
+      <li>Policies Being Cancelled: ${lineItems.map(esc).join('; ')}</li>
       <li>Requested Effective Date: ${esc(data.effectiveDate)}</li>
       <li>Reason: ${esc(reasonLabel)}</li>
       <li>Replacement Coverage Confirmed: ${esc(replacement)}</li>
       <li>Refund Disposition: ${esc(refundLabel)}${esc(refundAmount)}</li>
+      <li>Refund / Correspondence Address: ${esc(refundAddress)}</li>
     </ul>`;
 
   return { heading: 'THE EAST AGENCY — POLICY CANCELLATION RECORD', pdfParagraphs, html };

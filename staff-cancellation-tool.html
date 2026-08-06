@@ -31,6 +31,15 @@
   .status-msg.error{color:var(--danger)}
   .status-msg.ok{color:#1E7A3C}
   .note{font-size:12px;color:rgba(27,42,46,.55);margin-top:6px}
+  .checkbox-row{display:flex;align-items:center;gap:8px;margin-top:10px}
+  .checkbox-row label{margin:0;font-weight:400;font-size:14px;color:var(--ink)}
+  .lob-grid{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px}
+  .lob-item{display:flex;align-items:center;gap:6px}
+  .lob-item label{margin:0;font-weight:600;font-size:13px;color:var(--ink)}
+  .lob-policy-row{border:1px solid var(--sand);border-radius:8px;padding:10px 12px;margin-top:10px;display:none}
+  .lob-policy-row.visible{display:block}
+  .lob-policy-row .row{margin-top:0}
+  .subcard{background:var(--cream);border:1px solid var(--sand);border-radius:8px;padding:14px;margin-top:12px}
 </style>
 </head>
 <body>
@@ -54,23 +63,52 @@
       <div><label>Client Name</label><input type="text" id="clientName"></div>
       <div><label>Client Email</label><input type="email" id="clientEmail"></div>
     </div>
-    <div class="row">
-      <div><label>Policy Number</label><input type="text" id="policyNumber"></div>
-      <div><label>Requested Effective Date</label><input type="text" id="effectiveDate" placeholder="MM/DD/YYYY"></div>
+
+    <label>Client's Current Address</label>
+    <input type="text" id="clientAddressStreet" placeholder="Street address">
+    <div class="row" style="margin-top:8px">
+      <div><input type="text" id="clientAddressCity" placeholder="City"></div>
+      <div style="max-width:90px"><input type="text" id="clientAddressState" placeholder="ST"></div>
+      <div style="max-width:120px"><input type="text" id="clientAddressZip" placeholder="ZIP"></div>
     </div>
-    <div class="row">
-      <div><label>Carrier</label><input type="text" id="carrier"></div>
-      <div>
-        <label>Line of Business</label>
-        <select id="lineOfBusiness">
-          <option value="Auto">Auto</option>
-          <option value="Home">Home</option>
-          <option value="Life">Life</option>
-          <option value="Umbrella">Umbrella</option>
-          <option value="Other">Other</option>
-        </select>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="useForwardingAddress">
+      <label for="useForwardingAddress">Refund / correspondence should go to a different (forwarding) address</label>
+    </div>
+    <div class="subcard" id="forwardingAddressBlock" style="display:none">
+      <label style="margin-top:0">Forwarding / New Address</label>
+      <input type="text" id="forwardingAddressStreet" placeholder="Street address">
+      <div class="row" style="margin-top:8px">
+        <div><input type="text" id="forwardingAddressCity" placeholder="City"></div>
+        <div style="max-width:90px"><input type="text" id="forwardingAddressState" placeholder="ST"></div>
+        <div style="max-width:120px"><input type="text" id="forwardingAddressZip" placeholder="ZIP"></div>
       </div>
     </div>
+
+    <div class="row">
+      <div><label>Prior Carrier</label><input type="text" id="priorCarrier"></div>
+      <div><label>Requested Effective Date</label><input type="text" id="effectiveDate" placeholder="MM/DD/YYYY"></div>
+    </div>
+
+    <label>Line(s) of Business Being Cancelled <span style="font-weight:400;color:rgba(27,42,46,.5)">(check all that apply)</span></label>
+    <div class="lob-grid">
+      <div class="lob-item"><input type="checkbox" class="lob-check" id="lobAuto" data-line="Auto"><label for="lobAuto">Auto</label></div>
+      <div class="lob-item"><input type="checkbox" class="lob-check" id="lobHome" data-line="Home"><label for="lobHome">Home</label></div>
+      <div class="lob-item"><input type="checkbox" class="lob-check" id="lobLife" data-line="Life"><label for="lobLife">Life</label></div>
+      <div class="lob-item"><input type="checkbox" class="lob-check" id="lobUmbrella" data-line="Umbrella"><label for="lobUmbrella">Umbrella</label></div>
+      <div class="lob-item"><input type="checkbox" class="lob-check" id="lobOther" data-line="Other"><label for="lobOther">Other</label></div>
+    </div>
+
+    <div class="lob-policy-row" id="lobAutoRow"><label style="margin-top:0">Auto — Policy Number</label><input type="text" id="lobAutoPolicy"></div>
+    <div class="lob-policy-row" id="lobHomeRow"><label style="margin-top:0">Home — Policy Number</label><input type="text" id="lobHomePolicy"></div>
+    <div class="lob-policy-row" id="lobLifeRow"><label style="margin-top:0">Life — Policy Number</label><input type="text" id="lobLifePolicy"></div>
+    <div class="lob-policy-row" id="lobUmbrellaRow"><label style="margin-top:0">Umbrella — Policy Number</label><input type="text" id="lobUmbrellaPolicy"></div>
+    <div class="lob-policy-row" id="lobOtherRow">
+      <label style="margin-top:0">Other — Description</label><input type="text" id="lobOtherLabel" placeholder="e.g. Boat, Motorcycle">
+      <label>Policy Number</label><input type="text" id="lobOtherPolicy">
+    </div>
+
     <label>Reason for Cancellation</label>
     <select id="reason">
       <option value="switched_carriers">Switched carriers</option>
@@ -129,6 +167,15 @@
   $('replacementConfirmed').addEventListener('change', function(){
     $('replacementDate').style.display = this.value === 'yes' ? 'block' : 'none';
   });
+  $('useForwardingAddress').addEventListener('change', function(){
+    $('forwardingAddressBlock').style.display = this.checked ? 'block' : 'none';
+  });
+  document.querySelectorAll('.lob-check').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      var row = $(cb.id + 'Row');
+      if (row) row.classList.toggle('visible', cb.checked);
+    });
+  });
 
   function showError(elId, msg){
     var el = $(elId);
@@ -141,14 +188,41 @@
     el.className = 'status-msg ok';
   }
 
+  function collectLinesOfBusiness(){
+    var lines = [];
+    var map = {
+      lobAuto: { line: 'Auto', policyId: 'lobAutoPolicy' },
+      lobHome: { line: 'Home', policyId: 'lobHomePolicy' },
+      lobLife: { line: 'Life', policyId: 'lobLifePolicy' },
+      lobUmbrella: { line: 'Umbrella', policyId: 'lobUmbrellaPolicy' },
+      lobOther: { line: 'Other', policyId: 'lobOtherPolicy', labelId: 'lobOtherLabel' },
+    };
+    Object.keys(map).forEach(function(checkboxId){
+      if (!$(checkboxId).checked) return;
+      var m = map[checkboxId];
+      var entry = { line: m.line, policyNumber: $(m.policyId).value.trim() };
+      if (m.labelId) entry.otherLabel = $(m.labelId).value.trim();
+      lines.push(entry);
+    });
+    return lines;
+  }
+
   function assembleData(){
     return {
       clientName: $('clientName').value.trim(),
       clientEmail: $('clientEmail').value.trim(),
-      policyNumber: $('policyNumber').value.trim(),
+      clientAddressStreet: $('clientAddressStreet').value.trim(),
+      clientAddressCity: $('clientAddressCity').value.trim(),
+      clientAddressState: $('clientAddressState').value.trim(),
+      clientAddressZip: $('clientAddressZip').value.trim(),
+      useForwardingAddress: $('useForwardingAddress').checked,
+      forwardingAddressStreet: $('forwardingAddressStreet').value.trim(),
+      forwardingAddressCity: $('forwardingAddressCity').value.trim(),
+      forwardingAddressState: $('forwardingAddressState').value.trim(),
+      forwardingAddressZip: $('forwardingAddressZip').value.trim(),
+      priorCarrier: $('priorCarrier').value.trim(),
+      linesOfBusiness: collectLinesOfBusiness(),
       effectiveDate: $('effectiveDate').value.trim(),
-      carrier: $('carrier').value.trim(),
-      lineOfBusiness: $('lineOfBusiness').value,
       reason: $('reason').value,
       reasonOther: $('reasonOther').value.trim(),
       replacementConfirmed: $('replacementConfirmed').value,
