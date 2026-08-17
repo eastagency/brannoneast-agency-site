@@ -46,7 +46,7 @@ jobs:
       - name: Wait for image to go live
         run: |
           URL="${{ steps.image.outputs.url }}"
-          for i in $(seq 1 30); do
+          for i in $(seq 1 60); do
             CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
             if [ "$CODE" = "200" ]; then
               echo "Image is live after attempt $i."
@@ -55,7 +55,7 @@ jobs:
             echo "Attempt $i: got $CODE, waiting..."
             sleep 10
           done
-          echo "Image never went live after 5 minutes"
+          echo "Image never went live after 10 minutes"
           exit 1
 
       - name: Publish to Instagram
