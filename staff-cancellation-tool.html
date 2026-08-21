@@ -144,6 +144,14 @@
     <button id="sendBtn" style="margin-top:14px">Send to Client for Signature</button>
     <div class="status-msg" id="sendStatus"></div>
   </div>
+
+  <div class="card">
+    <h2>Find &amp; Resend a Letter</h2>
+    <div class="note" style="font-size:13px;margin-top:0">Look up past records (pending or signed) and resend a signed copy if an email didn't arrive.</div>
+    <button id="loadListBtn" style="margin-top:10px">Load Recent Letters</button>
+    <div class="status-msg" id="listStatus"></div>
+    <div id="listResults" style="margin-top:12px"></div>
+  </div>
 </div>
 
 <script>
@@ -260,6 +268,88 @@
       showError('sendStatus', 'Network or server error: ' + err.message);
     }
     $('sendBtn').disabled = false;
+  });
+
+  // ---- Find & resend ----
+  function fmtDate(iso){
+    if (!iso) return '';
+    try { return new Date(iso).toLocaleString('en-US'); } catch(e) { return iso; }
+  }
+
+  function renderList(records){
+    var el = $('listResults');
+    if (!records.length) { el.innerHTML = '<div class="note">No records found.</div>'; return; }
+    el.innerHTML = records.map(function(r){
+      var statusColor = r.status === 'signed' ? '#1E7A3C' : '#8A6D00';
+      var when = r.status === 'signed' ? ('Signed ' + fmtDate(r.signedAt)) : ('Created ' + fmtDate(r.createdAt));
+      var resendBtn = r.status === 'signed'
+        ? '<button class="resendBtn" data-id="' + r.id + '" style="margin-top:8px;padding:6px 12px;font-size:13px">Resend Signed Copy</button>'
+        : '<span class="note" style="margin-top:8px">Not signed yet — nothing to resend</span>';
+      return '<div class="subcard" style="margin-top:10px">' +
+        '<div style="font-weight:600">' + r.clientName + '</div>' +
+        '<div class="note" style="margin-top:2px">' + r.clientEmail + '</div>' +
+        '<div class="note" style="margin-top:2px;color:' + statusColor + '">' + r.status + ' — ' + when + '</div>' +
+        resendBtn +
+        '<div class="status-msg" id="resendStatus_' + r.id + '"></div>' +
+        '</div>';
+    }).join('');
+
+    document.querySelectorAll('.resendBtn').forEach(function(btn){
+      btn.addEventListener('click', async function(){
+        var id = btn.getAttribute('data-id');
+        btn.disabled = true;
+        var statusEl = $('resendStatus_' + id);
+        statusEl.innerHTML = '<span class="spinner" style="border-color:rgba(31,122,117,.3);border-top-color:var(--teal)"></span>Resending...';
+        statusEl.className = 'status-msg';
+        try {
+          var res = await fetch('/.netlify/functions/cancellation-resend', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: STAFF_PASSWORD, id: id }),
+          });
+          var json = await res.json();
+          if (!res.ok) {
+            statusEl.textContent = json.error || 'Resend failed.';
+            statusEl.className = 'status-msg error';
+            btn.disabled = false;
+            return;
+          }
+          statusEl.textContent = 'Resent — client + staff should receive it shortly.';
+          statusEl.className = 'status-msg ok';
+        } catch (err) {
+          statusEl.textContent = 'Network or server error: ' + err.message;
+          statusEl.className = 'status-msg error';
+          btn.disabled = false;
+        }
+      });
+    });
+  }
+
+  $('loadListBtn').addEventListener('click', async function(){
+    if (!STAFF_PASSWORD) { $('gate').style.display = 'flex'; return; }
+    $('loadListBtn').disabled = true;
+    $('listStatus').innerHTML = '<span class="spinner"></span>Loading...';
+    $('listStatus').className = 'status-msg';
+    try {
+      var res = await fetch('/.netlify/functions/cancellation-list', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: STAFF_PASSWORD }),
+      });
+      var json = await res.json();
+      if (!res.ok) {
+        if (res.status === 401) { $('gate').style.display = 'flex'; $('gateErr').style.display = 'block'; }
+        showError('listStatus', json.error || 'Load failed.');
+        $('loadListBtn').disabled = false;
+        return;
+      }
+      $('listStatus').textContent = '';
+      $('listStatus').className = 'status-msg';
+      renderList(json.records);
+    } catch (err) {
+      showError('listStatus', 'Network or server error: ' + err.message);
+    }
+    $('loadListBtn').disabled = false;
   });
 })();
 </script>
