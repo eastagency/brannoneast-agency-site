@@ -29,6 +29,9 @@ TOPICS = [
     {"keyword": "commercial property insurance Cartersville GA data centers manufacturers","cat": "Business",          "img": "/assets/categories/business.jpg",     "quote": "/business-insurance-quote.html"},
     {"keyword": "SR-22 insurance Georgia how to get it",                                  "cat": "Auto Insurance",    "img": "/assets/categories/auto.jpg",         "quote": "/auto-insurance-quote.html"},
     {"keyword": "term life vs whole life insurance Georgia",                               "cat": "Life Insurance",    "img": "/assets/categories/life.jpg",         "quote": "/life-insurance-quote.html"},
+    {"keyword": "whole life insurance Georgia how it works",                               "cat": "Life Insurance",    "img": "/assets/categories/life.jpg",         "quote": "/life-insurance-quote.html"},
+    {"keyword": "indexed universal life insurance IUL Georgia explained",                  "cat": "Life Insurance",    "img": "/assets/categories/life.jpg",         "quote": "/life-insurance-quote.html"},
+    {"keyword": "mortgage protection insurance Georgia",                                   "cat": "Life Insurance",    "img": "/assets/categories/life.jpg",         "quote": "/life-insurance-quote.html"},
     {"keyword": "collectibles insurance Georgia what to insure",                          "cat": "Collectibles",      "img": "/assets/categories/collectible.jpg",  "quote": "/collectible-insurance-quote.html"},
     {"keyword": "wedding and event insurance Georgia what it covers",                      "cat": "Special Event",     "img": "/assets/categories/event.jpg",        "quote": "/special-event-insurance-quote.html"},
     {"keyword": "Georgia homeowners insurance roof age and rates",                         "cat": "Home Insurance",    "img": "/assets/categories/home.jpg",         "quote": "/home-insurance-quote.html"},
@@ -47,6 +50,17 @@ TOPICS = [
 
 
 TOPIC_HISTORY_PATH = "scripts/topic_history.json"
+PHONE = "(678) 562-6905"
+
+CTA_EXAMPLES = (
+    "- Low-friction: \"Takes about 2 minutes -- get your free quote: {{LINK}}\"\n"
+    "- Personal/real person: \"Skip the hold music, text me directly: {{PHONE}}\"\n"
+    "- Curiosity: \"Not sure which option actually fits your situation? Let's figure it out: {{LINK}}\"\n"
+    "- No-pressure: \"See what it actually costs, no sales pitch: {{LINK}}\"\n"
+    "- Relationship: \"Questions? That's literally what I'm here for. Call or text: {{PHONE}}\"\n"
+    "- Value/protection: \"Protect the people who depend on you. Start here: {{LINK}}\"\n"
+    "- Direct but warm: \"Ready when you are. Grab a quote: {{LINK}} (or just call, I actually answer)\""
+)
 
 
 def _load_topic_history():
@@ -76,6 +90,14 @@ def pick_topic():
     # topic on 2026-07-30 caused the very next run to re-pick and overwrite the
     # 2026-07-27 post). The week number is kept only as a starting point for
     # variety; recorded history is the actual source of truth for what's used.
+    forced = os.environ.get("FORCE_TOPIC_KEYWORD", "").strip()
+    if forced:
+        for t in TOPICS:
+            if t["keyword"] == forced:
+                print(f"Using forced topic: {forced}")
+                return t
+        raise RuntimeError(f"FORCE_TOPIC_KEYWORD '{forced}' not found in TOPICS")
+
     history = _load_topic_history()
     used_keywords = {h["keyword"] for h in history}
 
@@ -204,7 +226,11 @@ def generate_content(topic, kw_data=None):
         f'- Mention Cartersville, GA or Bartow County at least once naturally.\n'
         f'- Mention that The East Agency shops 20+ carriers to find the best rate.\n'
         f'- 700-900 words of article body content.\n'
-        f'- End with a <p> calling readers to get a free quote from The East Agency.\n\n'
+        f'- End with a <p> containing a real, specific call to action -- not a generic "get a quote today" line. '
+        f'Write it in whatever style genuinely fits this topic/tone (a few examples of the range, write your own in a similar spirit, don\'t just pick one verbatim):\n'
+        f'{CTA_EXAMPLES}\n'
+        f'Your closing CTA sentence MUST include the literal tokens {{{{LINK}}}} and {{{{PHONE}}}} exactly '
+        f'(they get replaced with the real URL and phone number afterward) -- do not write out an actual URL or number yourself.\n\n'
         f'Write like a real person, not an AI assistant. Specifically avoid:\n'
         f'- Em dashes (use a comma, period, or "and"/"but" instead).\n'
         f'- Inflated claims about significance ("stands as a testament," "plays a vital role," "in the ever-evolving landscape of").\n'
@@ -233,7 +259,10 @@ def generate_content(topic, kw_data=None):
             raw = msg.content[0].text.strip()
             raw = re.sub(r'^```(?:json)?\s*', '', raw)
             raw = re.sub(r'\s*```$', '', raw.strip())
-            return json.loads(raw)
+            parsed = json.loads(raw)
+            link = f"https://brannoneast.agency{topic['quote']}"
+            parsed["html_body"] = parsed["html_body"].replace("{{LINK}}", link).replace("{{PHONE}}", PHONE)
+            return parsed
         except (json.JSONDecodeError, KeyError) as e:
             print(f"Attempt {attempt + 1} failed ({type(e).__name__}): {e}")
             if attempt == 2:
@@ -265,7 +294,8 @@ def build_post(topic, data, date_iso, date_display):
         "image": f"https://brannoneast.agency{topic['img']}",
         "author": {"@type": "Person", "name": "Brannon East"},
         "publisher": {"@type": "Organization", "name": "The East Agency", "url": "https://brannoneast.agency"},
-        "url": f"https://brannoneast.agency/blog/{data['slug']}.html"
+        "url": f"https://brannoneast.agency/blog/{data['slug']}.html",
+        "quoteUrl": f"https://brannoneast.agency{topic['quote']}"
     }
     html = re.sub(
         r'<script type="application/ld\+json">.*?</script>',

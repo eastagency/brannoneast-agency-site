@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '0 14 * * 1'  # Every Monday at 2pm UTC (10am ET)
   workflow_dispatch:       # Run manually any time from GitHub Actions tab
+    inputs:
+      force_topic:
+        description: 'Exact TOPICS keyword to force instead of the normal rotation (optional)'
+        required: false
+        default: ''
 
 jobs:
   generate:
@@ -28,6 +33,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+          FORCE_TOPIC_KEYWORD: ${{ github.event.inputs.force_topic }}
         run: python scripts/generate-post.py
 
       - name: Commit and push

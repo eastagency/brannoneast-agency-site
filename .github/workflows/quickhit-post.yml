@@ -1,14 +1,19 @@
-name: Weekly Instagram Post
+name: Quick-Hit Campaign Post
 
 on:
-  schedule:
-    - cron: '0 15 * * 1'  # Every Monday at 3pm UTC (11am ET) -- after the blog + Facebook posts
-  workflow_dispatch:       # Run manually any time from GitHub Actions tab
+  workflow_dispatch:
     inputs:
-      force_topic:
-        description: 'Exact IG_TOPICS topic string to force instead of the normal rotation (optional)'
+      topic:
+        description: 'What the post is about'
+        required: true
+      cat:
+        description: 'Category label (optional)'
         required: false
-        default: ''
+        default: 'Life Insurance'
+      link_path:
+        description: 'Site path the CTA should point to (optional)'
+        required: false
+        default: '/life-insurance-quote.html'
 
 jobs:
   post:
@@ -32,21 +37,23 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          FORCE_TOPIC: ${{ github.event.inputs.force_topic }}
-        run: python scripts/generate-instagram-post.py generate
+          TOPIC: ${{ github.event.inputs.topic }}
+          CAT: ${{ github.event.inputs.cat }}
+          LINK_PATH: ${{ github.event.inputs.link_path }}
+        run: python scripts/generate-quickhit-post.py generate
 
       - name: Commit and push image
         run: |
           git config user.name "East Agency Bot"
           git config user.email "brannoneast1@gmail.com"
           git add assets/instagram/
-          git diff --staged --quiet && echo "No image to commit" || git commit -m "Auto Instagram: add generated image"
+          git diff --staged --quiet && echo "No image to commit" || git commit -m "Quick-hit: add generated image"
           git push
 
       - name: Get image URL
         id: image
         run: |
-          URL=$(python -c "import json; print(json.load(open('scripts/.ig_pending.json'))['image_url'])")
+          URL=$(python -c "import json; print(json.load(open('scripts/.quickhit_pending.json'))['image_url'])")
           echo "url=$URL" >> "$GITHUB_OUTPUT"
 
       - name: Wait for image to go live
@@ -64,16 +71,17 @@ jobs:
           echo "Image never went live after 10 minutes"
           exit 1
 
-      - name: Publish to Instagram
+      - name: Publish to Facebook + Instagram
         env:
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
-        run: python scripts/generate-instagram-post.py publish
+        run: python scripts/generate-quickhit-post.py publish
 
       - name: Commit history
         run: |
           git config user.name "East Agency Bot"
           git config user.email "brannoneast1@gmail.com"
-          git add scripts/instagram_topic_history.json scripts/instagram_seasonal_history.json
-          git diff --staged --quiet && echo "No history change" || git commit -m "Auto Instagram: record weekly post"
+          git add scripts/quickhit_history.json
+          git diff --staged --quiet && echo "No history change" || git commit -m "Quick-hit: record post"
           git push

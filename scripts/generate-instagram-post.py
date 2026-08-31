@@ -27,43 +27,54 @@ PENDING_PATH = "scripts/.ig_pending.json"
 TOPIC_HISTORY_PATH = "scripts/instagram_topic_history.json"
 SEASONAL_HISTORY_PATH = "scripts/instagram_seasonal_history.json"
 IMAGE_DIR = "assets/instagram"
+PHONE = "(678) 562-6905"
+
+CTA_EXAMPLES = (
+    "- Low-friction: \"Takes about 2 minutes -- get your free quote: {{LINK}}\"\n"
+    "- Personal/real person: \"Skip the hold music, text me directly: {{PHONE}}\"\n"
+    "- Curiosity: \"Not sure which option actually fits your situation? Let's figure it out: {{LINK}}\"\n"
+    "- No-pressure: \"See what it actually costs, no sales pitch: {{LINK}}\"\n"
+    "- Relationship: \"Questions? That's literally what I'm here for. Call or text: {{PHONE}}\"\n"
+    "- Value/protection: \"Protect the people who depend on you. Start here: {{LINK}}\"\n"
+    "- Direct but warm: \"Ready when you are. Grab a quote: {{LINK}} (or just call, I actually answer)\""
+)
 
 # 26 topics -- heavier on life insurance (8) per Brannon's explicit request,
 # the rest split across quick tips/home maintenance, insurance definitions
 # (glossary-style, matching knowledge.html), myth-busting, local
 # Cartersville/Bartow content, and healthy recipes/desserts.
 IG_TOPICS = [
-    {"type": "life", "cat": "Life Insurance", "topic": "Term life insurance: what it actually covers and who it's right for"},
-    {"type": "life", "cat": "Life Insurance", "topic": "IUL (Indexed Universal Life) explained honestly -- the pros and the cons"},
-    {"type": "life", "cat": "Life Insurance", "topic": "Mortgage protection insurance: do you need a separate policy from your regular life insurance?"},
-    {"type": "life", "cat": "Life Insurance", "topic": "Final expense insurance: covering funeral and end-of-life costs without burdening your family"},
-    {"type": "life", "cat": "Life Insurance", "topic": "How much life insurance coverage do you actually need?"},
-    {"type": "life", "cat": "Life Insurance", "topic": "The #1 reason people put off buying life insurance -- and why it costs them"},
-    {"type": "life", "cat": "Life Insurance", "topic": "What changes about your life insurance once you have kids"},
-    {"type": "life", "cat": "Life Insurance", "topic": "When you should actually review or update your life insurance policy"},
+    {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "Term life insurance: what it actually covers and who it's right for"},
+    {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "IUL (Indexed Universal Life) explained honestly -- the pros and the cons"},
+    {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "Mortgage protection insurance: do you need a separate policy from your regular life insurance?"},
+    {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "Final expense insurance: covering funeral and end-of-life costs without burdening your family"},
+    {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "How much life insurance coverage do you actually need?"},
+    {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "The #1 reason people put off buying life insurance -- and why it costs them"},
+    {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "What changes about your life insurance once you have kids"},
+    {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "When you should actually review or update your life insurance policy"},
 
-    {"type": "tip", "cat": "Quick Tip", "topic": "3 home maintenance tasks that help prevent expensive insurance claims"},
-    {"type": "tip", "cat": "Quick Tip", "topic": "What to actually do in the first 10 minutes after a car accident"},
-    {"type": "tip", "cat": "Quick Tip", "topic": "How often you should really review your insurance policy"},
-    {"type": "tip", "cat": "Quick Tip", "topic": "Simple, real ways to lower your home insurance premium"},
+    {"type": "tip", "cat": "Quick Tip", "link": "/quotes.html", "topic": "3 home maintenance tasks that help prevent expensive insurance claims"},
+    {"type": "tip", "cat": "Quick Tip", "link": "/quotes.html", "topic": "What to actually do in the first 10 minutes after a car accident"},
+    {"type": "tip", "cat": "Quick Tip", "link": "/quotes.html", "topic": "How often you should really review your insurance policy"},
+    {"type": "tip", "cat": "Quick Tip", "link": "/quotes.html", "topic": "Simple, real ways to lower your home insurance premium"},
 
-    {"type": "definition", "cat": "Know Your Terms", "topic": "What a deductible actually is, explained simply"},
-    {"type": "definition", "cat": "Know Your Terms", "topic": "Liability vs. full coverage: what's the real difference"},
-    {"type": "definition", "cat": "Know Your Terms", "topic": "What \"actual cash value\" means when you file a claim"},
-    {"type": "definition", "cat": "Know Your Terms", "topic": "What an umbrella policy covers that your regular policy doesn't"},
+    {"type": "definition", "cat": "Know Your Terms", "link": "/quotes.html", "topic": "What a deductible actually is, explained simply"},
+    {"type": "definition", "cat": "Know Your Terms", "link": "/quotes.html", "topic": "Liability vs. full coverage: what's the real difference"},
+    {"type": "definition", "cat": "Know Your Terms", "link": "/quotes.html", "topic": "What \"actual cash value\" means when you file a claim"},
+    {"type": "definition", "cat": "Know Your Terms", "link": "/quotes.html", "topic": "What an umbrella policy covers that your regular policy doesn't"},
 
-    {"type": "myth", "cat": "Myth Busting", "topic": "Myth: using an independent agent costs more than buying direct"},
-    {"type": "myth", "cat": "Myth Busting", "topic": "Myth: red cars cost more to insure"},
-    {"type": "myth", "cat": "Myth Busting", "topic": "Myth: your homeowners policy automatically covers flood damage"},
+    {"type": "myth", "cat": "Myth Busting", "link": "/quotes.html", "topic": "Myth: using an independent agent costs more than buying direct"},
+    {"type": "myth", "cat": "Myth Busting", "link": "/quotes.html", "topic": "Myth: red cars cost more to insure"},
+    {"type": "myth", "cat": "Myth Busting", "link": "/quotes.html", "topic": "Myth: your homeowners policy automatically covers flood damage"},
 
-    {"type": "local", "cat": "Local", "topic": "Why Cartersville families choose a local agent over a call center"},
-    {"type": "local", "cat": "Local", "topic": "Storm season in Bartow County: what your policy should already cover"},
-    {"type": "local", "cat": "Local", "topic": "A look inside The East Agency's office in Cartersville, GA"},
+    {"type": "local", "cat": "Local", "link": "/quotes.html", "topic": "Why Cartersville families choose a local agent over a call center"},
+    {"type": "local", "cat": "Local", "link": "/quotes.html", "topic": "Storm season in Bartow County: what your policy should already cover"},
+    {"type": "local", "cat": "Local", "link": "/quotes.html", "topic": "A look inside The East Agency's office in Cartersville, GA"},
 
-    {"type": "recipe", "cat": "Recipe", "topic": "A healthy weeknight dinner recipe a busy family will actually eat"},
-    {"type": "recipe", "cat": "Recipe", "topic": "A fun, easy dessert recipe worth making this weekend"},
-    {"type": "recipe", "cat": "Recipe", "topic": "A healthy lunch recipe you can meal-prep for the week"},
-    {"type": "recipe", "cat": "Recipe", "topic": "A cozy comfort-food recipe with a healthier twist"},
+    {"type": "recipe", "cat": "Recipe", "link": None, "topic": "A healthy weeknight dinner recipe a busy family will actually eat"},
+    {"type": "recipe", "cat": "Recipe", "link": None, "topic": "A fun, easy dessert recipe worth making this weekend"},
+    {"type": "recipe", "cat": "Recipe", "link": None, "topic": "A healthy lunch recipe you can meal-prep for the week"},
+    {"type": "recipe", "cat": "Recipe", "link": None, "topic": "A cozy comfort-food recipe with a healthier twist"},
 ]
 
 # 4 seasonal posts, checked against a Monday-Sunday window so each fires on
@@ -71,16 +82,16 @@ IG_TOPICS = [
 # of which day of the week the date itself falls on.
 IG_SEASONAL = [
     {"name": "veterans_day", "month": 11, "day": 11, "floating": None,
-     "cat": "Veterans Day",
+     "cat": "Veterans Day", "link": None,
      "topic": "A Veterans Day post honoring the veterans in our Cartersville/Bartow community and thanking them for their service"},
     {"name": "thanksgiving", "month": 11, "day": None, "floating": "thanksgiving_us",
-     "cat": "Thanksgiving",
+     "cat": "Thanksgiving", "link": "/quotes.html",
      "topic": "A warm Thanksgiving post about gratitude for our clients and community, with a gentle nudge to review coverage before year-end"},
     {"name": "christmas", "month": 12, "day": 25, "floating": None,
-     "cat": "Christmas",
+     "cat": "Christmas", "link": None,
      "topic": "A warm Christmas/holiday greeting from Brannon and The East Agency to the Cartersville community"},
     {"name": "new_years", "month": 1, "day": 1, "floating": None,
-     "cat": "New Year",
+     "cat": "New Year", "link": "/quotes.html",
      "topic": "A New Year, New Policy Review post -- a fresh-start reminder to check that your coverage still fits your life"},
 ]
 
@@ -141,6 +152,14 @@ def record_seasonal_used(name, year):
 
 
 def pick_topic(today):
+    forced = os.environ.get("FORCE_TOPIC", "").strip()
+    if forced:
+        for t in IG_TOPICS:
+            if t["topic"] == forced:
+                print(f"Using forced topic: {forced}")
+                return t
+        raise RuntimeError(f"FORCE_TOPIC '{forced}' not found in IG_TOPICS")
+
     history = _load_json(TOPIC_HISTORY_PATH, [])
     used = {h["topic"] for h in history}
 
@@ -174,10 +193,21 @@ def generate_caption_and_prompt(entry):
         f'Write two things:\n\n'
         f'1. CAPTION: 80-130 words, conversational, hook in the first line, short punchy lines. '
         f'Mention Cartersville/Bartow County naturally if it fits the topic (skip it for recipe posts, '
-        f'that would feel forced). If the topic is insurance-related, end with a light call to action '
-        f'(read more, ask a question, get a quote) -- but if it\'s a recipe or purely local/community post, '
-        f'do NOT force an insurance sales pitch, just let it be genuinely useful/warm content. '
-        f'Add 3-5 relevant hashtags on their own line at the end. No em dashes, no corporate filler phrases.\n\n'
+        f'that would feel forced). '
+        + (
+            f'End with a real, specific call to action -- not a generic "get a quote today" line. '
+            f'Write it in whatever style genuinely fits this topic/tone (a few examples of the range, write your own '
+            f'in a similar spirit, don\'t just pick one verbatim):\n'
+            f'{CTA_EXAMPLES}\n'
+            f'Your closing CTA sentence MUST include the literal tokens {{{{LINK}}}} and {{{{PHONE}}}} exactly '
+            f'(they get replaced with the real URL and phone number afterward) -- do not write out an actual URL or number yourself. '
+            f'Since this is Instagram, phrase the {{{{LINK}}}} mention as something like "link in bio" or "quote link in my bio" '
+            f'rather than expecting it to be clickable in the caption itself.\n\n'
+            if entry.get("link") else
+            f'This is a recipe/purely local-community post -- do NOT force an insurance sales pitch or CTA, '
+            f'just let it be genuinely useful/warm content on its own.\n\n'
+        )
+        + f'Add 3-5 relevant hashtags on their own line at the end. No em dashes, no corporate filler phrases.\n\n'
         f'2. IMAGE_PROMPT: a detailed prompt for an AI photo generator to create ONE photorealistic, '
         f'warm, on-brand image for this specific post (square, Instagram feed). Describe subject, setting, '
         f'lighting, and style concretely. Do NOT ask for any text, words, signage, or logos to be rendered '
@@ -197,7 +227,10 @@ def generate_caption_and_prompt(entry):
             raw = re.sub(r'^```(?:json)?\s*', '', raw)
             raw = re.sub(r'\s*```$', '', raw.strip())
             parsed = json.loads(raw)
-            return parsed["caption"], parsed["image_prompt"]
+            caption = parsed["caption"]
+            if entry.get("link"):
+                caption = caption.replace("{{LINK}}", f"{SITE}{entry['link']}").replace("{{PHONE}}", PHONE)
+            return caption, parsed["image_prompt"]
         except (json.JSONDecodeError, KeyError) as e:
             print(f"Caption generation attempt {attempt + 1} failed ({type(e).__name__}): {e}")
             if attempt == 2:

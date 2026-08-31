@@ -15,6 +15,17 @@ SITE = "https://brannoneast.agency"
 TOPIC_HISTORY_PATH = "scripts/topic_history.json"
 FACEBOOK_HISTORY_PATH = "scripts/facebook_history.json"
 GRAPH_API = "https://graph.facebook.com/v21.0"
+PHONE = "(678) 562-6905"
+
+CTA_EXAMPLES = (
+    "- Low-friction: \"Takes about 2 minutes -- get your free quote: {{LINK}}\"\n"
+    "- Personal/real person: \"Skip the hold music, text me directly: {{PHONE}}\"\n"
+    "- Curiosity: \"Not sure which option actually fits your situation? Let's figure it out: {{LINK}}\"\n"
+    "- No-pressure: \"See what it actually costs, no sales pitch: {{LINK}}\"\n"
+    "- Relationship: \"Questions? That's literally what I'm here for. Call or text: {{PHONE}}\"\n"
+    "- Value/protection: \"Protect the people who depend on you. Start here: {{LINK}}\"\n"
+    "- Direct but warm: \"Ready when you are. Grab a quote: {{LINK}} (or just call, I actually answer)\""
+)
 
 
 def _load_json(path, default):
@@ -54,6 +65,7 @@ def load_latest_post():
         "description": schema["description"],
         "image": schema["image"],
         "url": schema.get("url", f"{SITE}/blog/{slug}.html"),
+        "quote_url": schema.get("quoteUrl", f"{SITE}/quotes.html"),
     }
 
 
@@ -82,9 +94,13 @@ def generate_caption(post):
         f'statement) -- not the blog title restated.\n'
         f'- 80-130 words, short punchy lines, conversational, not corporate.\n'
         f'- Mention Cartersville, GA or Bartow County naturally if it fits.\n'
-        f'- End with a clear call to action to read the full post or get a free quote.\n'
-        f'- No em dashes. No "in today\'s world," "when it comes to," or similar filler.\n'
-        f'- Do not include the raw blog link in the caption body -- it goes in a separate field.\n\n'
+        f'- End with a <p>-free, real, specific call to action -- not a generic "get a quote today" line. '
+        f'Write it in whatever style genuinely fits this topic/tone (a few examples of the range, write your own '
+        f'in a similar spirit, don\'t just pick one verbatim):\n'
+        f'{CTA_EXAMPLES}\n'
+        f'Your closing CTA sentence MUST include the literal tokens {{{{LINK}}}} and {{{{PHONE}}}} exactly '
+        f'(they get replaced with the real URL and phone number afterward) -- do not write out an actual URL or number yourself.\n'
+        f'- No em dashes. No "in today\'s world," "when it comes to," or similar filler.\n\n'
         f'Return ONLY a raw JSON object, no markdown fences, no commentary:\n'
         f'{{"caption": "the full caption text"}}'
     )
@@ -98,7 +114,8 @@ def generate_caption(post):
             raw = msg.content[0].text.strip()
             raw = re.sub(r'^```(?:json)?\s*', '', raw)
             raw = re.sub(r'\s*```$', '', raw.strip())
-            return json.loads(raw)["caption"]
+            caption = json.loads(raw)["caption"]
+            return caption.replace("{{LINK}}", post["quote_url"]).replace("{{PHONE}}", PHONE)
         except (json.JSONDecodeError, KeyError) as e:
             print(f"Caption generation attempt {attempt + 1} failed ({type(e).__name__}): {e}")
             if attempt == 2:
