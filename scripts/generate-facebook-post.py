@@ -10,6 +10,8 @@ own dedicated topic rotation rather than reusing blog content.
 
 import anthropic, os, re, json
 import requests
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 SITE = "https://brannoneast.agency"
 TOPIC_HISTORY_PATH = "scripts/topic_history.json"
@@ -122,12 +124,35 @@ def generate_caption(post):
                 raise
 
 
+def next_monday_1030am_et():
+    """The next upcoming Monday 10:30am America/New_York, at least 15 minutes
+    from now (Facebook requires scheduled_publish_time to be >=10 min out;
+    15 gives margin). Scheduling to this fixed target -- rather than posting
+    immediately -- means the post always lands at the right day/time on
+    Facebook's own reliable infrastructure, regardless of when this script
+    itself actually happens to run (GitHub's own cron for this workflow is
+    not reliable -- confirmed to sometimes not fire at all, or fire hours
+    late)."""
+    now = datetime.now(ZoneInfo("America/New_York"))
+    days_ahead = (0 - now.weekday()) % 7  # 0 = Monday
+    target = (now + timedelta(days=days_ahead)).replace(hour=10, minute=30, second=0, microsecond=0)
+    if target <= now + timedelta(minutes=15):
+        target += timedelta(days=7)
+    return int(target.timestamp())
+
+
 def post_to_facebook(image_url, caption):
     page_id = os.environ["FB_PAGE_ID"]
     token = os.environ["FB_PAGE_ACCESS_TOKEN"]
     resp = requests.post(
         f"{GRAPH_API}/{page_id}/photos",
-        data={"url": image_url, "caption": caption, "access_token": token},
+        data={
+            "url": image_url,
+            "caption": caption,
+            "published": "false",
+            "scheduled_publish_time": next_monday_1030am_et(),
+            "access_token": token,
+        },
         timeout=30,
     )
     result = resp.json()
