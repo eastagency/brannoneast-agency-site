@@ -17,12 +17,15 @@ Runs in two phases because the generated image needs to be live on the site
 """
 
 import os, re, json, sys, base64, calendar, time
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
 import anthropic
 import requests
 
 SITE = "https://brannoneast.agency"
 GRAPH_API = "https://graph.facebook.com/v21.0"
+BUFFER_GRAPHQL = "https://api.buffer.com/graphql"
+BUFFER_INSTAGRAM_CHANNEL_ID = "6aa027b4cd8b9c702c2d7e50"  # @brannoneastagency, in Buffer
 PENDING_PATH = "scripts/.ig_pending.json"
 TOPIC_HISTORY_PATH = "scripts/instagram_topic_history.json"
 SEASONAL_HISTORY_PATH = "scripts/instagram_seasonal_history.json"
@@ -307,33 +310,65 @@ def cmd_generate():
     print(f"Pending state written to {PENDING_PATH}")
 
 
+def next_monday_11am_et():
+    """The next upcoming Monday 11:00am America/New_York, at least 15 minutes
+    from now. Scheduling to this fixed target through Buffer -- rather than
+    publishing immediately whenever this script happens to run -- means the
+    post always lands at the right day/time regardless of GitHub's own cron
+    reliability (confirmed to sometimes not fire at all, or fire hours late)."""
+    now = datetime.now(ZoneInfo("America/New_York"))
+    days_ahead = (0 - now.weekday()) % 7  # 0 = Monday
+    target = (now + timedelta(days=days_ahead)).replace(hour=11, minute=0, second=0, microsecond=0)
+    if target <= now + timedelta(minutes=15):
+        target += timedelta(days=7)
+    return target
+
+
+def publish_to_buffer(image_url, caption):
+    key = os.environ["BUFFER_API_KEY"]
+    due_at = next_monday_11am_et().astimezone(ZoneInfo("UTC")).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+
+    query = """
+    mutation CreatePost($input: CreatePostInput!) {
+      createPost(input: $input) {
+        ... on PostActionSuccess { post { id dueAt } }
+        ... on MutationError { message }
+      }
+    }
+    """
+    variables = {
+        "input": {
+            "text": caption,
+            "channelId": BUFFER_INSTAGRAM_CHANNEL_ID,
+            "mode": "customScheduled",
+            "schedulingType": "automatic",
+            "needsApproval": False,
+            "dueAt": due_at,
+            "metadata": {"instagram": {"type": "post", "shouldShareToFeed": True}},
+            "assets": [{"image": {"url": image_url}}],
+        }
+    }
+    resp = requests.post(
+        BUFFER_GRAPHQL,
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        json={"query": query, "variables": variables},
+        timeout=30,
+    )
+    result = resp.json()
+    errors = result.get("errors")
+    payload = (result.get("data") or {}).get("createPost") or {}
+    if errors or "message" in payload:
+        raise RuntimeError(f"Buffer scheduling FAILED: {errors or payload.get('message')}")
+
+    print(f"Instagram post scheduled via Buffer: post_id={payload['post']['id']} dueAt={payload['post']['dueAt']}")
+
+
 def cmd_publish():
     pending = _load_json(PENDING_PATH, None)
     if pending is None:
         raise RuntimeError(f"No {PENDING_PATH} found -- run 'generate' first")
 
-    ig_id = os.environ["IG_BUSINESS_ACCOUNT_ID"]
-    token = os.environ["FB_PAGE_ACCESS_TOKEN"]
-
-    create = requests.post(
-        f"{GRAPH_API}/{ig_id}/media",
-        data={"image_url": pending["image_url"], "caption": pending["caption"], "access_token": token},
-        timeout=30,
-    )
-    create_result = create.json()
-    if "error" in create_result:
-        raise RuntimeError(f"Instagram media creation FAILED: {create_result['error']}")
-
-    publish = requests.post(
-        f"{GRAPH_API}/{ig_id}/media_publish",
-        data={"creation_id": create_result["id"], "access_token": token},
-        timeout=30,
-    )
-    publish_result = publish.json()
-    if "error" in publish_result:
-        raise RuntimeError(f"Instagram publish FAILED: {publish_result['error']}")
-
-    print(f"Instagram post OK: media_id={publish_result.get('id')}")
+    publish_to_buffer(pending["image_url"], pending["caption"])
 
     if pending["is_seasonal"]:
         record_seasonal_used(pending["seasonal_name"], pending["year"])

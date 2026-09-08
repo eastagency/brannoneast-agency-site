@@ -26,7 +26,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install anthropic requests
+        run: pip install anthropic requests tzdata
 
       - name: Generate caption + image
         env:
@@ -64,10 +64,9 @@ jobs:
           echo "Image never went live after 10 minutes"
           exit 1
 
-      - name: Publish to Instagram
+      - name: Schedule to Instagram via Buffer
         env:
-          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
-          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
         run: python scripts/generate-instagram-post.py publish
 
       - name: Commit history

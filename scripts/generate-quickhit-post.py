@@ -187,30 +187,48 @@ def post_to_facebook(image_url, caption):
     return True
 
 
+BUFFER_GRAPHQL = "https://api.buffer.com/graphql"
+BUFFER_INSTAGRAM_CHANNEL_ID = "6aa027b4cd8b9c702c2d7e50"  # @brannoneastagency, in Buffer
+
+
 def post_to_instagram(image_url, caption):
-    ig_id = os.environ["IG_BUSINESS_ACCOUNT_ID"]
-    token = os.environ["FB_PAGE_ACCESS_TOKEN"]
-
-    create = requests.post(
-        f"{GRAPH_API}/{ig_id}/media",
-        data={"image_url": image_url, "caption": caption, "access_token": token},
+    """Publishes via Buffer (mode: shareNow) rather than Instagram's Graph API
+    directly -- quick-hit posts are already dispatched at the intended
+    moment, so no future scheduling is needed here, just a more reliable
+    publish path than calling Instagram's own API directly."""
+    key = os.environ["BUFFER_API_KEY"]
+    query = """
+    mutation CreatePost($input: CreatePostInput!) {
+      createPost(input: $input) {
+        ... on PostActionSuccess { post { id } }
+        ... on MutationError { message }
+      }
+    }
+    """
+    variables = {
+        "input": {
+            "text": caption,
+            "channelId": BUFFER_INSTAGRAM_CHANNEL_ID,
+            "mode": "shareNow",
+            "schedulingType": "automatic",
+            "needsApproval": False,
+            "metadata": {"instagram": {"type": "post", "shouldShareToFeed": True}},
+            "assets": [{"image": {"url": image_url}}],
+        }
+    }
+    resp = requests.post(
+        BUFFER_GRAPHQL,
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        json={"query": query, "variables": variables},
         timeout=30,
     )
-    create_result = create.json()
-    if "error" in create_result:
-        print(f"Instagram media creation FAILED: {create_result['error']}")
+    result = resp.json()
+    errors = result.get("errors")
+    payload = (result.get("data") or {}).get("createPost") or {}
+    if errors or "message" in payload:
+        print(f"Instagram publish via Buffer FAILED: {errors or payload.get('message')}")
         return False
-
-    publish = requests.post(
-        f"{GRAPH_API}/{ig_id}/media_publish",
-        data={"creation_id": create_result["id"], "access_token": token},
-        timeout=30,
-    )
-    publish_result = publish.json()
-    if "error" in publish_result:
-        print(f"Instagram publish FAILED: {publish_result['error']}")
-        return False
-    print(f"Instagram post OK: media_id={publish_result.get('id')}")
+    print(f"Instagram post OK via Buffer: post_id={payload['post']['id']}")
     return True
 
 
