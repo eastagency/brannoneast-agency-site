@@ -23,7 +23,7 @@ Inputs come from env vars (set by the workflow_dispatch inputs):
                the CTA should point to.
 """
 
-import os, re, json, sys, base64
+import os, re, json, sys, base64, time
 from datetime import date
 import anthropic
 import requests
@@ -103,15 +103,33 @@ def generate_caption_and_prompt(topic, cat, link):
                 raise
 
 
-def generate_image(image_prompt, out_path):
+def generate_image(image_prompt, out_path, max_attempts=4):
     key = os.environ["GEMINI_API_KEY"]
-    resp = requests.post(
-        f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key={key}",
-        json={"contents": [{"parts": [{"text": image_prompt}]}]},
-        timeout=60,
-    )
-    result = resp.json()
-    if "error" in result:
+    result = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            resp = requests.post(
+                f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key={key}",
+                json={"contents": [{"parts": [{"text": image_prompt}]}]},
+                timeout=120,
+            )
+            result = resp.json()
+        except requests.exceptions.RequestException as e:
+            if attempt < max_attempts:
+                wait = 15 * attempt
+                print(f"Image gen attempt {attempt} network error ({e.__class__.__name__}), retrying in {wait}s...")
+                time.sleep(wait)
+                continue
+            raise RuntimeError(f"Nano Banana generation failed after {max_attempts} attempts: {e}")
+
+        if "error" not in result:
+            break
+        code = result["error"].get("code")
+        if code in (500, 503, 429) and attempt < max_attempts:
+            wait = 15 * attempt
+            print(f"Image gen attempt {attempt} failed ({code}), retrying in {wait}s...")
+            time.sleep(wait)
+            continue
         raise RuntimeError(f"Nano Banana generation failed: {result['error']}")
 
     for part in result["candidates"][0]["content"]["parts"]:
