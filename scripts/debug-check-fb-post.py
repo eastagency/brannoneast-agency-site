@@ -8,7 +8,7 @@ page_id = os.environ["FB_PAGE_ID"]
 token = os.environ["FB_PAGE_ACCESS_TOKEN"]
 resp = requests.get(
     f"https://graph.facebook.com/v21.0/{page_id}/scheduled_posts",
-    params={"access_token": token},
+    params={"fields": "id,message,created_time,scheduled_publish_time", "access_token": token},
     timeout=30,
 )
 print(resp.json())
