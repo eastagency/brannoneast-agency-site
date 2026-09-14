@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""One-off debug helper: list the Page's pending scheduled posts.
+"""One-off fix: reschedule a stuck scheduled Facebook post to fire soon.
 Not part of the regular pipeline -- safe to delete after use."""
 import os
+import time
 import requests
 
-page_id = os.environ["FB_PAGE_ID"]
+post_id = os.environ["POST_ID"]
 token = os.environ["FB_PAGE_ACCESS_TOKEN"]
-resp = requests.get(
-    f"https://graph.facebook.com/v21.0/{page_id}/scheduled_posts",
-    params={"fields": "id,message,created_time,scheduled_publish_time", "access_token": token},
+new_time = int(time.time()) + 12 * 60  # 12 minutes from now
+
+resp = requests.post(
+    f"https://graph.facebook.com/v21.0/{post_id}",
+    data={"scheduled_publish_time": new_time, "access_token": token},
     timeout=30,
 )
 print(resp.json())
