@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""One-off debug helper: check a Facebook post's actual scheduled_publish_time.
+"""One-off debug helper: list the Page's pending scheduled posts.
 Not part of the regular pipeline -- safe to delete after use."""
 import os
 import requests
 
-post_id = os.environ["POST_ID"]
+page_id = os.environ["FB_PAGE_ID"]
 token = os.environ["FB_PAGE_ACCESS_TOKEN"]
 resp = requests.get(
-    f"https://graph.facebook.com/v21.0/{post_id}",
-    params={"fields": "is_published,created_time,message", "access_token": token},
+    f"https://graph.facebook.com/v21.0/{page_id}/scheduled_posts",
+    params={"access_token": token},
     timeout=30,
 )
 print(resp.json())
