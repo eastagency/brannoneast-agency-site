@@ -311,16 +311,20 @@ def cmd_generate():
 
 
 def next_monday_11am_et():
-    """The next upcoming Monday 11:00am America/New_York, at least 15 minutes
-    from now. Scheduling to this fixed target through Buffer -- rather than
-    publishing immediately whenever this script happens to run -- means the
-    post always lands at the right day/time regardless of GitHub's own cron
-    reliability (confirmed to sometimes not fire at all, or fire hours late)."""
+    """If today is Monday, target ~12 minutes from now -- covers both the
+    normal on-time run AND a same-day manual catch-up dispatch at any hour,
+    without a fixed clock target a catch-up could collide with (see the twin
+    function in generate-facebook-post.py for the incident that prompted
+    this: a same-day catch-up dispatched shortly before the old fixed target
+    got silently bumped a full week out). If today is NOT Monday (shouldn't
+    normally happen, but a safe fallback), target the upcoming Monday at
+    11:00am instead, since there's no "today's slot" to catch up on."""
     now = datetime.now(ZoneInfo("America/New_York"))
-    days_ahead = (0 - now.weekday()) % 7  # 0 = Monday
-    target = (now + timedelta(days=days_ahead)).replace(hour=11, minute=0, second=0, microsecond=0)
-    if target <= now + timedelta(minutes=15):
-        target += timedelta(days=7)
+    if now.weekday() == 0:  # Monday
+        target = now + timedelta(minutes=12)
+    else:
+        days_ahead = (0 - now.weekday()) % 7
+        target = (now + timedelta(days=days_ahead)).replace(hour=11, minute=0, second=0, microsecond=0)
     return target
 
 

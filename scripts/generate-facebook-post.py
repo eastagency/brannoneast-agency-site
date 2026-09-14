@@ -125,19 +125,23 @@ def generate_caption(post):
 
 
 def next_monday_1030am_et():
-    """The next upcoming Monday 10:30am America/New_York, at least 15 minutes
-    from now (Facebook requires scheduled_publish_time to be >=10 min out;
-    15 gives margin). Scheduling to this fixed target -- rather than posting
-    immediately -- means the post always lands at the right day/time on
-    Facebook's own reliable infrastructure, regardless of when this script
-    itself actually happens to run (GitHub's own cron for this workflow is
-    not reliable -- confirmed to sometimes not fire at all, or fire hours
-    late)."""
+    """If today is Monday, target ~12 minutes from now (Facebook requires
+    scheduled_publish_time to be >=10 min out; 12 gives a little margin) --
+    this covers both the normal on-time run AND a same-day manual catch-up
+    dispatch at any hour, without a fixed clock target that a catch-up close
+    to 10:30am could collide with (this happened once: a 2026-09-14 catch-up
+    dispatched at 10:15am -- 15 minutes before the old fixed 10:30am target --
+    got silently bumped a full week out by the old ">=15 minutes" guard,
+    since the code couldn't tell "normal run, still plenty of lead time" apart
+    from "catch-up, target basically already here"). If today is NOT Monday
+    (shouldn't normally happen, but a safe fallback), target the upcoming
+    Monday at 10:30am instead, since there's no "today's slot" to catch up on."""
     now = datetime.now(ZoneInfo("America/New_York"))
-    days_ahead = (0 - now.weekday()) % 7  # 0 = Monday
-    target = (now + timedelta(days=days_ahead)).replace(hour=10, minute=30, second=0, microsecond=0)
-    if target <= now + timedelta(minutes=15):
-        target += timedelta(days=7)
+    if now.weekday() == 0:  # Monday
+        target = now + timedelta(minutes=12)
+    else:
+        days_ahead = (0 - now.weekday()) % 7
+        target = (now + timedelta(days=days_ahead)).replace(hour=10, minute=30, second=0, microsecond=0)
     return int(target.timestamp())
 
 
