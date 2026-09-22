@@ -31,6 +31,7 @@ jobs:
       - name: Generate blog post
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
           FORCE_TOPIC_KEYWORD: ${{ github.event.inputs.force_topic }}
@@ -40,6 +41,21 @@ jobs:
         run: |
           git config user.name "East Agency Bot"
           git config user.email "brannoneast1@gmail.com"
-          git add blog/ blog.html sitemap.xml scripts/topic_history.json
+          git add blog/ blog.html sitemap.xml scripts/topic_history.json assets/blog/
           git diff --staged --quiet && echo "No new post generated" || git commit -m "Auto blog: ${{ env.POST_TITLE }}"
           git push
+
+      - name: Wait for hero image to go live
+        run: |
+          URL="${{ env.POST_IMAGE_URL }}"
+          for i in $(seq 1 60); do
+            CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+            if [ "$CODE" = "200" ]; then
+              echo "Image is live after attempt $i."
+              exit 0
+            fi
+            echo "Attempt $i: got $CODE, waiting..."
+            sleep 10
+          done
+          echo "Image never went live after 10 minutes"
+          exit 1

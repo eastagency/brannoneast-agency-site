@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """East Agency Auto Blog Post Generator — runs weekly via GitHub Actions."""
 
-import anthropic, os, re, json, base64
+import anthropic, os, re, json, base64, time
 from datetime import date
+import requests as _requests
+_HAS_REQUESTS = True
 
-try:
-    import requests as _requests
-    _HAS_REQUESTS = True
-except ImportError:
-    _HAS_REQUESTS = False
+BLOG_IMAGE_DIR = "assets/blog"
+SITE = "https://brannoneast.agency"
 
 # 32 topics — weekly rotation, one full cycle = ~7.5 months, then repeats with fresh content
 TOPICS = [
@@ -241,12 +240,18 @@ def generate_content(topic, kw_data=None):
         f'- Title Case Headings — use normal sentence case.\n'
         f'- Chatbot sign-offs or closing summaries that restate the whole post.\n'
         f'Just write the way Brannon would actually talk to someone in his office.\n\n'
+        f'Also write an IMAGE_PROMPT: a detailed prompt for an AI photo generator to create ONE photorealistic, warm, '
+        f'on-brand hero image for this specific post (widescreen/16:9, blog header format). Describe subject, setting, '
+        f'and lighting concretely, matching the actual topic (not a generic stock-photo scene) -- this must be a fresh, '
+        f'specific image, never a generic placeholder. Do NOT ask for any text, words, signage, or logos to be rendered '
+        f'in the image -- AI image models render text unreliably, so the image should be a clean scene with no readable text.\n\n'
         f'Return ONLY a raw JSON object — no markdown fences, no commentary:\n'
         f'{{\n'
         f'  "title": "Engaging title, 60 chars max, keyword included naturally",\n'
         f'  "slug": "url-friendly-slug-no-extension",\n'
         f'  "excerpt": "2-sentence card teaser under 160 characters",\n'
-        f'  "html_body": "Article HTML using only <h2><p><ul><li><strong> tags. 3-4 h2 sections. Real numbers where helpful."\n'
+        f'  "html_body": "Article HTML using only <h2><p><ul><li><strong> tags. 3-4 h2 sections. Real numbers where helpful.",\n'
+        f'  "image_prompt": "the AI image generator prompt described above"\n'
         f'}}'
     )
     for attempt in range(3):
@@ -269,7 +274,45 @@ def generate_content(topic, kw_data=None):
                 raise
 
 
-def build_post(topic, data, date_iso, date_display):
+def generate_image(image_prompt, out_path, max_attempts=4):
+    key = os.environ["GEMINI_API_KEY"]
+    result = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            resp = _requests.post(
+                f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key={key}",
+                json={"contents": [{"parts": [{"text": image_prompt}]}]},
+                timeout=120,
+            )
+            result = resp.json()
+        except _requests.exceptions.RequestException as e:
+            if attempt < max_attempts:
+                wait = 15 * attempt
+                print(f"Image gen attempt {attempt} network error ({e.__class__.__name__}), retrying in {wait}s...")
+                time.sleep(wait)
+                continue
+            raise RuntimeError(f"Nano Banana generation failed after {max_attempts} attempts: {e}")
+
+        if "error" not in result:
+            break
+        code = result["error"].get("code")
+        if code in (500, 503, 429) and attempt < max_attempts:
+            wait = 15 * attempt
+            print(f"Image gen attempt {attempt} failed ({code}), retrying in {wait}s...")
+            time.sleep(wait)
+            continue
+        raise RuntimeError(f"Nano Banana generation failed: {result['error']}")
+
+    for part in result["candidates"][0]["content"]["parts"]:
+        if "inlineData" in part:
+            os.makedirs(os.path.dirname(out_path), exist_ok=True)
+            with open(out_path, "wb") as f:
+                f.write(base64.b64decode(part["inlineData"]["data"]))
+            return
+    raise RuntimeError("Nano Banana response had no image data")
+
+
+def build_post(topic, data, date_iso, date_display, image_path):
     with open("blog/home-insurance-cost-cartersville-ga.html", "r", encoding="utf-8") as f:
         html = f.read()
 
@@ -283,7 +326,7 @@ def build_post(topic, data, date_iso, date_display):
     html = re.sub(r'(<link rel="canonical" href=")[^"]*"', lambda m: f'{m.group(1)}https://brannoneast.agency/blog/{data["slug"]}.html"', html)
     html = re.sub(r'(<meta property="og:title" content=")[^"]*"', lambda m: f'{m.group(1)}{data["title"]}"', html)
     html = re.sub(r'(<meta property="og:description" content=")[^"]*"', lambda m: f'{m.group(1)}{data["excerpt"]}"', html)
-    html = re.sub(r'(<meta property="og:image" content=")[^"]*"', lambda m: f'{m.group(1)}https://brannoneast.agency{topic["img"]}"', html)
+    html = re.sub(r'(<meta property="og:image" content=")[^"]*"', lambda m: f'{m.group(1)}{SITE}{image_path}"', html)
 
     schema = {
         "@context": "https://schema.org",
@@ -291,7 +334,7 @@ def build_post(topic, data, date_iso, date_display):
         "headline": data["title"],
         "description": data["excerpt"],
         "datePublished": date_iso,
-        "image": f"https://brannoneast.agency{topic['img']}",
+        "image": f"{SITE}{image_path}",
         "author": {"@type": "Person", "name": "Brannon East"},
         "publisher": {"@type": "Organization", "name": "The East Agency", "url": "https://brannoneast.agency"},
         "url": f"https://brannoneast.agency/blog/{data['slug']}.html",
@@ -318,7 +361,7 @@ def build_post(topic, data, date_iso, date_display):
         f'        <span>·</span>\n'
         f'        <span>By Brannon East</span>\n'
         f'      </div>\n'
-        f'      <img src="{topic["img"]}" alt="{data["title"]}" style="width:100%;border-radius:12px;margin:24px 0;max-height:400px;object-fit:cover">\n'
+        f'      <img src="{image_path}" alt="{data["title"]}" style="width:100%;border-radius:12px;margin:24px 0;max-height:400px;object-fit:cover">\n'
         f'    </header>\n'
         f'    {data["html_body"]}\n'
         f'    '
@@ -345,13 +388,13 @@ def build_post(topic, data, date_iso, date_display):
     return out_path
 
 
-def update_blog_index(topic, data, date_display):
+def update_blog_index(topic, data, date_display, image_path):
     with open("blog.html", "r", encoding="utf-8") as f:
         html = f.read()
 
     card = (
         f'<article class="blog-card">\n'
-        f'      <div class="blog-card-img" style="background-image:url(\'{topic["img"]}\')">\n'
+        f'      <div class="blog-card-img" style="background-image:url(\'{image_path}\')">\n'
         f'        <span class="blog-cat-badge">{topic["cat"]}</span>\n'
         f'      </div>\n'
         f'      <div class="blog-card-body">\n'
@@ -410,8 +453,13 @@ def main():
     date_iso = today.isoformat()
     date_display = f"{today.strftime('%B')} {today.day}, {today.year}"
 
-    post_path = build_post(topic, data, date_iso, date_display)
-    update_blog_index(topic, data, date_display)
+    local_image_path = f"{BLOG_IMAGE_DIR}/{date_iso}-{data['slug']}.png"
+    generate_image(data["image_prompt"], local_image_path)
+    image_path = f"/{local_image_path}"
+    print(f"Image generated: {local_image_path}")
+
+    post_path = build_post(topic, data, date_iso, date_display, image_path)
+    update_blog_index(topic, data, date_display, image_path)
     update_sitemap(data["slug"], date_iso)
     record_topic_used(topic, data["slug"], date_iso)
     print(f"Written:  {post_path}")
@@ -421,6 +469,7 @@ def main():
     if env_file:
         with open(env_file, "a") as f:
             f.write(f"POST_TITLE={data['title']}\n")
+            f.write(f"POST_IMAGE_URL={SITE}{image_path}\n")
 
 
 if __name__ == "__main__":
