@@ -87,7 +87,7 @@
 <div id="panel-chat" class="quote-panel active">
 <div class="chat-window" id="chatWindow"></div>
 <div class="chat-input-row" id="chatInputRow">
-<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
 <button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
 </div>
 <div class="chat-success" id="chatSuccess">
@@ -106,28 +106,28 @@
 <input type="hidden" name="wants_upload" value="">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
-  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
-  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
 </div>
 <div class="qf-row">
-  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
-  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>Number of Rental Properties</label><select name="property_count"><option value="">Select...</option><option>1</option><option>2–5</option><option>6–10</option><option>10+</option></select></div>
-  <div><label>Primary Property Type</label><select name="property_type"><option value="">Select...</option><option>Single-Family Rental Home</option><option>Duplex / Multi-Family</option><option>Condo Unit</option><option>Vacation / Short-Term Rental</option><option>Commercial / Mixed-Use</option></select></div>
+  <div><label for="qf-property_count">Number of Rental Properties</label><select id="qf-property_count" name="property_count"><option value="">Select...</option><option>1</option><option>2–5</option><option>6–10</option><option>10+</option></select></div>
+  <div><label for="qf-property_type">Primary Property Type</label><select id="qf-property_type" name="property_type"><option value="">Select...</option><option>Single-Family Rental Home</option><option>Duplex / Multi-Family</option><option>Condo Unit</option><option>Vacation / Short-Term Rental</option><option>Commercial / Mixed-Use</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>ZIP Code of Primary Property</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
-  <div><label>Estimated Property Value</label><input type="text" name="property_value" placeholder="e.g. $220,000"></div>
+  <div><label for="qf-zip">ZIP Code of Primary Property</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-property_value">Estimated Property Value</label><input id="qf-property_value" type="text" name="property_value" placeholder="e.g. $220,000"></div>
 </div>
 <div class="qf-row">
-  <div><label>Currently Rented?</label><select name="occupancy"><option value="">Select...</option><option>Yes — currently tenant-occupied</option><option>Vacant — looking for tenants</option><option>Seasonal / Short-Term Rental</option></select></div>
-  <div><label>Annual Rental Income (approx)</label><input type="text" name="rental_income" placeholder="e.g. $18,000/yr"></div>
+  <div><label for="qf-occupancy">Currently Rented?</label><select id="qf-occupancy" name="occupancy"><option value="">Select...</option><option>Yes — currently tenant-occupied</option><option>Vacant — looking for tenants</option><option>Seasonal / Short-Term Rental</option></select></div>
+  <div><label for="qf-rental_income">Annual Rental Income (approx)</label><input id="qf-rental_income" type="text" name="rental_income" placeholder="e.g. $18,000/yr"></div>
 </div>
 <div class="qf-row">
-  <div><label>Current Insurance Carrier</label><input type="text" name="current_carrier" placeholder="e.g. Farmers or None"></div>
-  <div><label>Policy Renewal Date (if known)</label><input type="text" name="renewal_date" placeholder="e.g. March 2026 or Unknown"></div>
+  <div><label for="qf-current_carrier">Current Insurance Carrier</label><input id="qf-current_carrier" type="text" name="current_carrier" placeholder="e.g. Farmers or None"></div>
+  <div><label for="qf-renewal_date">Policy Renewal Date (if known)</label><input id="qf-renewal_date" type="text" name="renewal_date" placeholder="e.g. March 2026 or Unknown"></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -186,11 +186,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
       <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
+      <h3>Quick Links</h3>
       <a href="/quotes.html">Get a Quote</a>
       <a href="/insurance.html">Insurance Products</a>
       <a href="/blog.html">Blog</a>
@@ -199,7 +199,7 @@
       <a href="/contact.html">Contact</a>
     </div>
     <div>
-      <h4>Coverage by County</h4>
+      <h3>Coverage by County</h3>
       <a href="/life-insurance-by-county.html">All Coverage Areas</a>
       <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
       <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
@@ -211,7 +211,7 @@
       <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h3>Contact</h3>
       <a href="tel:6785626905">(678) 562-6905</a>
       <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
       <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>

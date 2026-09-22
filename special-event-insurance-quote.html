@@ -87,7 +87,7 @@
 <div id="panel-chat" class="quote-panel active">
 <div class="chat-window" id="chatWindow"></div>
 <div class="chat-input-row" id="chatInputRow">
-<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
 <button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
 </div>
 <div class="chat-success" id="chatSuccess">
@@ -105,28 +105,28 @@
 <input type="hidden" name="wants_upload" value="">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
-  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
-  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
 </div>
 <div class="qf-row">
-  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
-  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>Event Type</label><select name="event_type"><option value="">Select...</option><option>Wedding / Reception</option><option>Corporate Event</option><option>Birthday / Milestone Party</option><option>Concert / Festival</option><option>Sporting Event</option><option>Fundraiser / Non-Profit</option><option>Other</option></select></div>
-  <div><label>Event Date</label><input type="text" name="event_date" placeholder="e.g. October 15, 2026"></div>
+  <div><label for="qf-event_type">Event Type</label><select id="qf-event_type" name="event_type"><option value="">Select...</option><option>Wedding / Reception</option><option>Corporate Event</option><option>Birthday / Milestone Party</option><option>Concert / Festival</option><option>Sporting Event</option><option>Fundraiser / Non-Profit</option><option>Other</option></select></div>
+  <div><label for="qf-event_date">Event Date</label><input id="qf-event_date" type="text" name="event_date" placeholder="e.g. October 15, 2026"></div>
 </div>
 <div class="qf-row">
-  <div><label>Expected Attendance</label><select name="attendance"><option value="">Select...</option><option>Under 50 guests</option><option>50–150 guests</option><option>150–300 guests</option><option>300–500 guests</option><option>500+ guests</option></select></div>
-  <div><label>Event Location / ZIP</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-attendance">Expected Attendance</label><select id="qf-attendance" name="attendance"><option value="">Select...</option><option>Under 50 guests</option><option>50–150 guests</option><option>150–300 guests</option><option>300–500 guests</option><option>500+ guests</option></select></div>
+  <div><label for="qf-zip">Event Location / ZIP</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
 </div>
 <div class="qf-row">
-  <div><label>Venue Type</label><select name="venue_type"><option value="">Select...</option><option>Rented Venue / Banquet Hall</option><option>Hotel / Resort</option><option>Outdoor / Tent</option><option>Private Property (owned)</option><option>Park / Public Space</option></select></div>
-  <div><label>Alcohol Served?</label><select name="alcohol"><option value="">Select...</option><option>No alcohol</option><option>Yes — cash bar / licensed bartender</option><option>Yes — open bar</option></select></div>
+  <div><label for="qf-venue_type">Venue Type</label><select id="qf-venue_type" name="venue_type"><option value="">Select...</option><option>Rented Venue / Banquet Hall</option><option>Hotel / Resort</option><option>Outdoor / Tent</option><option>Private Property (owned)</option><option>Park / Public Space</option></select></div>
+  <div><label for="qf-alcohol">Alcohol Served?</label><select id="qf-alcohol" name="alcohol"><option value="">Select...</option><option>No alcohol</option><option>Yes — cash bar / licensed bartender</option><option>Yes — open bar</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>Coverage Amount Needed</label><select name="coverage_limit"><option value="">Select / Not Sure</option><option>$500,000</option><option>$1,000,000</option><option>$2,000,000</option><option>Not Sure — advise me</option></select></div>
-  <div><label>Cancellation Coverage?</label><select name="cancellation"><option value="">Select...</option><option>No — liability only</option><option>Yes — include cancellation coverage</option></select></div>
+  <div><label for="qf-coverage_limit">Coverage Amount Needed</label><select id="qf-coverage_limit" name="coverage_limit"><option value="">Select / Not Sure</option><option>$500,000</option><option>$1,000,000</option><option>$2,000,000</option><option>Not Sure — advise me</option></select></div>
+  <div><label for="qf-cancellation">Cancellation Coverage?</label><select id="qf-cancellation" name="cancellation"><option value="">Select...</option><option>No — liability only</option><option>Yes — include cancellation coverage</option></select></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -185,11 +185,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
       <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
+      <h3>Quick Links</h3>
       <a href="/quotes.html">Get a Quote</a>
       <a href="/insurance.html">Insurance Products</a>
       <a href="/blog.html">Blog</a>
@@ -198,7 +198,7 @@
       <a href="/contact.html">Contact</a>
     </div>
     <div>
-      <h4>Coverage by County</h4>
+      <h3>Coverage by County</h3>
       <a href="/life-insurance-by-county.html">All Coverage Areas</a>
       <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
       <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
@@ -210,7 +210,7 @@
       <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h3>Contact</h3>
       <a href="tel:6785626905">(678) 562-6905</a>
       <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
       <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>

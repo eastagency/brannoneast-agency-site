@@ -90,7 +90,7 @@
 <div id="panel-chat" class="quote-panel active">
 <div class="chat-window" id="chatWindow"></div>
 <div class="chat-input-row" id="chatInputRow">
-<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
 <button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
 </div>
 <div class="chat-success" id="chatSuccess">
@@ -107,32 +107,32 @@
 <input type="hidden" name="wants_upload" value="">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
-  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
-  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
 </div>
 <div class="qf-row">
-  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
-  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>Business Name</label><input type="text" name="business_name" placeholder="e.g. Smith Contracting LLC"></div>
-  <div><label>Industry / Business Type</label><select name="business_type"><option value="">Select...</option><option>Contractor / Trades</option><option>Retail / Store</option><option>Restaurant / Food Service</option><option>Professional Services</option><option>Real Estate</option><option>Healthcare / Medical</option><option>Transportation / Delivery</option><option>Manufacturing</option><option>Non-Profit</option><option>Other</option></select></div>
+  <div><label for="qf-business_name">Business Name</label><input id="qf-business_name" type="text" name="business_name" placeholder="e.g. Smith Contracting LLC"></div>
+  <div><label for="qf-business_type">Industry / Business Type</label><select id="qf-business_type" name="business_type"><option value="">Select...</option><option>Contractor / Trades</option><option>Retail / Store</option><option>Restaurant / Food Service</option><option>Professional Services</option><option>Real Estate</option><option>Healthcare / Medical</option><option>Transportation / Delivery</option><option>Manufacturing</option><option>Non-Profit</option><option>Other</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>Number of Employees</label><select name="employees"><option value="">Select...</option><option>Just Me (Sole Proprietor)</option><option>2–5</option><option>6–10</option><option>11–25</option><option>26–50</option><option>50+</option></select></div>
-  <div><label>Years in Business</label><select name="years_in_business"><option value="">Select...</option><option>Less than 1 year</option><option>1–3 years</option><option>4–10 years</option><option>10+ years</option></select></div>
+  <div><label for="qf-employees">Number of Employees</label><select id="qf-employees" name="employees"><option value="">Select...</option><option>Just Me (Sole Proprietor)</option><option>2–5</option><option>6–10</option><option>11–25</option><option>26–50</option><option>50+</option></select></div>
+  <div><label for="qf-years_in_business">Years in Business</label><select id="qf-years_in_business" name="years_in_business"><option value="">Select...</option><option>Less than 1 year</option><option>1–3 years</option><option>4–10 years</option><option>10+ years</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>Estimated Annual Revenue</label><select name="annual_revenue"><option value="">Select...</option><option>Under $100K</option><option>$100K–$250K</option><option>$250K–$500K</option><option>$500K–$1M</option><option>Over $1M</option></select></div>
-  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-annual_revenue">Estimated Annual Revenue</label><select id="qf-annual_revenue" name="annual_revenue"><option value="">Select...</option><option>Under $100K</option><option>$100K–$250K</option><option>$250K–$500K</option><option>$500K–$1M</option><option>Over $1M</option></select></div>
+  <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
 </div>
 <div class="qf-row">
-  <div><label>Coverage Needed</label><select name="coverage_type"><option value="">Select...</option><option>General Liability</option><option>Business Owner's Policy (BOP)</option><option>Workers' Compensation</option><option>Commercial Auto</option><option>Professional Liability / E&amp;O</option><option>Multiple / Not Sure</option></select></div>
-  <div><label>Current Business Insurance?</label><select name="currently_insured"><option value="">Select...</option><option>Yes — looking to switch</option><option>Yes — adding coverage</option><option>No — first time</option></select></div>
+  <div><label for="qf-coverage_type">Coverage Needed</label><select id="qf-coverage_type" name="coverage_type"><option value="">Select...</option><option>General Liability</option><option>Business Owner's Policy (BOP)</option><option>Workers' Compensation</option><option>Commercial Auto</option><option>Professional Liability / E&amp;O</option><option>Multiple / Not Sure</option></select></div>
+  <div><label for="qf-currently_insured">Current Business Insurance?</label><select id="qf-currently_insured" name="currently_insured"><option value="">Select...</option><option>Yes — looking to switch</option><option>Yes — adding coverage</option><option>No — first time</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>Current Carrier (if any)</label><input type="text" name="current_carrier" placeholder="e.g. Travelers, Hiscox, or None"></div>
-  <div><label>Policy Renewal Date (if known)</label><input type="text" name="renewal_date" placeholder="e.g. Oct 2025 or Unknown"></div>
+  <div><label for="qf-current_carrier">Current Carrier (if any)</label><input id="qf-current_carrier" type="text" name="current_carrier" placeholder="e.g. Travelers, Hiscox, or None"></div>
+  <div><label for="qf-renewal_date">Policy Renewal Date (if known)</label><input id="qf-renewal_date" type="text" name="renewal_date" placeholder="e.g. Oct 2025 or Unknown"></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -192,11 +192,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
       <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
+      <h3>Quick Links</h3>
       <a href="/quotes.html">Get a Quote</a>
       <a href="/insurance.html">Insurance Products</a>
       <a href="/blog.html">Blog</a>
@@ -205,7 +205,7 @@
       <a href="/contact.html">Contact</a>
     </div>
     <div>
-      <h4>Coverage by County</h4>
+      <h3>Coverage by County</h3>
       <a href="/life-insurance-by-county.html">All Coverage Areas</a>
       <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
       <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
@@ -217,7 +217,7 @@
       <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h3>Contact</h3>
       <a href="tel:6785626905">(678) 562-6905</a>
       <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
       <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>

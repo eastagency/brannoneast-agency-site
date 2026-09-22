@@ -90,7 +90,7 @@
 <div id="panel-chat" class="quote-panel active">
 <div class="chat-window" id="chatWindow"></div>
 <div class="chat-input-row" id="chatInputRow">
-<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
 <button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
 </div>
 <div class="chat-success" id="chatSuccess">
@@ -104,24 +104,24 @@
 <input type="hidden" name="policy_type" value="Health Insurance">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
-  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
-  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
 </div>
 <div class="qf-row">
-  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
-  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>Date of Birth</label><input type="date" name="dob"></div>
-  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-dob">Date of Birth</label><input id="qf-dob" type="date" name="dob"></div>
+  <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
 </div>
 <div class="qf-row">
-  <div><label>Coverage Needed For</label><select name="coverage_for"><option value="">Select...</option><option>Myself only</option><option>Self + spouse</option><option>Family (with kids)</option></select></div>
-  <div><label>Household Size</label><select name="household_size"><option value="">Select...</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select></div>
+  <div><label for="qf-coverage_for">Coverage Needed For</label><select id="qf-coverage_for" name="coverage_for"><option value="">Select...</option><option>Myself only</option><option>Self + spouse</option><option>Family (with kids)</option></select></div>
+  <div><label for="qf-household_size">Household Size</label><select id="qf-household_size" name="household_size"><option value="">Select...</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>Current Coverage</label><select name="current_coverage"><option value="">Select...</option><option>No coverage (uninsured)</option><option>Employer / group plan</option><option>Self-pay individual plan</option><option>COBRA</option><option>Medicaid / Medicare</option></select></div>
-  <div><label>Tobacco / Nicotine User?</label><select name="tobacco"><option value="">Select...</option><option>No</option><option>Yes</option></select></div>
+  <div><label for="qf-current_coverage">Current Coverage</label><select id="qf-current_coverage" name="current_coverage"><option value="">Select...</option><option>No coverage (uninsured)</option><option>Employer / group plan</option><option>Self-pay individual plan</option><option>COBRA</option><option>Medicaid / Medicare</option></select></div>
+  <div><label for="qf-tobacco">Tobacco / Nicotine User?</label><select id="qf-tobacco" name="tobacco"><option value="">Select...</option><option>No</option><option>Yes</option></select></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -181,11 +181,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
       <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
+      <h3>Quick Links</h3>
       <a href="/quotes.html">Get a Quote</a>
       <a href="/insurance.html">Insurance Products</a>
       <a href="/blog.html">Blog</a>
@@ -194,7 +194,7 @@
       <a href="/contact.html">Contact</a>
     </div>
     <div>
-      <h4>Coverage by County</h4>
+      <h3>Coverage by County</h3>
       <a href="/life-insurance-by-county.html">All Coverage Areas</a>
       <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
       <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
@@ -206,7 +206,7 @@
       <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h3>Contact</h3>
       <a href="tel:6785626905">(678) 562-6905</a>
       <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
       <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>

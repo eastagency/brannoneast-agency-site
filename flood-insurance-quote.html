@@ -87,7 +87,7 @@
 <div id="panel-chat" class="quote-panel active">
 <div class="chat-window" id="chatWindow"></div>
 <div class="chat-input-row" id="chatInputRow">
-<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
 <button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
 </div>
 <div class="chat-success" id="chatSuccess">
@@ -106,28 +106,28 @@
 <input type="hidden" name="wants_upload" value="">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
-  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
-  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
 </div>
 <div class="qf-row">
-  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
-  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>Property Address</label><input type="text" name="address" placeholder="123 Main St"></div>
-  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-address">Property Address</label><input id="qf-address" type="text" name="address" placeholder="123 Main St"></div>
+  <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
 </div>
 <div class="qf-row">
-  <div><label>Property Type</label><select name="property_type"><option value="">Select...</option><option>Single-Family Home</option><option>Condo / Townhome</option><option>Rental / Investment Property</option><option>Commercial Building</option><option>Mobile / Manufactured Home</option></select></div>
-  <div><label>Year Built</label><input type="text" name="year_built" placeholder="e.g. 1998"></div>
+  <div><label for="qf-property_type">Property Type</label><select id="qf-property_type" name="property_type"><option value="">Select...</option><option>Single-Family Home</option><option>Condo / Townhome</option><option>Rental / Investment Property</option><option>Commercial Building</option><option>Mobile / Manufactured Home</option></select></div>
+  <div><label for="qf-year_built">Year Built</label><input id="qf-year_built" type="text" name="year_built" placeholder="e.g. 1998"></div>
 </div>
 <div class="qf-row">
-  <div><label>FEMA Flood Zone (if known)</label><select name="flood_zone"><option value="">Select / Unknown</option><option>Zone A or AE (High Risk)</option><option>Zone X (Low to Moderate Risk)</option><option>Zone V (Coastal High Risk)</option><option>Unknown</option></select></div>
-  <div><label>Estimated Building Value</label><input type="text" name="building_value" placeholder="e.g. $280,000"></div>
+  <div><label for="qf-flood_zone">FEMA Flood Zone (if known)</label><select id="qf-flood_zone" name="flood_zone"><option value="">Select / Unknown</option><option>Zone A or AE (High Risk)</option><option>Zone X (Low to Moderate Risk)</option><option>Zone V (Coastal High Risk)</option><option>Unknown</option></select></div>
+  <div><label for="qf-building_value">Estimated Building Value</label><input id="qf-building_value" type="text" name="building_value" placeholder="e.g. $280,000"></div>
 </div>
 <div class="qf-row">
-  <div><label>Current Homeowners Carrier</label><input type="text" name="current_carrier" placeholder="e.g. Allstate or None"></div>
-  <div><label>Prior Flood Damage?</label><select name="prior_flood"><option value="">Select...</option><option>No prior flood damage</option><option>Yes — minor damage</option><option>Yes — significant damage</option></select></div>
+  <div><label for="qf-current_carrier">Current Homeowners Carrier</label><input id="qf-current_carrier" type="text" name="current_carrier" placeholder="e.g. Allstate or None"></div>
+  <div><label for="qf-prior_flood">Prior Flood Damage?</label><select id="qf-prior_flood" name="prior_flood"><option value="">Select...</option><option>No prior flood damage</option><option>Yes — minor damage</option><option>Yes — significant damage</option></select></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -186,11 +186,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
       <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
+      <h3>Quick Links</h3>
       <a href="/quotes.html">Get a Quote</a>
       <a href="/insurance.html">Insurance Products</a>
       <a href="/blog.html">Blog</a>
@@ -199,7 +199,7 @@
       <a href="/contact.html">Contact</a>
     </div>
     <div>
-      <h4>Coverage by County</h4>
+      <h3>Coverage by County</h3>
       <a href="/life-insurance-by-county.html">All Coverage Areas</a>
       <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
       <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
@@ -211,7 +211,7 @@
       <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h3>Contact</h3>
       <a href="tel:6785626905">(678) 562-6905</a>
       <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
       <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>

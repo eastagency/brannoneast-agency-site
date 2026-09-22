@@ -87,7 +87,7 @@
 <div id="panel-chat" class="quote-panel active">
 <div class="chat-window" id="chatWindow"></div>
 <div class="chat-input-row" id="chatInputRow">
-<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
 <button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
 </div>
 <div class="chat-success" id="chatSuccess">
@@ -104,24 +104,24 @@
 <input type="hidden" name="wants_upload" value="">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
-  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
-  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
 </div>
 <div class="qf-row">
-  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
-  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>Type of Collectible</label><select name="collectible_type"><option value="">Select...</option><option>Coins / Currency</option><option>Stamps</option><option>Sports Memorabilia</option><option>Art / Antiques</option><option>Jewelry / Watches</option><option>Wine / Spirits</option><option>Trading Cards</option><option>Firearms</option><option>Other</option></select></div>
-  <div><label>Estimated Total Collection Value</label><input type="text" name="collection_value" placeholder="e.g. $25,000"></div>
+  <div><label for="qf-collectible_type">Type of Collectible</label><select id="qf-collectible_type" name="collectible_type"><option value="">Select...</option><option>Coins / Currency</option><option>Stamps</option><option>Sports Memorabilia</option><option>Art / Antiques</option><option>Jewelry / Watches</option><option>Wine / Spirits</option><option>Trading Cards</option><option>Firearms</option><option>Other</option></select></div>
+  <div><label for="qf-collection_value">Estimated Total Collection Value</label><input id="qf-collection_value" type="text" name="collection_value" placeholder="e.g. $25,000"></div>
 </div>
 <div class="qf-row">
-  <div><label>Number of Items (approx)</label><input type="text" name="item_count" placeholder="e.g. 12 pieces"></div>
-  <div><label>Primary Storage Location</label><select name="storage"><option value="">Select...</option><option>Home / Display</option><option>Home Safe / Vault</option><option>Bank Safe Deposit Box</option><option>Climate-Controlled Storage</option><option>Multiple Locations</option></select></div>
+  <div><label for="qf-item_count">Number of Items (approx)</label><input id="qf-item_count" type="text" name="item_count" placeholder="e.g. 12 pieces"></div>
+  <div><label for="qf-storage">Primary Storage Location</label><select id="qf-storage" name="storage"><option value="">Select...</option><option>Home / Display</option><option>Home Safe / Vault</option><option>Bank Safe Deposit Box</option><option>Climate-Controlled Storage</option><option>Multiple Locations</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
-  <div><label>Currently Insured?</label><select name="currently_insured"><option value="">Select...</option><option>No — not currently covered</option><option>Yes — on homeowners policy</option><option>Yes — standalone collectibles policy</option></select></div>
+  <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-currently_insured">Currently Insured?</label><select id="qf-currently_insured" name="currently_insured"><option value="">Select...</option><option>No — not currently covered</option><option>Yes — on homeowners policy</option><option>Yes — standalone collectibles policy</option></select></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -180,11 +180,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
       <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
+      <h3>Quick Links</h3>
       <a href="/quotes.html">Get a Quote</a>
       <a href="/insurance.html">Insurance Products</a>
       <a href="/blog.html">Blog</a>
@@ -193,7 +193,7 @@
       <a href="/contact.html">Contact</a>
     </div>
     <div>
-      <h4>Coverage by County</h4>
+      <h3>Coverage by County</h3>
       <a href="/life-insurance-by-county.html">All Coverage Areas</a>
       <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
       <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
@@ -205,7 +205,7 @@
       <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h3>Contact</h3>
       <a href="tel:6785626905">(678) 562-6905</a>
       <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
       <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>

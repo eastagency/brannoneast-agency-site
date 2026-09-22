@@ -99,7 +99,7 @@
 <div id="panel-chat" class="quote-panel active">
 <div class="chat-window" id="chatWindow"></div>
 <div class="chat-input-row" id="chatInputRow">
-<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
 <button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
 </div>
 <div class="chat-success" id="chatSuccess">
@@ -134,23 +134,23 @@
 <input type="hidden" name="wants_upload" value="">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
-  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
-  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
 </div>
 <div class="qf-row">
-  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
-  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>Farm / Property Type</label><select name="farm_type"><option value="">Select...</option><option>Crop Farm</option><option>Livestock / Cattle Ranch</option><option>Poultry Operation</option><option>Hobby Farm / Small Acreage</option><option>Mixed Use Farm</option><option>Vineyard / Orchard</option></select></div>
-  <div><label>Total Acreage</label><select name="acreage"><option value="">Select...</option><option>Under 10 acres</option><option>10–50 acres</option><option>50–100 acres</option><option>100–500 acres</option><option>500+ acres</option></select></div>
+  <div><label for="qf-farm_type">Farm / Property Type</label><select id="qf-farm_type" name="farm_type"><option value="">Select...</option><option>Crop Farm</option><option>Livestock / Cattle Ranch</option><option>Poultry Operation</option><option>Hobby Farm / Small Acreage</option><option>Mixed Use Farm</option><option>Vineyard / Orchard</option></select></div>
+  <div><label for="qf-acreage">Total Acreage</label><select id="qf-acreage" name="acreage"><option value="">Select...</option><option>Under 10 acres</option><option>10–50 acres</option><option>50–100 acres</option><option>100–500 acres</option><option>500+ acres</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>What Needs Coverage?</label><select name="coverage_needed" multiple size="5" style="height:auto"><option>Farm Buildings / Barns</option><option>Farm Equipment &amp; Machinery</option><option>Livestock</option><option>Crops</option><option>Farm Liability</option><option>Farm Vehicles / Trucks</option></select><small style="color:#5A6E72;font-size:11px">Hold Ctrl/Cmd to select multiple</small></div>
-  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5" style="margin-bottom:12px"><label>Currently Insured?</label><select name="currently_insured"><option value="">Select...</option><option>No — first time</option><option>Yes — looking to switch or add coverage</option></select></div>
+  <div><label for="qf-coverage_needed">What Needs Coverage?</label><select id="qf-coverage_needed" name="coverage_needed" multiple size="5" style="height:auto"><option>Farm Buildings / Barns</option><option>Farm Equipment &amp; Machinery</option><option>Livestock</option><option>Crops</option><option>Farm Liability</option><option>Farm Vehicles / Trucks</option></select><small style="color:#5A6E72;font-size:11px">Hold Ctrl/Cmd to select multiple</small></div>
+  <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5" style="margin-bottom:12px"><label for="qf-currently_insured">Currently Insured?</label><select id="qf-currently_insured" name="currently_insured"><option value="">Select...</option><option>No — first time</option><option>Yes — looking to switch or add coverage</option></select></div>
 </div>
 <div class="qf-row">
-  <div style="grid-column:1/-1"><label>Anything specific you want us to know about your operation?</label><textarea name="notes" placeholder="e.g. We have 50 head of cattle, 2 tractors, and a 40-year-old barn we'd like to insure..." rows="3" style="width:100%;padding:10px;border:1px solid #DDD8CF;border-radius:8px;font-family:inherit;font-size:14px;resize:vertical"></textarea></div>
+  <div style="grid-column:1/-1"><label for="qf-notes">Anything specific you want us to know about your operation?</label><textarea id="qf-notes" name="notes" placeholder="e.g. We have 50 head of cattle, 2 tractors, and a 40-year-old barn we'd like to insure..." rows="3" style="width:100%;padding:10px;border:1px solid #DDD8CF;border-radius:8px;font-family:inherit;font-size:14px;resize:vertical"></textarea></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My Quote &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -209,11 +209,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
       <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
+      <h3>Quick Links</h3>
       <a href="/quotes.html">Get a Quote</a>
       <a href="/insurance.html">Insurance Products</a>
       <a href="/blog.html">Blog</a>
@@ -222,7 +222,7 @@
       <a href="/contact.html">Contact</a>
     </div>
     <div>
-      <h4>Coverage by County</h4>
+      <h3>Coverage by County</h3>
       <a href="/life-insurance-by-county.html">All Coverage Areas</a>
       <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
       <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
@@ -234,7 +234,7 @@
       <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h3>Contact</h3>
       <a href="tel:6785626905">(678) 562-6905</a>
       <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
       <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>

@@ -5,8 +5,8 @@
   --teal:#1F7A75;
   --teal-dark:#145E5A;
   --ocean:#0E4C5C;
-  --coral:#E8794A;
-  --coral-dark:#D1652F;
+  --coral:#AC4216;
+  --coral-dark:#883411;
   --ink:#1B2A2E;
   --ink-soft:#3E5054;
   --white:#FFFFFF;
@@ -134,10 +134,10 @@ img{max-width:100%;display:block}
 .site-footer{background:var(--ocean);color:#DCEAE8;padding:60px 0 30px}
 .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
 @media(max-width:700px){.footer-grid{grid-template-columns:1fr}}
-.site-footer h4{color:var(--white);font-size:15px;letter-spacing:1px;text-transform:uppercase}
+.site-footer h3{color:var(--white);font-size:15px;letter-spacing:1px;text-transform:uppercase}
 .site-footer a{color:#B9D3D0;font-size:14px;display:block;margin-bottom:10px;transition:color .2s}
 .site-footer a:hover{color:var(--white)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.15);margin-top:40px;padding-top:24px;font-size:13px;color:#8FB0AD;text-align:center}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.15);margin-top:40px;padding-top:24px;font-size:13px;color:#A5C0BD;text-align:center}
 
 /* QUOTE FORM WIDGET (life quote tool) */
 .quote-frame{background:var(--white);border-radius:20px;padding:32px;box-shadow:0 20px 50px rgba(20,60,60,.12);border:1px solid var(--sand-dark)}

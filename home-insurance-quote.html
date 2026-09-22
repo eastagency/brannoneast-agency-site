@@ -90,7 +90,7 @@
 <div id="panel-chat" class="quote-panel active">
 <div class="chat-window" id="chatWindow"></div>
 <div class="chat-input-row" id="chatInputRow">
-<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
 <button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
 </div>
 <div class="chat-success" id="chatSuccess">
@@ -107,28 +107,28 @@
 <input type="hidden" name="wants_upload" value="">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
-  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
-  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
 </div>
 <div class="qf-row">
-  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
-  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>Property Address</label><input type="text" name="property_address" placeholder="123 Main St, Cartersville GA 30120"></div>
-  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-property_address">Property Address</label><input id="qf-property_address" type="text" name="property_address" placeholder="123 Main St, Cartersville GA 30120"></div>
+  <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
 </div>
 <div class="qf-row">
-  <div><label>Year Built</label><input type="number" name="year_built" placeholder="e.g. 1998"></div>
-  <div><label>Square Footage (approx)</label><input type="number" name="sq_footage" placeholder="e.g. 2200"></div>
+  <div><label for="qf-year_built">Year Built</label><input id="qf-year_built" type="number" name="year_built" placeholder="e.g. 1998"></div>
+  <div><label for="qf-sq_footage">Square Footage (approx)</label><input id="qf-sq_footage" type="number" name="sq_footage" placeholder="e.g. 2200"></div>
 </div>
 <div class="qf-row">
-  <div><label>Estimated Home Value</label><input type="text" name="home_value" placeholder="e.g. $350,000"></div>
-  <div><label>Construction Type</label><select name="construction"><option value="">Select...</option><option>Brick / Masonry</option><option>Frame / Wood</option><option>Vinyl Siding</option><option>Not Sure</option></select></div>
+  <div><label for="qf-home_value">Estimated Home Value</label><input id="qf-home_value" type="text" name="home_value" placeholder="e.g. $350,000"></div>
+  <div><label for="qf-construction">Construction Type</label><select id="qf-construction" name="construction"><option value="">Select...</option><option>Brick / Masonry</option><option>Frame / Wood</option><option>Vinyl Siding</option><option>Not Sure</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>Roof Age</label><select name="roof_age"><option value="">Select...</option><option>0-5 years</option><option>6-10 years</option><option>11-15 years</option><option>16+ years</option><option>Not Sure</option></select></div>
-  <div><label>Reason for Shopping</label><select name="reason"><option value="">Select...</option><option>Current policy too expensive</option><option>New home purchase</option><option>Coverage lapsed</option><option>Just comparing</option></select></div>
+  <div><label for="qf-roof_age">Roof Age</label><select id="qf-roof_age" name="roof_age"><option value="">Select...</option><option>0-5 years</option><option>6-10 years</option><option>11-15 years</option><option>16+ years</option><option>Not Sure</option></select></div>
+  <div><label for="qf-reason">Reason for Shopping</label><select id="qf-reason" name="reason"><option value="">Select...</option><option>Current policy too expensive</option><option>New home purchase</option><option>Coverage lapsed</option><option>Just comparing</option></select></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -188,11 +188,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
       <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
+      <h3>Quick Links</h3>
       <a href="/quotes.html">Get a Quote</a>
       <a href="/insurance.html">Insurance Products</a>
       <a href="/blog.html">Blog</a>
@@ -201,7 +201,7 @@
       <a href="/contact.html">Contact</a>
     </div>
     <div>
-      <h4>Coverage by County</h4>
+      <h3>Coverage by County</h3>
       <a href="/life-insurance-by-county.html">All Coverage Areas</a>
       <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
       <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
@@ -213,7 +213,7 @@
       <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h3>Contact</h3>
       <a href="tel:6785626905">(678) 562-6905</a>
       <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
       <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>

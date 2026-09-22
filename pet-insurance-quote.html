@@ -99,7 +99,7 @@
 <div id="panel-chat" class="quote-panel active">
 <div class="chat-window" id="chatWindow"></div>
 <div class="chat-input-row" id="chatInputRow">
-<input type="text" class="chat-input" id="chatInput" placeholder="Type your answer..." autocomplete="off">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
 <button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
 </div>
 <div class="chat-success" id="chatSuccess">
@@ -120,31 +120,31 @@
 <input type="hidden" name="wants_upload" value="">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
 <div class="qf-row">
-  <div><label>First Name</label><input type="text" name="first_name" placeholder="Jane" required></div>
-  <div><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
 </div>
 <div class="qf-row">
-  <div><label>Email Address</label><input type="email" name="email" placeholder="jane@email.com" required></div>
-  <div><label>Phone Number</label><input type="tel" name="phone" placeholder="(404) 555-1234"></div>
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
 </div>
 <div class="qf-row">
-  <div><label>Pet Type</label><select name="pet_type"><option value="">Select...</option><option>Dog</option><option>Cat</option><option>Bird</option><option>Rabbit</option><option>Reptile</option><option>Other Exotic</option></select></div>
-  <div><label>Pet Name</label><input type="text" name="pet_name" placeholder="e.g. Buddy"></div>
+  <div><label for="qf-pet_type">Pet Type</label><select id="qf-pet_type" name="pet_type"><option value="">Select...</option><option>Dog</option><option>Cat</option><option>Bird</option><option>Rabbit</option><option>Reptile</option><option>Other Exotic</option></select></div>
+  <div><label for="qf-pet_name">Pet Name</label><input id="qf-pet_name" type="text" name="pet_name" placeholder="e.g. Buddy"></div>
 </div>
 <div class="qf-row">
-  <div><label>Breed</label><input type="text" name="breed" placeholder="e.g. Golden Retriever, Mixed"></div>
-  <div><label>Age</label><select name="pet_age"><option value="">Select...</option><option>Under 1 year</option><option>1-3 years</option><option>4-7 years</option><option>8-10 years</option><option>11+ years</option></select></div>
+  <div><label for="qf-breed">Breed</label><input id="qf-breed" type="text" name="breed" placeholder="e.g. Golden Retriever, Mixed"></div>
+  <div><label for="qf-pet_age">Age</label><select id="qf-pet_age" name="pet_age"><option value="">Select...</option><option>Under 1 year</option><option>1-3 years</option><option>4-7 years</option><option>8-10 years</option><option>11+ years</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>Gender</label><select name="pet_gender"><option value="">Select...</option><option>Male</option><option>Female</option></select></div>
-  <div><label>Spayed / Neutered?</label><select name="spayed_neutered"><option value="">Select...</option><option>Yes</option><option>No</option></select></div>
+  <div><label for="qf-pet_gender">Gender</label><select id="qf-pet_gender" name="pet_gender"><option value="">Select...</option><option>Male</option><option>Female</option></select></div>
+  <div><label for="qf-spayed_neutered">Spayed / Neutered?</label><select id="qf-spayed_neutered" name="spayed_neutered"><option value="">Select...</option><option>Yes</option><option>No</option></select></div>
 </div>
 <div class="qf-row">
-  <div><label>Coverage Type</label><select name="coverage_type"><option value="">Select...</option><option>Accident Only</option><option>Accident &amp; Illness</option><option>Accident, Illness &amp; Wellness</option></select></div>
-  <div><label>ZIP Code</label><input type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-coverage_type">Coverage Type</label><select id="qf-coverage_type" name="coverage_type"><option value="">Select...</option><option>Accident Only</option><option>Accident &amp; Illness</option><option>Accident, Illness &amp; Wellness</option></select></div>
+  <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
 </div>
 <div class="qf-row">
-  <div style="grid-column:1/-1"><label>Pre-existing conditions or anything we should know?</label><textarea name="notes" placeholder="e.g. Buddy had knee surgery last year..." rows="3" style="width:100%;padding:10px;border:1px solid #DDD8CF;border-radius:8px;font-family:inherit;font-size:14px;resize:vertical"></textarea></div>
+  <div style="grid-column:1/-1"><label for="qf-notes">Pre-existing conditions or anything we should know?</label><textarea id="qf-notes" name="notes" placeholder="e.g. Buddy had knee surgery last year..." rows="3" style="width:100%;padding:10px;border:1px solid #DDD8CF;border-radius:8px;font-family:inherit;font-size:14px;resize:vertical"></textarea></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My Quote &rarr;</button>
 <div class="qf-success" id="qfSuccess">
@@ -311,11 +311,11 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <h4 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h4>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
       <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
     </div>
     <div>
-      <h4>Quick Links</h4>
+      <h3>Quick Links</h3>
       <a href="/quotes.html">Get a Quote</a>
       <a href="/insurance.html">Insurance Products</a>
       <a href="/blog.html">Blog</a>
@@ -324,7 +324,7 @@
       <a href="/contact.html">Contact</a>
     </div>
     <div>
-      <h4>Coverage by County</h4>
+      <h3>Coverage by County</h3>
       <a href="/life-insurance-by-county.html">All Coverage Areas</a>
       <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
       <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
@@ -336,7 +336,7 @@
       <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
     </div>
     <div>
-      <h4>Contact</h4>
+      <h3>Contact</h3>
       <a href="tel:6785626905">(678) 562-6905</a>
       <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
       <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>
