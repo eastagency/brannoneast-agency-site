@@ -1,22 +1,12 @@
-name: Quick-Hit Campaign Post
+name: Fall Recipe Quick-Hit (October)
 
 on:
-  workflow_dispatch:
-    inputs:
-      topic:
-        description: 'What the post is about'
-        required: true
-      cat:
-        description: 'Category label (optional)'
-        required: false
-        default: 'Life Insurance'
-      link_path:
-        description: 'Site path the CTA should point to (optional). Use "none" for a pure lifestyle/recipe post with no CTA.'
-        required: false
-        default: '/life-insurance-quote.html'
+  schedule:
+    - cron: '0 13 * * *'  # 9am ET daily; checks today's date against the calendar below, no-ops otherwise
+  workflow_dispatch: {}
 
 jobs:
-  post:
+  check-and-post:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -25,38 +15,58 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Determine today's recipe topic (America/New_York)
+        id: pick
+        run: |
+          TODAY=$(TZ=America/New_York date +%Y-%m-%d)
+          case "$TODAY" in
+            2026-10-07) TOPIC="A cozy, from-scratch chicken and dumplings recipe -- perfect comfort food for the first cool evenings of fall" ;;
+            2026-10-14) TOPIC="A hearty vegetable beef soup recipe you can make ahead and eat all week" ;;
+            2026-10-21) TOPIC="A creamy white chicken chili recipe, great for a chilly night in or watching the game" ;;
+            2026-10-28) TOPIC="A warm butternut squash soup recipe to close out October" ;;
+            *) TOPIC="" ;;
+          esac
+          echo "topic=$TOPIC" >> "$GITHUB_OUTPUT"
+          echo "Today is $TODAY -- topic: ${TOPIC:-none}"
+
       - name: Set up Python
+        if: steps.pick.outputs.topic != ''
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        if: steps.pick.outputs.topic != ''
         run: pip install anthropic requests
 
       - name: Generate caption + image
+        if: steps.pick.outputs.topic != ''
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          TOPIC: ${{ github.event.inputs.topic }}
-          CAT: ${{ github.event.inputs.cat }}
-          LINK_PATH: ${{ github.event.inputs.link_path }}
+          TOPIC: ${{ steps.pick.outputs.topic }}
+          CAT: Recipe
+          LINK_PATH: none
         run: python scripts/generate-quickhit-post.py generate
 
       - name: Commit and push image
+        if: steps.pick.outputs.topic != ''
         run: |
           git config user.name "East Agency Bot"
           git config user.email "brannoneast1@gmail.com"
           git add assets/instagram/
-          git diff --staged --quiet && echo "No image to commit" || git commit -m "Quick-hit: add generated image"
+          git diff --staged --quiet && echo "No image to commit" || git commit -m "Fall recipe: add generated image"
           git push
 
       - name: Get image URL
+        if: steps.pick.outputs.topic != ''
         id: image
         run: |
           URL=$(python -c "import json; print(json.load(open('scripts/.quickhit_pending.json'))['image_url'])")
           echo "url=$URL" >> "$GITHUB_OUTPUT"
 
       - name: Wait for image to go live
+        if: steps.pick.outputs.topic != ''
         run: |
           URL="${{ steps.image.outputs.url }}"
           for i in $(seq 1 60); do
@@ -72,6 +82,7 @@ jobs:
           exit 1
 
       - name: Publish to Facebook + Instagram
+        if: steps.pick.outputs.topic != ''
         env:
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
@@ -79,9 +90,10 @@ jobs:
         run: python scripts/generate-quickhit-post.py publish
 
       - name: Commit history
+        if: steps.pick.outputs.topic != ''
         run: |
           git config user.name "East Agency Bot"
           git config user.email "brannoneast1@gmail.com"
           git add scripts/quickhit_history.json
-          git diff --staged --quiet && echo "No history change" || git commit -m "Quick-hit: record post"
+          git diff --staged --quiet && echo "No history change" || git commit -m "Fall recipe: record post"
           git push

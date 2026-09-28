@@ -63,22 +63,28 @@ def generate_caption_and_prompt(topic, cat, link):
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     prompt = (
         f'You are writing a social post (used identically on Facebook and Instagram) for The East '
-        f'Agency, an independent insurance agency in Cartersville, GA run by Brannon East, as part of '
-        f'a September Life Insurance Awareness Month campaign.\n\n'
+        f'Agency, an independent insurance agency in Cartersville, GA run by Brannon East. This account '
+        f'mixes insurance education with warm, local, lifestyle content -- not just sales posts.\n\n'
         f'Category: {cat}\n'
         f'Topic: {topic}\n\n'
         f'Write two things:\n\n'
         f'1. CAPTION: 80-130 words, conversational, hook in the first line, short punchy lines. '
-        f'Mention Cartersville/Bartow County naturally if it fits. '
-        f'End with a real, specific call to action -- not a generic "get a quote today" line. '
-        f'Write it in whatever style genuinely fits this topic/tone (a few examples of the range, write your own '
-        f'in a similar spirit, don\'t just pick one verbatim):\n'
-        f'{CTA_EXAMPLES}\n'
-        f'Your closing CTA sentence MUST include the literal tokens {{{{LINK}}}} and {{{{PHONE}}}} exactly '
-        f'(they get replaced with the real URL and phone number afterward) -- do not write out an actual URL or '
-        f'number yourself. Add 3-5 relevant hashtags on their own line at the end (include #LifeInsuranceAwarenessMonth). '
-        f'No em dashes, no corporate filler phrases.\n\n'
-        f'2. IMAGE_PROMPT: a detailed prompt for an AI photo generator to create ONE photorealistic, warm, '
+        f'Mention Cartersville/Bartow County naturally if it fits (skip it for recipe posts, that would feel forced). '
+        + (
+            f'End with a real, specific call to action -- not a generic "get a quote today" line. '
+            f'Write it in whatever style genuinely fits this topic/tone (a few examples of the range, write your own '
+            f'in a similar spirit, don\'t just pick one verbatim):\n'
+            f'{CTA_EXAMPLES}\n'
+            f'Your closing CTA sentence MUST include the literal tokens {{{{LINK}}}} and {{{{PHONE}}}} exactly '
+            f'(they get replaced with the real URL and phone number afterward) -- do not write out an actual URL or '
+            f'number yourself. Add 3-5 relevant hashtags on their own line at the end. '
+            f'No em dashes, no corporate filler phrases.\n\n'
+            if link else
+            f'This is a recipe/purely local-community post -- do NOT force an insurance sales pitch or CTA, '
+            f'just let it be genuinely useful/warm content on its own. Add 3-5 relevant hashtags on their own '
+            f'line at the end. No em dashes, no corporate filler phrases.\n\n'
+        )
+        + f'2. IMAGE_PROMPT: a detailed prompt for an AI photo generator to create ONE photorealistic, warm, '
         f'on-brand image for this specific post (square, feed format). Describe subject, setting, lighting, and '
         f'style concretely. Do NOT ask for any text, words, signage, or logos to be rendered in the image.\n\n'
         f'Return ONLY a raw JSON object, no markdown fences, no commentary:\n'
@@ -95,7 +101,9 @@ def generate_caption_and_prompt(topic, cat, link):
             raw = re.sub(r'^```(?:json)?\s*', '', raw)
             raw = re.sub(r'\s*```$', '', raw.strip())
             parsed = json.loads(raw)
-            caption = parsed["caption"].replace("{{LINK}}", f"{SITE}{link}").replace("{{PHONE}}", PHONE)
+            caption = parsed["caption"]
+            if link:
+                caption = caption.replace("{{LINK}}", f"{SITE}{link}").replace("{{PHONE}}", PHONE)
             return caption, parsed["image_prompt"]
         except (json.JSONDecodeError, KeyError) as e:
             print(f"Caption generation attempt {attempt + 1} failed ({type(e).__name__}): {e}")
@@ -145,6 +153,8 @@ def cmd_generate():
     topic = os.environ["TOPIC"].strip()
     cat = os.environ.get("CAT", "Life Insurance").strip()
     link = os.environ.get("LINK_PATH", "/life-insurance-quote.html").strip()
+    if link.lower() == "none":
+        link = ""
     if not topic:
         raise RuntimeError("TOPIC env var is required")
 
