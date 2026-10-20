@@ -578,4 +578,18 @@ div.blog-card-img{position:relative;overflow:hidden;background-size:cover;backgr
 }
 .team-bio{color:var(--ink-soft);font-size:15px;line-height:1.6;text-align:left}
 
+/* ── Reviews page ── */
+.review-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+}
+@media (max-width:900px){.review-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.review-grid{grid-template-columns:1fr}}
+.review-card{
+  background:var(--white);border:1px solid var(--sand-dark);border-radius:16px;
+  padding:26px 24px;display:flex;flex-direction:column;
+}
+.review-stars{color:var(--coral);font-size:16px;letter-spacing:2px;margin-bottom:12px}
+.review-quote{color:var(--ink-soft);font-size:15px;line-height:1.6;flex:1;margin-bottom:16px}
+.review-name{font-weight:700;color:var(--ink);font-size:14px}
+
 
