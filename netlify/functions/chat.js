@@ -76,6 +76,7 @@ Complete all 6 questions for Driver #1 before moving to Driver #2, and so on.
 Store all driver info combined in drivers (e.g. "D1: John Smith, Primary, Male, Married, DOB:01/15/1985, DL:GA123456 | D2: Jane Smith, Non-Primary, Female, Married, DOB:03/22/1987, DL:GA789012").
 
 --- FINAL QUESTIONS (Step 7) ---
+- "What's the address where the vehicle(s) are primarily kept (garaged) overnight?" — store in garaging_address
 - Any accidents or violations in the last 3 years? (none / 1 / 2 or more)
 - What type of coverage are you looking for? (liability only / full coverage / not sure)
 - Who are you currently insured with? (or "none" if uninsured)
@@ -135,6 +136,7 @@ ${CONTACT_STEPS}
 
 Insurance questions (ask these next, one at a time):
 - What is the name of your business?
+- What is the business address? — store in business_address
 - What type of business is it? — store in business_type
 - How long have you been in business? (less than 1 year / 1-3 years / 3-10 years / 10+ years)
 - What is your approximate annual revenue? (under $100k / $100k-$500k / $500k-$1M / $1M-$5M / over $5M) — store in annual_revenue
@@ -187,6 +189,7 @@ Then collect this information for EVERY driver, one driver at a time, before mov
 Complete all 6 questions for Driver #1 before moving to Driver #2, and so on.
 Store all driver info combined in drivers_info (e.g. "D1: John Smith, Primary, Male, Married, DOB:01/15/1985, DL:GA123456 | D2: Jane Smith, Non-Primary, Female, Married, DOB:03/22/1987, DL:GA789012").
 --- FINAL QUESTIONS (Step 7) ---
+- "What's the address where the vehicle(s) are primarily kept (garaged) overnight?" — store in garaging_address
 - "Any accidents or violations in the last 3 years?" (none / 1 / 2 or more)
 - "What type of coverage are you looking for?" (liability only / full coverage / not sure)
 - "Who are you currently insured with?" (or "none" if uninsured)
@@ -237,6 +240,7 @@ Insurance questions (ask these next, one at a time):
 - What is the event date?
 - How many guests are you expecting? (under 50 / 50-150 / 150-300 / 300+)
 - Where is the event being held? (rented hall / private home / park / restaurant / not selected yet) — store in venue_type
+- What is the address of the venue? (or best estimate if not finalized yet) — store in venue_address
 - Will there be alcohol served? (no alcohol / beer and wine only / full bar)
 - What coverage limit are you looking for? ($500k / $1M / $2M / not sure — Brannon can advise) — store in coverage_limit
 - Is cancellation or postponement coverage needed? (yes / no / not sure) — store in cancellation
@@ -322,6 +326,7 @@ Then collect this information for EVERY driver, one driver at a time, before mov
 Complete all 6 questions for Driver #1 before moving to Driver #2, and so on.
 Store all driver info combined in drivers_info (e.g. "D1: John Smith, Primary, Male, Married, DOB:01/15/1985, DL:GA123456 | D2: Jane Smith, Non-Primary, Female, Married, DOB:03/22/1987, DL:GA789012").
 --- FINAL QUESTIONS (Step 7) ---
+- "What's the address where the motorcycle(s) are primarily kept (garaged) overnight?" — store in garaging_address
 - "Any accidents or violations in the last 3 years?" (none / 1 / 2 or more)
 - "What type of coverage are you looking for?" (liability only / full coverage / not sure)
 - "Who are you currently insured with?" (or "none")
@@ -354,6 +359,8 @@ Then ask one at a time:
 - "What is the estimated value?"
 - "How often do you use it?" (full-time / 6+ months a year / occasional trips / weekends only)
 - "How is it stored when not in use?" (home driveway / RV storage facility / RV park)
+  - If they answer RV storage facility or RV park: ask "What is the name and address of the storage facility or park?" — store in storage_address
+  - If they answer home driveway: no follow-up needed, store storage_address as "Home driveway" and move on.
 --- DRIVER FLOW (Step 6) ---
 Ask "How many drivers are in your household?"
 
@@ -587,19 +594,19 @@ Once wants_upload has been answered, end your reply with the token [LEAD_COMPLET
 // schema for the extraction step. "policy_type" is NOT included here: it's
 // filled in from the known insuranceType server-side, never asked of the model.
 const FIELD_LISTS = {
-  'Auto Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','drivers','violations','coverage','current_carrier','comments','wants_upload'],
+  'Auto Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','drivers','garaging_address','violations','coverage','current_carrier','comments','wants_upload'],
   'Home Insurance': ['first_name','last_name','email','phone','zip','dob','property_address','year_built','sq_footage','home_value','construction','roof_age','reason','comments','wants_upload'],
   'Life Insurance': ['first_name','last_name','email','phone','zip','dob','coverage_amount','coverage_type','tobacco','health_status','comments','wants_upload'],
   'Health Insurance': ['first_name','last_name','email','phone','zip','dob','coverage_for','household_size','current_coverage','tobacco','comments','wants_upload'],
-  'Business Insurance': ['first_name','last_name','email','phone','zip','dob','business_name','business_type','years_in_business','annual_revenue','employees','coverage_type','currently_insured','current_carrier','renewal_date','comments','wants_upload'],
-  'Classic Car Insurance': ['first_name','last_name','email','phone','zip','dob','vehicle','vehicle_value','annual_mileage','storage','usage','drivers_info','violations','coverage','current_carrier','comments','wants_upload'],
+  'Business Insurance': ['first_name','last_name','email','phone','zip','dob','business_name','business_address','business_type','years_in_business','annual_revenue','employees','coverage_type','currently_insured','current_carrier','renewal_date','comments','wants_upload'],
+  'Classic Car Insurance': ['first_name','last_name','email','phone','zip','dob','vehicle','vehicle_value','annual_mileage','storage','usage','drivers_info','garaging_address','violations','coverage','current_carrier','comments','wants_upload'],
   'Collectible Insurance': ['first_name','last_name','email','phone','zip','dob','collectible_type','item_count','collection_value','storage','currently_insured','comments','wants_upload'],
   'Flood Insurance': ['first_name','last_name','email','phone','zip','dob','address','property_type','year_built','building_value','flood_zone','prior_flood','basement','current_carrier','reason','comments','wants_upload'],
-  'Special Event Insurance': ['first_name','last_name','email','phone','zip','dob','event_type','event_date','attendance','venue_type','alcohol','coverage_limit','cancellation','venue_required','comments','wants_upload'],
+  'Special Event Insurance': ['first_name','last_name','email','phone','zip','dob','event_type','event_date','attendance','venue_type','venue_address','alcohol','coverage_limit','cancellation','venue_required','comments','wants_upload'],
   'Landlord Insurance': ['first_name','last_name','email','phone','zip','dob','property_address','property_type','property_count','property_value','occupancy','rental_income','claims','current_carrier','renewal_date','comments','wants_upload'],
   'Renters Insurance': ['first_name','last_name','email','phone','zip','dob','rental_address','rental_type','residents','property_value','high_value_items','currently_insured','pets','comments','wants_upload'],
-  'Motorcycle Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','bike_type','engine_cc','usage','storage','endorsement','drivers_info','violations','coverage','current_carrier','comments','wants_upload'],
-  'RV Insurance': ['first_name','last_name','email','phone','zip','dob','rv','rv_type','rv_value','usage','storage','drivers_info','violations','coverage','current_carrier','comments','wants_upload'],
+  'Motorcycle Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','bike_type','engine_cc','usage','storage','endorsement','drivers_info','garaging_address','violations','coverage','current_carrier','comments','wants_upload'],
+  'RV Insurance': ['first_name','last_name','email','phone','zip','dob','rv','rv_type','rv_value','usage','storage','storage_address','drivers_info','violations','coverage','current_carrier','comments','wants_upload'],
   'Boat Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','boat_type','boat_length','boat_value','storage','marina_address','drivers_info','violations','coverage','current_carrier','comments','wants_upload'],
   'ATV Insurance': ['first_name','last_name','email','phone','zip','dob','vehicles','year','make','model','engine_size','engine_mods','vehicle_value','atv_type','primary_use','operating_area','storage','riders_info','violations','coverage','currently_insured','comments','wants_upload'],
   'Farm & Agricultural Insurance': ['first_name','last_name','email','phone','zip','dob','farm_type','farm_address','acreage','farm_purpose','employees','has_structures','structures','building_value','has_livestock','livestock_type','livestock_value','has_equipment','equipment_value','equipment_financed','has_crops','crop_type','crop_value','farm_vehicles','claims','current_carrier','comments','wants_upload'],
