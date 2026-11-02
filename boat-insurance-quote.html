@@ -105,11 +105,9 @@
 <input type="hidden" name="policy_type" value="Boat Insurance">
 <input type="hidden" name="dob" value="">
 <input type="hidden" name="vehicles" value="">
-<input type="hidden" name="marina_address" value="">
 <input type="hidden" name="drivers_info" value="">
 <input type="hidden" name="violations" value="">
 <input type="hidden" name="coverage" value="">
-<input type="hidden" name="current_carrier" value="">
 <input type="hidden" name="comments" value="">
 <input type="hidden" name="wants_upload" value="">
 <p style="display:none"><label>Skip: <input name="bot-field"></label></p>
@@ -131,7 +129,11 @@
 </div>
 <div class="qf-row">
   <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-marina_address">Marina / Storage Address</label><input id="qf-marina_address" type="text" name="marina_address" placeholder="123 Main St, Cartersville GA 30120"></div>
+</div>
+<div class="qf-row">
   <div><label for="qf-storage">Primary Storage</label><select id="qf-storage" name="storage"><option value="">Select...</option><option>Home / driveway</option><option>Marina / dry stack</option><option>Storage facility</option><option>On water (slip)</option></select></div>
+  <div><label for="qf-current_carrier">Current Insurance Carrier</label><input id="qf-current_carrier" type="text" name="current_carrier" placeholder="e.g. Progressive or None"></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My QUOTE &rarr;</button>
 <div class="qf-success" id="qfSuccess">
