@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bundle Your Insurance | The East Agency - Cartersville, GA</title>
+<meta name="description" content="Bundle your home, auto, and specialty items like a boat or ATV into one easy conversation with The East Agency in Cartersville, GA. One quick chat, one quote.">
+<link rel="canonical" href="https://brannoneast.agency/bundle-quote.html">
+<meta property="og:title" content="Bundle Your Insurance | The East Agency">
+<meta property="og:description" content="Home, auto, and your toys - all in one easy conversation. Get your bundled quote from The East Agency.">
+<meta property="og:image" content="https://brannoneast.agency/assets/hero-truck-boat.png">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I get one quote for my home, cars, and boat together?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The East Agency's bundle quote walks you through everything you want covered in one conversation - your home, your vehicles, and specialty items like a boat, RV, ATV, or golf cart - without making you repeat information like your address twice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does bundling my insurance actually save money?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Often, yes - many carriers offer multi-policy discounts when you insure your home and auto (and sometimes specialty items) together. Brannon shops 20+ carriers to find the combination that actually saves you the most, rather than assuming one bundled carrier is automatically cheapest."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/assets/logo-east-agency.jpg" alt="The East Agency"><span class="sr-only">The East Agency</span></a>
+    <button class="nav-hamburger" aria-label="Open navigation" id="navToggle"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/quotes.html">Quotes</a>
+      <a href="/insurance.html">Insurance</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/knowledge.html">Knowledge</a>
+      <a href="/about.html">About</a>
+      <a href="/reviews.html">Reviews</a>
+      <a href="/contact.html">Contact</a>
+      <a href="tel:6785626905" class="nav-phone">(678) 562-6905</a>
+      <a href="/quotes.html" class="nav-cta">Get a Quote</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero photo-hero" style="background-image:linear-gradient(120deg, rgba(14,29,32,.55), rgba(14,29,32,.72)), url('assets/hero-truck-boat.png')">
+  <div class="container">
+    <h1>Bundle Your Insurance</h1>
+    <p>Home, cars, and your toys - all in one easy conversation. Tell us everything once, we'll handle the rest.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container lead-form">
+    <div class="quote-frame">
+<div id="panel-chat" class="quote-panel active">
+<div class="chat-window" id="chatWindow"></div>
+<div class="chat-input-row" id="chatInputRow">
+<input type="text" class="chat-input" id="chatInput" aria-label="Type your answer" placeholder="Type your answer..." autocomplete="off">
+<button class="chat-send" id="chatSend" onclick="sendChatMessage()">Send</button>
+</div>
+<div class="chat-success" id="chatSuccess">
+<h3>Quote Request Received!</h3>
+<p>Brannon will review your info and reach out within 24 hours. Watch for his call or email!</p>
+</div>
+</div>
+<div id="panel-form" class="quote-panel" style="display:none" aria-hidden="true">
+<form name="bundle-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
+<input type="hidden" name="form-name" value="bundle-quote">
+<input type="hidden" name="policy_type" value="Bundle Quote">
+<input type="hidden" name="dob" value="">
+<input type="hidden" name="year_built" value="">
+<input type="hidden" name="sq_footage" value="">
+<input type="hidden" name="home_value" value="">
+<input type="hidden" name="construction" value="">
+<input type="hidden" name="roof_age" value="">
+<input type="hidden" name="drivers" value="">
+<input type="hidden" name="garaging_address" value="">
+<input type="hidden" name="toy_address" value="">
+<input type="hidden" name="violations" value="">
+<input type="hidden" name="coverage" value="">
+<input type="hidden" name="current_carrier" value="">
+<input type="hidden" name="wants_upload" value="">
+<p style="display:none"><label>Skip: <input name="bot-field"></label></p>
+<div class="qf-row">
+  <div><label for="qf-first_name">First Name</label><input id="qf-first_name" type="text" name="first_name" placeholder="Jane" required></div>
+  <div><label for="qf-last_name">Last Name</label><input id="qf-last_name" type="text" name="last_name" placeholder="Smith" required></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-email">Email Address</label><input id="qf-email" type="email" name="email" placeholder="jane@email.com" required></div>
+  <div><label for="qf-phone">Phone Number</label><input id="qf-phone" type="tel" name="phone" placeholder="(404) 555-1234"></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
+  <div><label for="qf-property_address">Property Address (if applicable)</label><input id="qf-property_address" type="text" name="property_address" placeholder="123 Main St, Cartersville GA 30120"></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-vehicles">Vehicle(s) Year / Make / Model</label><input id="qf-vehicles" type="text" name="vehicles" placeholder="e.g. 2021 Toyota Tacoma, 2019 Honda Accord"></div>
+  <div><label for="qf-toys">Boat / RV / ATV / Other Items</label><input id="qf-toys" type="text" name="toys" placeholder="e.g. 2018 Lund bass boat, Polaris RZR"></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-items_requested">Everything You'd Like Quoted</label><textarea id="qf-items_requested" name="items_requested" rows="3" placeholder="Tell us everything you'd like covered - home, vehicles, boat, ATV, golf cart, etc."></textarea></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-comments">Anything Else Brannon Should Know?</label><textarea id="qf-comments" name="comments" rows="2" placeholder="Optional"></textarea></div>
+</div>
+<button type="submit" class="qf-btn" id="qfSubmit">Request My Bundled QUOTE &rarr;</button>
+<div class="qf-success" id="qfSuccess">
+  <h3>Quote Request Received!</h3>
+  <p>Brannon will review your info and reach out within 24 hours. Check your email for a confirmation.</p>
+</div>
+</form>
+</div>
+</div>
+    <p style="font-size:11px;color:rgba(27,42,46,.45);text-align:center;margin-top:1rem;line-height:1.7">Your information is secure and never shared with third parties.</p>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container" style="max-width:800px">
+    <h2>Why Bundle With The East Agency</h2>
+    <p>Most of Brannon's clients are not just insuring one thing - it's a home, a couple of cars, and usually a boat, ATV, or golf cart too. Instead of filling out a separate quote for each one, the bundle conversation asks for your information once and carries it forward - if your vehicles are kept at the same address as your home, you will not be asked to type that address in twice.</p>
+    <h3>One Conversation, Everything Covered</h3>
+    <p>Just tell us what you'd like a quote for - home, vehicles, specialty items, or all of it - and the conversation walks through each one in order, asking only what's relevant. At the end, Brannon reviews everything together and shops 20+ carriers to find the combination that actually saves you the most, since the "cheapest bundle" from one company is not always the best deal.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:800px">
+    <h2 style="margin-bottom:1.5rem">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <details style='border-bottom:1px solid rgba(13,148,136,.18);padding:1.1rem 0'>
+        <summary style='font-weight:600;cursor:pointer;color:var(--dark,#1b2a2e);font-family:Poppins,sans-serif;font-size:1.02rem;list-style:none'>Can I get one quote for my home, cars, and boat together?</summary>
+        <p style='margin:.75rem 0 0;color:#444;line-height:1.75;font-size:.97rem'>Yes. The East Agency's bundle quote walks you through everything you want covered in one conversation - your home, your vehicles, and specialty items like a boat, RV, ATV, or golf cart - without making you repeat information like your address twice.</p>
+      </details>
+      <details style='border-bottom:1px solid rgba(13,148,136,.18);padding:1.1rem 0'>
+        <summary style='font-weight:600;cursor:pointer;color:var(--dark,#1b2a2e);font-family:Poppins,sans-serif;font-size:1.02rem;list-style:none'>Does bundling my insurance actually save money?</summary>
+        <p style='margin:.75rem 0 0;color:#444;line-height:1.75;font-size:.97rem'>Often, yes - many carriers offer multi-policy discounts when you insure your home and auto (and sometimes specialty items) together. Brannon shops 20+ carriers to find the combination that actually saves you the most, rather than assuming one bundled carrier is automatically cheapest.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h3 style="color:var(--white);font-size:20px;margin-bottom:14px">The East Agency</h3>
+      <p style="max-width:320px;color:#B9D3D0;font-size:14px">Independent insurance agency serving Cartersville, GA and the Southeast since 2015.</p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <a href="/quotes.html">Get a Quote</a>
+      <a href="/insurance.html">Insurance Products</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/knowledge.html">Knowledge</a>
+      <a href="/about.html">About Us</a>
+      <a href="/reviews.html">Reviews</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+    <div>
+      <h3>Coverage by County</h3>
+      <a href="/life-insurance-by-county.html">All Coverage Areas</a>
+      <a href="/life-insurance-bartow-county-ga.html">Bartow County</a>
+      <a href="/life-insurance-cherokee-county-ga.html">Cherokee County</a>
+      <a href="/life-insurance-cobb-county-ga.html">Cobb County</a>
+      <a href="/life-insurance-paulding-county-ga.html">Paulding County</a>
+      <a href="/life-insurance-polk-county-ga.html">Polk County</a>
+      <a href="/life-insurance-floyd-county-ga.html">Floyd County</a>
+      <a href="/life-insurance-gordon-county-ga.html">Gordon County</a>
+      <a href="/life-insurance-pickens-county-ga.html">Pickens County</a>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <a href="tel:6785626905">(678) 562-6905</a>
+      <a href="mailto:info@brannoneastagency.com">info@brannoneastagency.com</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=47+Stonewall+St+Cartersville+GA+30120" target="_blank" rel="noopener">47 Stonewall St, Cartersville, GA 30120</a>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/brannoneastagency" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.instagram.com/brannoneastagency" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 The East Agency. All rights reserved.</div>
+</footer>
+
+<script src="/assets/chat.js"></script>
+<script>(function(){var b=document.getElementById('navToggle'),n=document.querySelector('.nav-links');if(!b||!n)return;b.addEventListener('click',function(){b.classList.toggle('is-open');n.classList.toggle('nav-open');document.body.classList.toggle('nav-is-open');});})();</script>
+</body>
+</html>
