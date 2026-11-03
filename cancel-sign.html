@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Review & Sign — The East Agency</title>
+<title>Review & Sign, The East Agency</title>
 <style>
   :root{--ink:#1B2A2E;--ocean:#1F4E5F;--teal:#1F7A75;--cream:#FBF8F2;--sand:#E4DCCB;--white:#fff;--danger:#B3261E;}
   *{box-sizing:border-box}
@@ -121,11 +121,11 @@
           $('signBtn').disabled = false;
           return;
         }
-        $('signCard').innerHTML = '<h2>Signed</h2><p>Thank you — a signed copy has been emailed to you. The East Agency has been notified.</p>';
+        $('signCard').innerHTML = '<h2>Signed</h2><p>Thank you, a signed copy has been emailed to you. The East Agency has been notified.</p>';
       })
       .catch(function(){
         $('signStatus').className = 'status-msg error';
-        $('signStatus').textContent = 'Network error — please try again.';
+        $('signStatus').textContent = 'Network error, please try again.';
         $('signBtn').disabled = false;
       });
   });

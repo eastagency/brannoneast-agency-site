@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Cancellation Letters — Staff Only</title>
+<title>Cancellation Letters, Staff Only</title>
 <style>
   :root{--ink:#1B2A2E;--ocean:#1F4E5F;--teal:#1F7A75;--coral:#E8623D;--cream:#FBF8F2;--sand:#E4DCCB;--white:#fff;--danger:#B3261E;--warn:#8A6D00;}
   *{box-sizing:border-box}
@@ -55,7 +55,7 @@
 
 <div class="wrap">
   <h1>Cancellation Letter Generator</h1>
-  <div class="sub">Internal staff tool. Fill in the details — the client reviews and signs on their own link, then both of you get the signed record. If a copy needs to go to a prior agent/carrier, forward the signed PDF yourself afterward.</div>
+  <div class="sub">Internal staff tool. Fill in the details, the client reviews and signs on their own link, then both of you get the signed record. If a copy needs to go to a prior agent/carrier, forward the signed PDF yourself afterward.</div>
 
   <div class="card">
     <h2>Client & Policy</h2>
@@ -100,12 +100,12 @@
       <div class="lob-item"><input type="checkbox" class="lob-check" id="lobOther" data-line="Other"><label for="lobOther">Other</label></div>
     </div>
 
-    <div class="lob-policy-row" id="lobAutoRow"><label style="margin-top:0">Auto — Policy Number</label><input type="text" id="lobAutoPolicy"></div>
-    <div class="lob-policy-row" id="lobHomeRow"><label style="margin-top:0">Home — Policy Number</label><input type="text" id="lobHomePolicy"></div>
-    <div class="lob-policy-row" id="lobLifeRow"><label style="margin-top:0">Life — Policy Number</label><input type="text" id="lobLifePolicy"></div>
-    <div class="lob-policy-row" id="lobUmbrellaRow"><label style="margin-top:0">Umbrella — Policy Number</label><input type="text" id="lobUmbrellaPolicy"></div>
+    <div class="lob-policy-row" id="lobAutoRow"><label style="margin-top:0">Auto: Policy Number</label><input type="text" id="lobAutoPolicy"></div>
+    <div class="lob-policy-row" id="lobHomeRow"><label style="margin-top:0">Home: Policy Number</label><input type="text" id="lobHomePolicy"></div>
+    <div class="lob-policy-row" id="lobLifeRow"><label style="margin-top:0">Life: Policy Number</label><input type="text" id="lobLifePolicy"></div>
+    <div class="lob-policy-row" id="lobUmbrellaRow"><label style="margin-top:0">Umbrella: Policy Number</label><input type="text" id="lobUmbrellaPolicy"></div>
     <div class="lob-policy-row" id="lobOtherRow">
-      <label style="margin-top:0">Other — Description</label><input type="text" id="lobOtherLabel" placeholder="e.g. Boat, Motorcycle">
+      <label style="margin-top:0">Other: Description</label><input type="text" id="lobOtherLabel" placeholder="e.g. Boat, Motorcycle">
       <label>Policy Number</label><input type="text" id="lobOtherPolicy">
     </div>
 
@@ -122,7 +122,7 @@
     <label>Replacement Coverage Confirmed?</label>
     <select id="replacementConfirmed">
       <option value="yes">Yes</option>
-      <option value="no">No — client acknowledges no coverage gap risk was reviewed</option>
+      <option value="no">No: client acknowledges no coverage gap risk was reviewed</option>
     </select>
     <input type="text" id="replacementDate" placeholder="Replacement effective date" style="margin-top:8px;display:none">
 
@@ -140,7 +140,7 @@
   </div>
 
   <div class="card">
-    <div class="note" style="font-size:13px">The client signs this themselves — no attestation to fill in here. Sending emails them a review-and-sign link; nothing goes to any other recipient until they sign.</div>
+    <div class="note" style="font-size:13px">The client signs this themselves, no attestation to fill in here. Sending emails them a review-and-sign link; nothing goes to any other recipient until they sign.</div>
     <button id="sendBtn" style="margin-top:14px">Send to Client for Signature</button>
     <div class="status-msg" id="sendStatus"></div>
   </div>
@@ -284,11 +284,11 @@
       var when = r.status === 'signed' ? ('Signed ' + fmtDate(r.signedAt)) : ('Created ' + fmtDate(r.createdAt));
       var resendBtn = r.status === 'signed'
         ? '<button class="resendBtn" data-id="' + r.id + '" style="margin-top:8px;padding:6px 12px;font-size:13px">Resend Signed Copy</button>'
-        : '<span class="note" style="margin-top:8px">Not signed yet — nothing to resend</span>';
+        : '<span class="note" style="margin-top:8px">Not signed yet, nothing to resend</span>';
       return '<div class="subcard" style="margin-top:10px">' +
         '<div style="font-weight:600">' + r.clientName + '</div>' +
         '<div class="note" style="margin-top:2px">' + r.clientEmail + '</div>' +
-        '<div class="note" style="margin-top:2px;color:' + statusColor + '">' + r.status + ' — ' + when + '</div>' +
+        '<div class="note" style="margin-top:2px;color:' + statusColor + '">' + r.status + ', ' + when + '</div>' +
         resendBtn +
         '<div class="status-msg" id="resendStatus_' + r.id + '"></div>' +
         '</div>';
@@ -314,7 +314,7 @@
             btn.disabled = false;
             return;
           }
-          statusEl.textContent = 'Resent — client + staff should receive it shortly.';
+          statusEl.textContent = 'Resent, client + staff should receive it shortly.';
           statusEl.className = 'status-msg ok';
         } catch (err) {
           statusEl.textContent = 'Network or server error: ' + err.message;

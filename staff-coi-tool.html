@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>COI Tool — Staff Only</title>
+<title>COI Tool, Staff Only</title>
 <style>
   :root{--ink:#1B2A2E;--ocean:#1F4E5F;--teal:#1F7A75;--coral:#E8623D;--cream:#FBF8F2;--sand:#E4DCCB;--white:#fff;--danger:#B3261E;--warn:#8A6D00;}
   *{box-sizing:border-box}
@@ -101,7 +101,7 @@
   </div>
 
   <div class="card hidden" id="checklistCard">
-    <h2>3. Special Requests <span style="font-weight:400;font-size:13px;color:rgba(27,42,46,.5)">— check anything the certificate holder is asking for</span></h2>
+    <h2>3. Special Requests <span style="font-weight:400;font-size:13px;color:rgba(27,42,46,.5)">, check anything the certificate holder is asking for</span></h2>
     <div id="checklistItems"></div>
   </div>
 
@@ -116,7 +116,7 @@
       <div style="max-width:80px"><input type="text" id="chState" placeholder="ST"></div>
       <div style="max-width:110px"><input type="text" id="chZip" placeholder="ZIP"></div>
     </div>
-    <label>Description of Operations (auto-filled from checked items above — edit as needed)</label>
+    <label>Description of Operations (auto-filled from checked items above, edit as needed)</label>
     <textarea id="descOps"></textarea>
     <label>Certificate Number</label>
     <input type="text" id="certNumber" placeholder="e.g. internal reference number">
@@ -145,7 +145,7 @@
     },
     ongoingOperationsAI: {
       label: 'Ongoing operations (Form CG2010)',
-      help: 'Certificate holder is added as an Additional Insured, but only for injury/damage from your ongoing work — not after the job is finished.',
+      help: 'Certificate holder is added as an Additional Insured, but only for injury/damage from your ongoing work, not after the job is finished.',
     },
     completedOperationsAI: {
       label: 'Completed operations (Form CG2037)',
@@ -202,7 +202,7 @@
     if (!file) { showError('extractStatus', 'Choose a policy PDF first.'); return; }
     if (!STAFF_PASSWORD) { $('gate').style.display = 'flex'; return; }
     if (file.size > MAX_UPLOAD_BYTES) {
-      showError('extractStatus', 'This PDF is ' + (file.size/1024/1024).toFixed(1) + 'MB — over the ' + (MAX_UPLOAD_BYTES/1024/1024).toFixed(1) + 'MB limit this tool currently supports. Ask Brannon to add large-file support, or try a smaller/compressed copy.');
+      showError('extractStatus', 'This PDF is ' + (file.size/1024/1024).toFixed(1) + 'MB, over the ' + (MAX_UPLOAD_BYTES/1024/1024).toFixed(1) + 'MB limit this tool currently supports. Ask Brannon to add large-file support, or try a smaller/compressed copy.');
       return;
     }
 
@@ -229,7 +229,7 @@
       var maxAttempts = 60; // ~3 minutes at 3s intervals
 
       while (attempts < maxAttempts) {
-        $('extractStatus').innerHTML = '<span class="spinner"></span>Reading policy and checking endorsements — this can take 30–60 seconds...';
+        $('extractStatus').innerHTML = '<span class="spinner"></span>Reading policy and checking endorsements, this can take 30–60 seconds...';
         await sleep(3000);
         attempts++;
 
@@ -247,7 +247,7 @@
         if (statusJson.status === 'done') {
           extractedData = statusJson.extracted;
           populateReview(statusJson.extracted, statusJson.naicWarnings || []);
-          showOk('extractStatus', 'Extracted. Review everything below carefully before generating — nothing is final yet.');
+          showOk('extractStatus', 'Extracted. Review everything below carefully before generating, nothing is final yet.');
           $('extractBtn').disabled = false;
           return;
         }
@@ -257,14 +257,14 @@
           return;
         }
         if (statusJson.status === 'not_found') {
-          showError('extractStatus', 'Lost track of this job — please try uploading again.');
+          showError('extractStatus', 'Lost track of this job, please try uploading again.');
           $('extractBtn').disabled = false;
           return;
         }
-        // status === 'processing' — keep polling
+        // status === 'processing', keep polling
       }
 
-      showError('extractStatus', 'This policy is taking unusually long to process. It may still finish — check back, or tell Brannon if this keeps happening.');
+      showError('extractStatus', 'This policy is taking unusually long to process. It may still finish, check back, or tell Brannon if this keeps happening.');
       $('extractBtn').disabled = false;
     } catch (err) {
       showError('extractStatus', 'Network or server error: ' + err.message);
@@ -284,7 +284,7 @@
     if (naicWarnings.length) {
       var box = document.createElement('div');
       box.className = 'warn-box';
-      box.textContent = '⚠ No NAIC number on file for: ' + naicWarnings.join(', ') + '. Look it up (NAIC company search) and tell Brannon to add it to the carrier list before this certificate goes out — the NAIC field will be blank otherwise.';
+      box.textContent = '⚠ No NAIC number on file for: ' + naicWarnings.join(', ') + '. Look it up (NAIC company search) and tell Brannon to add it to the carrier list before this certificate goes out, the NAIC field will be blank otherwise.';
       naicWarnEl.appendChild(box);
     }
 
@@ -336,7 +336,7 @@
       var div = document.createElement('div');
       div.className = 'policy-line';
       div.dataset.idx = idx;
-      var html = '<h3>' + (LINE_LABELS[p.lineOfBusiness] || p.lineOfBusiness) + ' — ' + escapeAttr(p.policyNumber || '') + '</h3>';
+      var html = '<h3>' + (LINE_LABELS[p.lineOfBusiness] || p.lineOfBusiness) + ', ' + escapeAttr(p.policyNumber || '') + '</h3>';
       html += '<div class="row">' +
         '<div><label>Policy Number</label><input type="text" data-pf="policyNumber" value="' + escapeAttr(p.policyNumber || '') + '"></div>' +
         '<div><label>Effective</label><input type="text" data-pf="effectiveDate" value="' + escapeAttr(p.effectiveDate || '') + '"></div>' +
@@ -395,7 +395,7 @@
       var finding = (extractedData.checklistFindings || {})[key];
       if (!finding) return;
       if (finding.status !== 'present') {
-        lines.push('⚠ ' + CHECKLIST_META[key].label + ' was requested but is NOT confirmed present in the policy (' + finding.status + ') — verify with the carrier before promising this.');
+        lines.push('⚠ ' + CHECKLIST_META[key].label + ' was requested but is NOT confirmed present in the policy (' + finding.status + '), verify with the carrier before promising this.');
       } else {
         lines.push(CHECKLIST_META[key].label + ' applies per ' + (finding.relevantForms || []).join(', ') + '.');
       }
