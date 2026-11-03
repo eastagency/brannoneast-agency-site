@@ -33,6 +33,9 @@ The East Agency has been locally owned and operated in Cartersville, GA since 20
 
 - [Home](https://brannoneast.agency/): overview, carrier shopping, quote request
 - [Get a Quote](https://brannoneast.agency/quotes.html): quote request hub by insurance type
+- [Surety Bonds](https://brannoneast.agency/surety-bond-quote.html): license, contractor, commercial, and court surety bonds
+- [Georgia Lottery Retailer Bond](https://brannoneast.agency/georgia-lottery-bond.html): bonds for convenience stores selling lottery tickets
+- [Surety Bonds By State](https://brannoneast.agency/surety-bonds-by-state.html): states served for bond business
 - [Insurance Products](https://brannoneast.agency/insurance.html): full list of coverage types offered
 - [About](https://brannoneast.agency/about.html): Brannon East's background, the agency's story, and the team
 - [Blog](https://brannoneast.agency/blog.html): educational articles on Georgia insurance topics
