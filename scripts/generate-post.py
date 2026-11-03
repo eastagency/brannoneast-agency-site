@@ -45,6 +45,9 @@ TOPICS = [
     {"keyword": "motorcycle insurance Georgia seasonal riders save",                       "cat": "Motorcycle",        "img": "/assets/categories/motorcycle.jpg",   "quote": "/motorcycle-insurance-quote.html"},
     {"keyword": "collector car vs regular auto insurance Georgia",                         "cat": "Classic Car",       "img": "/assets/categories/classic-car.jpg",  "quote": "/classic-car-insurance-quote.html"},
     {"keyword": "pet insurance Georgia dogs and cats coverage cost",                       "cat": "Pet Insurance",     "img": "/assets/categories/pet.jpg",          "quote": "/pet-insurance-quote.html"},
+    {"keyword": "contractor license bond Georgia how it works",                             "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/contract-bonds.html"},
+    {"keyword": "Georgia lottery retailer bond convenience store requirements",              "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/georgia-lottery-bond.html"},
+    {"keyword": "notary bond Georgia how to get bonded",                                     "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/commercial-bonds.html"},
 ]
 
 
