@@ -9,7 +9,7 @@ _HAS_REQUESTS = True
 BLOG_IMAGE_DIR = "assets/blog"
 SITE = "https://brannoneast.agency"
 
-# 32 topics — weekly rotation, one full cycle = ~7.5 months, then repeats with fresh content
+# 43 topics — weekly rotation, one full cycle = ~10 months, then repeats with fresh content
 TOPICS = [
     {"keyword": "auto insurance rates Georgia 2026",                                       "cat": "Auto Insurance",    "img": "/assets/categories/auto.jpg",        "quote": "/auto-insurance-quote.html"},
     {"keyword": "life insurance for young families in Georgia",                            "cat": "Life Insurance",    "img": "/assets/categories/life.jpg",         "quote": "/life-insurance-quote.html"},
@@ -48,6 +48,12 @@ TOPICS = [
     {"keyword": "contractor license bond Georgia how it works",                             "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/contract-bonds.html"},
     {"keyword": "Georgia lottery retailer bond convenience store requirements",              "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/georgia-lottery-bond.html"},
     {"keyword": "notary bond Georgia how to get bonded",                                     "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/commercial-bonds.html"},
+    {"keyword": "auto dealer bond Georgia motor vehicle dealer license",                      "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/commercial-bonds.html"},
+    {"keyword": "court bonds Georgia civil litigation appeal injunction",                     "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/court-bonds.html"},
+    {"keyword": "business service bond Georgia cleaning moving company employee theft",        "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/commercial-bonds.html"},
+    {"keyword": "ERISA bond Georgia business 401k retirement plan requirement",                "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/commercial-bonds.html"},
+    {"keyword": "fiduciary bond Georgia executor administrator guardian probate",              "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/court-bonds.html"},
+    {"keyword": "surety bonds Cartersville Bartow County Georgia businesses",                  "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/surety-bond-quote.html"},
 ]
 
 

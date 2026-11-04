@@ -42,10 +42,10 @@ CTA_EXAMPLES = (
     "- Direct but warm: \"Ready when you are. Grab a quote: {{LINK}} (or just call, I actually answer)\""
 )
 
-# 26 topics -- heavier on life insurance (8) per Brannon's explicit request,
+# 32 topics -- heavier on life insurance (8) per Brannon's explicit request,
 # the rest split across quick tips/home maintenance, insurance definitions
 # (glossary-style, matching knowledge.html), myth-busting, local
-# Cartersville/Bartow content, and healthy recipes/desserts.
+# Cartersville/Bartow content, healthy recipes/desserts, and surety bonds.
 IG_TOPICS = [
     {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "Term life insurance: what it actually covers and who it's right for"},
     {"type": "life", "cat": "Life Insurance", "link": "/life-insurance-quote.html", "topic": "IUL (Indexed Universal Life) explained honestly -- the pros and the cons"},
@@ -78,6 +78,13 @@ IG_TOPICS = [
     {"type": "recipe", "cat": "Recipe", "link": None, "topic": "A fun, easy dessert recipe worth making this weekend"},
     {"type": "recipe", "cat": "Recipe", "link": None, "topic": "A healthy lunch recipe you can meal-prep for the week"},
     {"type": "recipe", "cat": "Recipe", "link": None, "topic": "A cozy comfort-food recipe with a healthier twist"},
+
+    {"type": "bond", "cat": "Surety Bonds", "link": "/commercial-bonds.html", "topic": "Motor vehicle dealer bonds: what Georgia requires before you can sell cars"},
+    {"type": "bond", "cat": "Surety Bonds", "link": "/court-bonds.html", "topic": "Court bonds in Georgia: what happens when a judge orders one (and it's not bail)"},
+    {"type": "bond", "cat": "Surety Bonds", "link": "/commercial-bonds.html", "topic": "Business service bonds: protecting your customers if an employee steals from them"},
+    {"type": "bond", "cat": "Surety Bonds", "link": "/commercial-bonds.html", "topic": "ERISA bonds: the bond most small businesses with a 401(k) don't know they need"},
+    {"type": "bond", "cat": "Surety Bonds", "link": "/court-bonds.html", "topic": "Fiduciary bonds: what an executor, administrator, or guardian in Georgia needs to know"},
+    {"type": "bond", "cat": "Surety Bonds", "link": "/surety-bond-quote.html", "topic": "Surety bonds in Cartersville and Bartow County: who actually needs one"},
 ]
 
 # 4 seasonal posts, checked against a Monday-Sunday window so each fires on
