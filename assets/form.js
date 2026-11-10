@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var navInner = document.querySelector('.nav-inner');
   var navLinks = document.querySelector('.nav-links');
   if (!navInner || !navLinks) return;
+  if (navInner.querySelector('.nav-hamburger')) return; // page already has its own menu button
   var btn = document.createElement('button');
   btn.className = 'nav-hamburger';
   btn.setAttribute('aria-label', 'Open navigation');

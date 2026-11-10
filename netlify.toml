@@ -14,6 +14,30 @@
   force = true
 
 [[redirects]]
+  from = "/contract-bonds.html"
+  to = "https://headwatersurety.com/bonds/georgia/performance-and-payment-bond/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contract-bonds"
+  to = "https://headwatersurety.com/bonds/georgia/performance-and-payment-bond/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/court-bonds.html"
+  to = "https://headwatersurety.com/bonds/georgia/administrator-of-estate-bond/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/court-bonds"
+  to = "https://headwatersurety.com/bonds/georgia/administrator-of-estate-bond/"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/coi"
   to = "/staff-coi-tool.html"
   status = 200

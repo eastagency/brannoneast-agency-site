@@ -45,14 +45,14 @@ TOPICS = [
     {"keyword": "motorcycle insurance Georgia seasonal riders save",                       "cat": "Motorcycle",        "img": "/assets/categories/motorcycle.jpg",   "quote": "/motorcycle-insurance-quote.html"},
     {"keyword": "collector car vs regular auto insurance Georgia",                         "cat": "Classic Car",       "img": "/assets/categories/classic-car.jpg",  "quote": "/classic-car-insurance-quote.html"},
     {"keyword": "pet insurance Georgia dogs and cats coverage cost",                       "cat": "Pet Insurance",     "img": "/assets/categories/pet.jpg",          "quote": "/pet-insurance-quote.html"},
-    {"keyword": "contractor license bond Georgia how it works",                             "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/contract-bonds.html"},
+    {"keyword": "contractor license bond Georgia how it works",                             "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "https://headwatersurety.com/bonds/georgia/performance-and-payment-bond/"},
     {"keyword": "Georgia lottery retailer bond convenience store requirements",              "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/georgia-lottery-bond.html"},
     {"keyword": "notary bond Georgia how to get bonded",                                     "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/commercial-bonds.html"},
     {"keyword": "auto dealer bond Georgia motor vehicle dealer license",                      "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/commercial-bonds.html"},
-    {"keyword": "court bonds Georgia civil litigation appeal injunction",                     "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/court-bonds.html"},
+    {"keyword": "court bonds Georgia civil litigation appeal injunction",                     "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "https://headwatersurety.com/bonds/georgia/administrator-of-estate-bond/"},
     {"keyword": "business service bond Georgia cleaning moving company employee theft",        "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/commercial-bonds.html"},
     {"keyword": "ERISA bond Georgia business 401k retirement plan requirement",                "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/commercial-bonds.html"},
-    {"keyword": "fiduciary bond Georgia executor administrator guardian probate",              "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/court-bonds.html"},
+    {"keyword": "fiduciary bond Georgia executor administrator guardian probate",              "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "https://headwatersurety.com/bonds/georgia/administrator-of-estate-bond/"},
     {"keyword": "surety bonds Cartersville Bartow County Georgia businesses",                  "cat": "Surety Bonds",      "img": "/assets/categories/bond.jpg",         "quote": "/surety-bond-quote.html"},
 ]
 
