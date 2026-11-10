@@ -2,6 +2,12 @@
   functions = "netlify/functions"
 
 [[redirects]]
+  from = "https://starlit-cupcake-806fc1.netlify.app/*"
+  to = "https://brannoneast.agency/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "https://brannoneast-agency-site.netlify.app/*"
   to = "https://brannoneast.agency/:splat"
   status = 301
