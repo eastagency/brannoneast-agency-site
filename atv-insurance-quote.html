@@ -116,7 +116,6 @@
 <form name="atv-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
 <input type="hidden" name="form-name" value="atv-insurance-quote">
 <input type="hidden" name="policy_type" value="ATV Insurance">
-<input type="hidden" name="dob" value="">
 <input type="hidden" name="vehicles" value="">
 <input type="hidden" name="engine_size" value="">
 <input type="hidden" name="engine_mods" value="">
@@ -151,6 +150,9 @@
 <div class="qf-row">
   <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
   <div><label for="qf-currently_insured">Currently Insured?</label><select id="qf-currently_insured" name="currently_insured"><option value="">Select...</option><option>No, first time</option><option>Yes, looking to switch</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-dob">Date of Birth <span style="color:var(--coral)">*</span></label><input id="qf-dob" type="date" name="dob" required></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My Quote &rarr;</button>
 <div class="qf-success" id="qfSuccess">

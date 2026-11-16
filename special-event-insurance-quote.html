@@ -104,7 +104,6 @@
 <form name="special-event-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
 <input type="hidden" name="form-name" value="special-event-insurance-quote">
 <input type="hidden" name="policy_type" value="Special Event Insurance">
-<input type="hidden" name="dob" value="">
 <input type="hidden" name="venue_required" value="">
 <input type="hidden" name="comments" value="">
 <input type="hidden" name="wants_upload" value="">
@@ -124,6 +123,9 @@
 <div class="qf-row">
   <div><label for="qf-attendance">Expected Attendance</label><select id="qf-attendance" name="attendance"><option value="">Select...</option><option>Under 50 guests</option><option>50–150 guests</option><option>150–300 guests</option><option>300–500 guests</option><option>500+ guests</option></select></div>
   <div><label for="qf-zip">Event Location / ZIP</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-dob">Date of Birth <span style="color:var(--coral)">*</span></label><input id="qf-dob" type="date" name="dob" required></div>
 </div>
 <div class="qf-row">
   <div><label for="qf-venue_type">Venue Type</label><select id="qf-venue_type" name="venue_type"><option value="">Select...</option><option>Rented Venue / Banquet Hall</option><option>Hotel / Resort</option><option>Outdoor / Tent</option><option>Private Property (owned)</option><option>Park / Public Space</option></select></div>

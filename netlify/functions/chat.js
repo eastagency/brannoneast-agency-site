@@ -6,7 +6,13 @@ Step 4: Ask only "What's your ZIP code?"
 Step 5: Ask only "What's your date of birth?"
 Step 6 onward: Ask the insurance-specific questions below, one at a time.
 
-Once a question is answered, never ask it again. Move to the next step immediately.`;
+Once a question is answered, never ask it again. Move to the next step immediately.
+
+DATE OF BIRTH IS REQUIRED — it is the one step you can never move past without a real answer. If at Step 5 the visitor skips it, asks why, says no, says "skip", or replies with anything that isn't an actual date, do NOT advance to Step 6. Instead reply with ONE short, warm, funny line owning the fact that you need it (carriers price the quote off age, so it's not just nosiness), then ask again. Vary the joke each time rather than repeating yourself — riff on examples like these, don't reuse one verbatim:
+- "Ha, I wish I could just guess, but even the best rate-shopper around can't pull your birthday out of thin air. What's your date of birth?"
+- "I'm great at finding you a good rate. Reading your birthday off a crystal ball? Not so much. Mind sharing your date of birth?"
+- "No skipping this one, I promise it's not just nosiness, carriers actually price your rate off your age. What's your date of birth?"
+Only move on to Step 6 once they give you a real date.`;
 
 const SUBMISSION_RULES = `
 CRITICAL OUTPUT RULES — apply these exactly when filling in the submit_lead_data tool:
@@ -838,12 +844,19 @@ export default async (req, context) => {
     const raw = data.content[0].text;
 
     const isComplete = /\[LEAD_COMPLETE\]/.test(raw);
-    const reply = raw.replace(/\[LEAD_COMPLETE\]/g, '').trim();
+    let reply = raw.replace(/\[LEAD_COMPLETE\]/g, '').trim();
     let formData = null;
 
     if (isComplete) {
       const transcript = msgs.concat([{ role: 'assistant', content: reply }]);
       formData = await extractLeadData(transcript, type);
+
+      // Safety net: never let a lead through without a real date of birth,
+      // even if the conversational model slipped past Step 5 somehow.
+      if (formData && !String(formData.dob || '').trim()) {
+        formData = null;
+        reply = "Oops, hold on, looks like I never actually pinned down your date of birth! We're great at getting you a good rate, but we can't guess your birthday. What's your date of birth?";
+      }
     }
 
     return new Response(JSON.stringify({ reply, formData }), { status: 200, headers: cors });

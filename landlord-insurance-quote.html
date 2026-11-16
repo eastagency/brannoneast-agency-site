@@ -104,7 +104,6 @@
 <form name="landlord-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
 <input type="hidden" name="form-name" value="landlord-insurance-quote">
 <input type="hidden" name="policy_type" value="Landlord Insurance">
-<input type="hidden" name="dob" value="">
 <input type="hidden" name="property_address" value="">
 <input type="hidden" name="claims" value="">
 <input type="hidden" name="comments" value="">
@@ -125,6 +124,9 @@
 <div class="qf-row">
   <div><label for="qf-zip">ZIP Code of Primary Property</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
   <div><label for="qf-property_value">Estimated Property Value</label><input id="qf-property_value" type="text" name="property_value" placeholder="e.g. $220,000"></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-dob">Date of Birth <span style="color:var(--coral)">*</span></label><input id="qf-dob" type="date" name="dob" required></div>
 </div>
 <div class="qf-row">
   <div><label for="qf-occupancy">Currently Rented?</label><select id="qf-occupancy" name="occupancy"><option value="">Select...</option><option>Yes, currently tenant-occupied</option><option>Vacant, looking for tenants</option><option>Seasonal / Short-Term Rental</option></select></div>

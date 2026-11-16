@@ -107,7 +107,6 @@
 <form name="travel-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
 <input type="hidden" name="form-name" value="travel-insurance-quote">
 <input type="hidden" name="policy_type" value="Travel Insurance">
-<input type="hidden" name="dob" value="">
 <input type="hidden" name="is_cruise" value="">
 <input type="hidden" name="pre_existing" value="">
 <input type="hidden" name="comments" value="">
@@ -135,6 +134,9 @@
 </div>
 <div class="qf-row">
   <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-dob">Date of Birth <span style="color:var(--coral)">*</span></label><input id="qf-dob" type="date" name="dob" required></div>
 </div>
 <button type="submit" class="qf-btn" id="qfSubmit">Request My Quote &rarr;</button>
 <div class="qf-success" id="qfSuccess">

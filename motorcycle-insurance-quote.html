@@ -104,7 +104,6 @@
 <form name="motorcycle-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
 <input type="hidden" name="form-name" value="motorcycle-insurance-quote">
 <input type="hidden" name="policy_type" value="Motorcycle Insurance">
-<input type="hidden" name="dob" value="">
 <input type="hidden" name="vehicles" value="">
 <input type="hidden" name="usage" value="">
 <input type="hidden" name="storage" value="">
@@ -132,6 +131,9 @@
 <div class="qf-row">
   <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
   <div><label for="qf-violations">Accidents / Violations (last 3 yrs)</label><select id="qf-violations" name="violations"><option value="">Select...</option><option>None</option><option>1</option><option>2 or more</option></select></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-dob">Date of Birth <span style="color:var(--coral)">*</span></label><input id="qf-dob" type="date" name="dob" required></div>
 </div>
 <div class="qf-row">
   <div><label for="qf-current_carrier">Current Insurance Carrier</label><input id="qf-current_carrier" type="text" name="current_carrier" placeholder="e.g. Progressive or None"></div>

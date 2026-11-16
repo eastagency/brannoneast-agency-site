@@ -116,7 +116,6 @@
 <form name="pet-insurance-quote" data-netlify="true" netlify-honeypot="bot-field" id="leadForm" class="qf">
 <input type="hidden" name="form-name" value="pet-insurance-quote">
 <input type="hidden" name="policy_type" value="Pet Insurance">
-<input type="hidden" name="dob" value="">
 <input type="hidden" name="lifestyle" value="">
 <input type="hidden" name="pre_existing" value="">
 <input type="hidden" name="multiple_pets" value="">
@@ -147,6 +146,9 @@
 <div class="qf-row">
   <div><label for="qf-coverage_type">Coverage Type</label><select id="qf-coverage_type" name="coverage_type"><option value="">Select...</option><option>Accident Only</option><option>Accident &amp; Illness</option><option>Accident, Illness &amp; Wellness</option></select></div>
   <div><label for="qf-zip">ZIP Code</label><input id="qf-zip" type="text" name="zip" placeholder="30120" maxlength="5"></div>
+</div>
+<div class="qf-row">
+  <div><label for="qf-dob">Date of Birth <span style="color:var(--coral)">*</span></label><input id="qf-dob" type="date" name="dob" required></div>
 </div>
 <div class="qf-row">
   <div style="grid-column:1/-1"><label for="qf-notes">Pre-existing conditions or anything we should know?</label><textarea id="qf-notes" name="notes" placeholder="e.g. Buddy had knee surgery last year..." rows="3" style="width:100%;padding:10px;border:1px solid #DDD8CF;border-radius:8px;font-family:inherit;font-size:14px;resize:vertical"></textarea></div>
