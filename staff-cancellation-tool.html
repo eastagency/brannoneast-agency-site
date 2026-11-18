@@ -197,6 +197,11 @@
   });
   $('gatePw').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('gateBtn').click(); });
 
+  // Prefill from the task app's "Cancel prior policy" button (/cancel?name=&email=).
+  var qs = new URLSearchParams(location.search);
+  if (qs.get('name')) $('clientName').value = qs.get('name');
+  if (qs.get('email')) $('clientEmail').value = qs.get('email');
+
   $('reason').addEventListener('change', function(){
     $('reasonOther').style.display = this.value === 'other' ? 'block' : 'none';
   });
