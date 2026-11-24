@@ -234,6 +234,8 @@ def generate_content(topic, kw_data=None):
         f'- Mention Cartersville, GA or Bartow County at least once naturally.\n'
         f'- Mention that The East Agency shops 20+ carriers to find the best rate.\n'
         f'- 700-900 words of article body content.\n'
+        f'- html_body must start directly with a <p> or <h2>. The page already renders the title as its own '
+        f'<h1> above html_body, so never open html_body with an <h1> (that would duplicate the title on the page).\n'
         f'- End with a <p> containing a real, specific call to action -- not a generic "get a quote today" line. '
         f'Write it in whatever style genuinely fits this topic/tone (a few examples of the range, write your own in a similar spirit, don\'t just pick one verbatim):\n'
         f'{CTA_EXAMPLES}\n'
@@ -324,6 +326,17 @@ def generate_image(image_prompt, out_path, max_attempts=4):
 def build_post(topic, data, date_iso, date_display, image_path):
     with open("blog/home-insurance-cost-cartersville-ga.html", "r", encoding="utf-8") as f:
         html = f.read()
+
+    # The template file's own <header class="post-header">...</header> plus the
+    # <img class="post-feat-img"> right after it are leftover boilerplate for THAT
+    # post specifically (title, date, and image never get replaced by anything
+    # below). Strip them so every generated post doesn't carry a stale duplicate
+    # title/date/image above its real header inside <article class="post-body">.
+    html = re.sub(
+        r'<header class="post-header">.*?</header>\s*\n\s*<img[^>]*class="post-feat-img"[^>]*>\s*\n',
+        '',
+        html, count=1, flags=re.DOTALL
+    )
 
     # head
     # NOTE: replacements use functions, not f-strings, because re.sub() interprets
